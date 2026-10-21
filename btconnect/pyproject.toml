@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "btco-ebay-connector"
+version = "0.6.0"
+description = "Private eBay seller connector with approval-gated listing publication"
+requires-python = ">=3.11"
+dependencies = ["mcp==1.30.0", "anyio>=4.5,<5", "cryptography>=46,<47", "httpx>=0.28,<0.29", "uvicorn>=0.35,<1", "Pillow==12.3.0"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+btco-ebay = "btco_ebay.server:main"
+
+[tool.setuptools.packages.find]
+include = ["btco_ebay*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+
+
+
+

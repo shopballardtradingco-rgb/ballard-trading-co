@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-15",
+  "test": "Authorized five archived comic original-photo research replay",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "request_version": "comic-research-v2",
+  "research_module_sha256": "d741181ffa91a716651146242fcd0fc5b79f2012088d0ad382366a62ddc5d8ee",
+  "scope": "Development service, actual API, ten original images; no production draft/approval/listing/inventory write; no manual listing baseline",
+  "total_elapsed_seconds_first_request_start_to_last_completion": 128.916933,
+  "service_elapsed_seconds_sum": 101.484028,
+  "service_seconds_per_proposal": 20.296806,
+  "estimated_five_call_cost_micros": 245634,
+  "completed_research_proposals": 5,
+  "supported_complete_core_identities": 3,
+  "fully_verified_printing_variant_identities": 0,
+  "verified_sold_comparables": 0,
+  "completed_owner_reviewed_listing_drafts": 0,
+  "time_per_completed_listing_seconds": null,
+  "owner_interactions_during_replay": 0,
+  "owner_actions_context": "One explicit photo-egress consent before replay; archived inputs reused. New-listing owner effort not measured.",
+  "owner_active_seconds": null,
+  "manual_baseline_seconds": null,
+  "production_productivity_improvement": null,
+  "final_five_failures": 0,
+  "final_five_retries": 0,
+  "diagnostic_attempts_before_final_five": [
+    {
+      "elapsed_seconds": 24.091521,
+      "estimated_cost_micros": 50193,
+      "result": "failed; unsupported market URL"
+    },
+    {
+      "elapsed_seconds": 22.249121,
+      "estimated_cost_micros": 50608,
+      "result": "failed; invalid market source schema"
+    }
+  ],
+  "total_completed_paid_requests_in_pilot": 8,
+  "pilot_estimated_usage_micros": 352862,
+  "prior_uncertain_reservation_micros": 1000000,
+  "pilot_committed_micros": 1352862,
+  "pilot_remaining_micros": 3647138,
+  "note": "Estimates conservatively charge every web call item, including unfinished attempts; no provider billing receipt. Prior uncertain reservation retained.",
+  "cases": [
+    {
+      "case": 1,
+      "reference": "Elementals #3 (1985; archived as #6 1986)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 19.198576,
+      "runner_elapsed_seconds": 19.218736,
+      "usage": {
+        "input_tokens": 18196,
+        "output_tokens": 951,
+        "web_calls": 3,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 47927
+      },
+      "proposal_identity": {
+        "series": "Elementals",
+        "issue": "3",
+        "year": 1984,
+        "publisher": "Comico",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "proposed_condition": "USED_GOOD",
+      "proposed_price_usd": null,
+      "market_sources": 0,
+      "sold_sources": 0,
+      "rejected_sources": [],
+      "assessment": {
+        "core_identity": "incorrect_year",
+        "required_corrections": [
+          "Year 1984 to catalog-supported 1985",
+          "Identity references concern other issues/series, not this exact issue"
+        ],
+        "condition": "not independently graded"
+      }
+    },
+    {
+      "case": 2,
+      "reference": "Journey #2 (1983)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 23.958634,
+      "runner_elapsed_seconds": 23.984005,
+      "usage": {
+        "input_tokens": 18441,
+        "output_tokens": 1266,
+        "web_calls": 3,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 49528
+      },
+      "proposal_identity": {
+        "series": "Journey",
+        "issue": "2",
+        "year": 1983,
+        "publisher": "Aardvark-Vanaheim",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "proposed_condition": "USED_GOOD",
+      "proposed_price_usd": "10",
+      "market_sources": 1,
+      "sold_sources": 0,
+      "rejected_sources": [],
+      "assessment": {
+        "core_identity": "supported",
+        "required_corrections": [],
+        "condition": "exterior notes plausible; not independently graded"
+      }
+    },
+    {
+      "case": 3,
+      "reference": "Kid Eternity #1 (1993)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 24.876733,
+      "runner_elapsed_seconds": 24.894684,
+      "usage": {
+        "input_tokens": 18582,
+        "output_tokens": 1147,
+        "web_calls": 3,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 49098
+      },
+      "proposal_identity": {
+        "series": "Kid Eternity",
+        "issue": "1",
+        "year": 1993,
+        "publisher": "DC Comics",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "proposed_condition": "USED_GOOD",
+      "proposed_price_usd": null,
+      "market_sources": 0,
+      "sold_sources": 0,
+      "rejected_sources": [],
+      "assessment": {
+        "core_identity": "supported",
+        "required_corrections": [
+          "One identity reference could not be independently confirmed; exact cover already supports core identity"
+        ],
+        "condition": "exterior notes plausible; not independently graded"
+      }
+    },
+    {
+      "case": 4,
+      "reference": "Nestrobber #1 (1992)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 21.847233,
+      "runner_elapsed_seconds": 21.865861,
+      "usage": {
+        "input_tokens": 18956,
+        "output_tokens": 1449,
+        "web_calls": 3,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 50738
+      },
+      "proposal_identity": {
+        "series": "Nestrobber",
+        "issue": "1",
+        "year": 1992,
+        "publisher": "Blue Sky Blue",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "proposed_condition": "USED_ACCEPTABLE",
+      "proposed_price_usd": null,
+      "market_sources": 0,
+      "sold_sources": 0,
+      "rejected_sources": [],
+      "assessment": {
+        "core_identity": "supported",
+        "required_corrections": [
+          "Printed blue cover artwork incorrectly described as marker/paint/stain; condition needs review"
+        ],
+        "condition": "false defect claim"
+      }
+    },
+    {
+      "case": 5,
+      "reference": "The Final Cycle: Part 1 #3 (1987)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 11.602852,
+      "runner_elapsed_seconds": 11.62944,
+      "usage": {
+        "input_tokens": 18007,
+        "output_tokens": 1075,
+        "web_calls": 3,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 48343
+      },
+      "proposal_identity": {
+        "series": "The Final Cycle",
+        "issue": "3",
+        "year": null,
+        "publisher": null,
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "proposed_condition": "USED_GOOD",
+      "proposed_price_usd": null,
+      "market_sources": 0,
+      "sold_sources": 0,
+      "rejected_sources": [],
+      "assessment": {
+        "core_identity": "incomplete",
+        "required_corrections": [
+          "Year and publisher missing",
+          "Normalize title to The Final Cycle: Part 1",
+          "Dragonsteel transcription should be Dragons Teeth",
+          "Condition differs from archived Acceptable; owner inspection needed"
+        ],
+        "condition": "unresolved disagreement"
+      }
+    }
+  ]
+}

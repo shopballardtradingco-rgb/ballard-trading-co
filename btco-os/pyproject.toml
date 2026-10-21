@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "btco-os"
+version = "0.2.0"
+description = "Ballard Trading Co. OS inventory foundation"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+btco-os = "btco_os.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["btco_os*"]

@@ -1,0 +1,31 @@
+{
+  "name": "btcore-standalone",
+  "version": "0.7.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check server.mjs && node --check public/app.mjs",
+    "test:postgres": "BTCORE_TEST_POSTGRES=1 node --test tests/postgres.test.mjs",
+    "test:browser": "node tests/browser.e2e.mjs",
+    "test:open-browser": "node tests/open-access.browser.mjs",
+    "test:preparation-browser": "node tests/preparation.browser.mjs",
+    "test:pricing-browser": "node tests/pricing.browser.mjs",
+    "test:bulk-editor-browser": "node tests/bulk-editor.browser.mjs",
+    "test:ebay-browser": "node tests/ebay.browser.mjs",
+    "test:collx-browser": "node tests/collx.browser.mjs",
+    "test:mirror-browser": "node tests/mirror.browser.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.1153.0",
+    "pg": "8.16.3",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

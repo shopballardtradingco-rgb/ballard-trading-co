@@ -1,0 +1,315 @@
+{
+  "scope": "encrypted SQLite and real local TLS; no simulated latency; not live eBay or owner time",
+  "baseline_github_commit": "51171adbebb7d0a033e1666ae6a2a068426b4c35",
+  "repeats": 5,
+  "comparisons": [
+    {
+      "operation": "journal_write",
+      "saved_drafts": 1000,
+      "baseline_seconds": 0.0003260565700111329,
+      "candidate_seconds": 0.00020296144999520037,
+      "reduction_percent": 37.75268813375837
+    },
+    {
+      "operation": "draft_catalog_page",
+      "saved_drafts": 1000,
+      "baseline_seconds": 0.0015012579699941852,
+      "candidate_seconds": 0.00044948701000976145,
+      "reduction_percent": 70.05930899327699
+    },
+    {
+      "operation": "journal_write",
+      "saved_drafts": 10000,
+      "baseline_seconds": 0.0012393502899976738,
+      "candidate_seconds": 0.00020925912000166136,
+      "reduction_percent": 83.11541767565535
+    },
+    {
+      "operation": "draft_catalog_page",
+      "saved_drafts": 10000,
+      "baseline_seconds": 0.0230925851199936,
+      "candidate_seconds": 0.000480056060005154,
+      "reduction_percent": 97.92116795278359
+    },
+    {
+      "operation": "20_sequential_report_reads",
+      "saved_drafts": null,
+      "baseline_seconds": 0.07757717200001935,
+      "candidate_seconds": 0.025342925000586547,
+      "reduction_percent": 67.33198137129796
+    },
+    {
+      "operation": "3597_item_active_scan",
+      "saved_drafts": null,
+      "baseline_seconds": 0.17982899400158203,
+      "candidate_seconds": 0.16394363099971088,
+      "reduction_percent": 8.833593876264134
+    }
+  ],
+  "runs": {
+    "baseline": [
+      {
+        "operation": "journal_write",
+        "saved_drafts": 1000,
+        "median_seconds": 0.0003260565700111329,
+        "samples_seconds": [
+          0.00031887667000773945,
+          0.0003260565700111329,
+          0.0003108204599993769,
+          0.0004363433100115799,
+          0.00036611787001675114
+        ],
+        "database_bytes": 1622016
+      },
+      {
+        "operation": "draft_catalog_page",
+        "saved_drafts": 1000,
+        "median_seconds": 0.0015012579699941852,
+        "samples_seconds": [
+          0.0016611556300085795,
+          0.001612295009999798,
+          0.0015012579699941852,
+          0.0014852241699918522,
+          0.001386293960003968
+        ],
+        "database_bytes": 1622016
+      },
+      {
+        "operation": "journal_write",
+        "saved_drafts": 10000,
+        "median_seconds": 0.0012393502899976738,
+        "samples_seconds": [
+          0.001582334479990095,
+          0.0012247759800084169,
+          0.0012393502899976738,
+          0.0012079399799949898,
+          0.001826161079989106
+        ],
+        "database_bytes": 16023552
+      },
+      {
+        "operation": "draft_catalog_page",
+        "saved_drafts": 10000,
+        "median_seconds": 0.0230925851199936,
+        "samples_seconds": [
+          0.023458171960010078,
+          0.023569993340006475,
+          0.021787531789996137,
+          0.021531689090006693,
+          0.0230925851199936
+        ],
+        "database_bytes": 16023552
+      },
+      {
+        "operation": "20_sequential_report_reads",
+        "median_seconds": 0.07757717200001935,
+        "samples_seconds": [
+          0.09660243399957835,
+          0.07907475499996508,
+          0.07757717200001935,
+          0.07106611000017438,
+          0.07521331099997042
+        ],
+        "tls_connections_per_sample": [
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "http_clients_per_sample": [
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "requests_per_sample": [
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "peak_server_requests_per_sample": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "operation": "3597_item_active_scan",
+        "median_seconds": 0.17982899400158203,
+        "samples_seconds": [
+          0.22360969500005012,
+          0.18868797100003576,
+          0.1710385860005772,
+          0.17982899400158203,
+          0.1702312029992754
+        ],
+        "tls_connections_per_sample": [
+          18,
+          18,
+          18,
+          18,
+          18
+        ],
+        "http_clients_per_sample": [
+          18,
+          18,
+          18,
+          18,
+          18
+        ],
+        "requests_per_sample": [
+          18,
+          18,
+          18,
+          18,
+          18
+        ],
+        "peak_server_requests_per_sample": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "candidate": [
+      {
+        "operation": "journal_write",
+        "saved_drafts": 1000,
+        "median_seconds": 0.00020296144999520037,
+        "samples_seconds": [
+          0.0002004631199997675,
+          0.00020296144999520037,
+          0.0002090895699984685,
+          0.00020399999000801473,
+          0.00019798863000687562
+        ],
+        "database_bytes": 1925120
+      },
+      {
+        "operation": "draft_catalog_page",
+        "saved_drafts": 1000,
+        "median_seconds": 0.00044948701000976145,
+        "samples_seconds": [
+          0.00044948701000976145,
+          0.00046348345998922016,
+          0.0004411081199941691,
+          0.00045272372000908944,
+          0.0004362835299980361
+        ],
+        "database_bytes": 1925120
+      },
+      {
+        "operation": "journal_write",
+        "saved_drafts": 10000,
+        "median_seconds": 0.00020925912000166136,
+        "samples_seconds": [
+          0.00021304026000507293,
+          0.00020925912000166136,
+          0.00019959532999564545,
+          0.00019746995998502824,
+          0.00021226871000180837
+        ],
+        "database_bytes": 18980864
+      },
+      {
+        "operation": "draft_catalog_page",
+        "saved_drafts": 10000,
+        "median_seconds": 0.000480056060005154,
+        "samples_seconds": [
+          0.0004822694599897659,
+          0.0004755492399999639,
+          0.00048216260000117473,
+          0.00047165083000436423,
+          0.000480056060005154
+        ],
+        "database_bytes": 18980864
+      },
+      {
+        "operation": "20_sequential_report_reads",
+        "median_seconds": 0.025342925000586547,
+        "samples_seconds": [
+          0.04564680100156693,
+          0.024189454999941518,
+          0.022779184000683017,
+          0.025342925000586547,
+          0.026120001999515807
+        ],
+        "tls_connections_per_sample": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "http_clients_per_sample": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "requests_per_sample": [
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "peak_server_requests_per_sample": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "operation": "3597_item_active_scan",
+        "median_seconds": 0.16394363099971088,
+        "samples_seconds": [
+          0.1832956580001337,
+          0.13734855000075186,
+          0.1328934119992482,
+          0.16394363099971088,
+          0.1932628909999039
+        ],
+        "tls_connections_per_sample": [
+          4,
+          4,
+          4,
+          4,
+          4
+        ],
+        "http_clients_per_sample": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "requests_per_sample": [
+          18,
+          18,
+          18,
+          18,
+          18
+        ],
+        "peak_server_requests_per_sample": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    ]
+  }
+}

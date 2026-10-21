@@ -1,0 +1,1805 @@
+{
+  "audited_at": "2026-10-12",
+  "repositories": [
+    {
+      "name": "shopballardtradingco-rgb/btco-os",
+      "commit": "47157c0118dbf26a4b9daf833c416d4fb43f6c28",
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "mode": "100644",
+          "sha": "1726ccd6d10da7538d9fb9f6a80fe74a550c0ee4",
+          "size": 964
+        },
+        {
+          "path": ".gitignore",
+          "mode": "100644",
+          "sha": "a91dd11198573fb0a12905183e422b040e6a3613",
+          "size": 234
+        },
+        {
+          "path": "AGENTS.md",
+          "mode": "100644",
+          "sha": "f7636a34b7468ce4487d29ade7f53b9c9ad4661d",
+          "size": 1423
+        },
+        {
+          "path": "CHANGELOG.md",
+          "mode": "100644",
+          "sha": "2c09c63ab222c3d7be1f6b15dbf3fb630805be48",
+          "size": 1402
+        },
+        {
+          "path": "README.md",
+          "mode": "100644",
+          "sha": "c8af39538f8d5c237c736db1750ed43dfd4a49dc",
+          "size": 2098
+        },
+        {
+          "path": "btco_os/__init__.py",
+          "mode": "100644",
+          "sha": "d3ec452c319b475c6661b100f2dd22ca031ed911",
+          "size": 22
+        },
+        {
+          "path": "btco_os/cli.py",
+          "mode": "100644",
+          "sha": "d58e4d7cd68aab1ad0ea67ebadaf4832f73de286",
+          "size": 1413
+        },
+        {
+          "path": "btco_os/core.py",
+          "mode": "100644",
+          "sha": "51b4188d658d81c084180887b0d6de2a5fce9772",
+          "size": 7000
+        },
+        {
+          "path": "docs/ARCHITECTURE.md",
+          "mode": "100644",
+          "sha": "ec185ec7ed3ba0ef428a3c50218edb51eefcba26",
+          "size": 5864
+        },
+        {
+          "path": "docs/AUDIT.md",
+          "mode": "100644",
+          "sha": "a784f405a0dbfe46fcbf8a3a356b5293f87a207a",
+          "size": 4205
+        },
+        {
+          "path": "docs/BACKLOG.md",
+          "mode": "100644",
+          "sha": "bf13408a06668624cf7542e2cd3f5950e394eaff",
+          "size": 2654
+        },
+        {
+          "path": "docs/DEVELOPMENT.md",
+          "mode": "100644",
+          "sha": "d704f111ce3696536f32e09643e786113974acbf",
+          "size": 1701
+        },
+        {
+          "path": "docs/RELEASES.md",
+          "mode": "100644",
+          "sha": "3f81d2ffbb811b4563d24f338aa52b282f06488b",
+          "size": 2862
+        },
+        {
+          "path": "docs/recovered-source.json",
+          "mode": "100644",
+          "sha": "43ee0499590f44ad8a082e1df09cb2a49040c56d",
+          "size": 36886
+        },
+        {
+          "path": "docs/releases/0.1.0.md",
+          "mode": "100644",
+          "sha": "3512fe09e9711285f7d717dedc077401110c42e1",
+          "size": 1110
+        },
+        {
+          "path": "docs/releases/0.2.0.md",
+          "mode": "100644",
+          "sha": "8ce617aa79b35fcdc16ba074d36d1dea4e9770df",
+          "size": 2318
+        },
+        {
+          "path": "pyproject.toml",
+          "mode": "100644",
+          "sha": "d4e9ecf3c023a2b7fc7ca746afdbc7a3c6583b29",
+          "size": 340
+        },
+        {
+          "path": "tests/test_vault.py",
+          "mode": "100644",
+          "sha": "d66828375204a387ec414a8c8f93ed0b2017799c",
+          "size": 4474
+        },
+        {
+          "path": "web/.gitignore",
+          "mode": "100644",
+          "sha": "dac86456964fb21c3263de0a1d695b2e11c95225",
+          "size": 1504
+        },
+        {
+          "path": "web/.npmrc",
+          "mode": "100644",
+          "sha": "9f274d6425b9792ae0a70cb0b96a29fd98ec6ed6",
+          "size": 45
+        },
+        {
+          "path": "web/.openai/hosting.json",
+          "mode": "100644",
+          "sha": "eddf766b24593e0ed934c07ab847ab2e128c8ca7",
+          "size": 91
+        },
+        {
+          "path": "web/AGENTS.md",
+          "mode": "100644",
+          "sha": "0d13b33fa64433f2da30f270eabb929e5a6f6448",
+          "size": 1505
+        },
+        {
+          "path": "web/CHANGELOG.md",
+          "mode": "100644",
+          "sha": "a07625fdfd961c800aa6cadc2a00715c435d8772",
+          "size": 9361
+        },
+        {
+          "path": "web/README.md",
+          "mode": "100644",
+          "sha": "465b07fccfca64d84506280dd52514decbb43e91",
+          "size": 2373
+        },
+        {
+          "path": "web/app/api/diagnostics/psa/route.ts",
+          "mode": "100644",
+          "sha": "c019aa815f2b8320505993691aad7738df40ae9d",
+          "size": 533
+        },
+        {
+          "path": "web/app/api/inventory-sync/route.ts",
+          "mode": "100644",
+          "sha": "be69c2dd9d2c020d0ac31ffc661ce200820364f8",
+          "size": 314
+        },
+        {
+          "path": "web/app/api/vault/backup/route.ts",
+          "mode": "100644",
+          "sha": "ea7f8699606447185eeaca5cab4a7a650d49577a",
+          "size": 291
+        },
+        {
+          "path": "web/app/api/vault/chunks/route.ts",
+          "mode": "100644",
+          "sha": "ea7f8699606447185eeaca5cab4a7a650d49577a",
+          "size": 291
+        },
+        {
+          "path": "web/app/api/vault/commit/route.ts",
+          "mode": "100644",
+          "sha": "ea7f8699606447185eeaca5cab4a7a650d49577a",
+          "size": 291
+        },
+        {
+          "path": "web/app/api/vault/health/route.ts",
+          "mode": "100644",
+          "sha": "ea7f8699606447185eeaca5cab4a7a650d49577a",
+          "size": 291
+        },
+        {
+          "path": "web/app/api/vault/history/route.ts",
+          "mode": "100644",
+          "sha": "ea7f8699606447185eeaca5cab4a7a650d49577a",
+          "size": 291
+        },
+        {
+          "path": "web/app/api/vault/route.ts",
+          "mode": "100644",
+          "sha": "ea7f8699606447185eeaca5cab4a7a650d49577a",
+          "size": 291
+        },
+        {
+          "path": "web/app/api/vault/status/route.ts",
+          "mode": "100644",
+          "sha": "ea7f8699606447185eeaca5cab4a7a650d49577a",
+          "size": 291
+        },
+        {
+          "path": "web/app/api/vision/[action]/route.ts",
+          "mode": "100644",
+          "sha": "92bcbccf9918a25584a3472c9cb92f9558fdac48",
+          "size": 289
+        },
+        {
+          "path": "web/app/chatgpt-auth.ts",
+          "mode": "100644",
+          "sha": "a0ae2ed9a9771b5fc36a06af554a05c18b2a13b3",
+          "size": 2550
+        },
+        {
+          "path": "web/app/globals.css",
+          "mode": "100644",
+          "sha": "5d607915b0358e481d0f0474e1e001756cf0deda",
+          "size": 3928
+        },
+        {
+          "path": "web/app/layout.tsx",
+          "mode": "100644",
+          "sha": "66f185c77561fbd6ff3e3461605a2768491e3f52",
+          "size": 570
+        },
+        {
+          "path": "web/app/page.tsx",
+          "mode": "100644",
+          "sha": "0b0dcf103e9c0410c46125778bced91f14817791",
+          "size": 254
+        },
+        {
+          "path": "web/app/vault-client.tsx",
+          "mode": "100644",
+          "sha": "c4a46db54ddce20a2fc9d449e6dfe9629a92e3e8",
+          "size": 580
+        },
+        {
+          "path": "web/archive/vision/AcquisitionEconomics.swift",
+          "mode": "100644",
+          "sha": "76aac911381a837b78fdc29ef2588281ebe32f6b",
+          "size": 13127
+        },
+        {
+          "path": "web/archive/vision/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.pbxproj",
+          "mode": "100644",
+          "sha": "e2bd0a36ba5a04f359b5e6903c4d2c5f7530c888",
+          "size": 17089
+        },
+        {
+          "path": "web/archive/vision/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+          "mode": "100644",
+          "sha": "919434a6254f0e9651f402737811be6634a03e9c",
+          "size": 135
+        },
+        {
+          "path": "web/archive/vision/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+          "mode": "100644",
+          "sha": "cf1ecb4b24d7ed8acecbc99cb7d4ffab7de78d2b",
+          "size": 410
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-Glasses-Update/BTCo-Vision-Info.plist",
+          "mode": "100644",
+          "sha": "c04e8750320349301c689fb2b3091564ec1ba1e8",
+          "size": 1444
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-Glasses-Update/HandsFreeScanner.swift",
+          "mode": "100644",
+          "sha": "732fa35c49d7540baf782e2a0454c1f8530da57d",
+          "size": 33244
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-Glasses-Update/INSTALL.txt",
+          "mode": "100644",
+          "sha": "14e2c2a2f73016a1c713a25c2191ffb24ea5688d",
+          "size": 3725
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-Glasses-Update/MyApp.swift",
+          "mode": "100644",
+          "sha": "f4ae0ccb52a85f975130d677de87ebf9ed8d695c",
+          "size": 14952
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision.xcodeproj/project.pbxproj",
+          "mode": "100644",
+          "sha": "ea7c87ed8e0e383f9903e919e0d9a3b011a0498d",
+          "size": 14299
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+          "mode": "100644",
+          "sha": "919434a6254f0e9651f402737811be6634a03e9c",
+          "size": 135
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision/Assets.xcassets/Contents.json",
+          "mode": "100644",
+          "sha": "fe97fb1fb646f117876be9c7a4e03c698290eb4a",
+          "size": 43
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision/ContentView.swift",
+          "mode": "100644",
+          "sha": "0ca0a3d7b0d84cccdd288a39d8b1723d69df8fc2",
+          "size": 19520
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision/HandsFreeScanner.swift",
+          "mode": "100644",
+          "sha": "41bf2baba06dc5ca38141210fa90a40db71d209e",
+          "size": 49945
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision/MyApp.swift",
+          "mode": "100644",
+          "sha": "4e5bac1bf0c060e9312421accf9ee1a64b4d8f8a",
+          "size": 140
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-iPhone-Update/BTCo-Vision-Info.plist",
+          "mode": "100644",
+          "sha": "c03afde171ebfd1ac33399e6b929016c89e65701",
+          "size": 519
+        },
+        {
+          "path": "web/archive/vision/BTCo-Vision-iPhone-Update/README.txt",
+          "mode": "100644",
+          "sha": "72fd79f14670506ef41e89760fb7146ac3e52a1a",
+          "size": 1842
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V3.swift",
+          "mode": "100644",
+          "sha": "e078b72d31c3395ce019d486d744f6cd2f3190e8",
+          "size": 25043
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V4.swift",
+          "mode": "100644",
+          "sha": "7f55bdf8abae10c611aad0dae9cfb4ed321b60d6",
+          "size": 29927
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V4_1.swift",
+          "mode": "100644",
+          "sha": "2f652b08f1113ebe0fabe8322960856856200c9f",
+          "size": 30374
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V4_2.swift",
+          "mode": "100644",
+          "sha": "8bae186b436a3fc6836237e2f30577525ea6850c",
+          "size": 29283
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V5_2_Fixed.swift",
+          "mode": "100644",
+          "sha": "08390047ef02afa546b8df2245648891cdfc3607",
+          "size": 32307
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V5_3_1_PSA.swift",
+          "mode": "100644",
+          "sha": "394dd56670b05415cc02b48626d2781f6ffd141e",
+          "size": 34381
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V5_3_Clean.swift",
+          "mode": "100644",
+          "sha": "402f387c673616f1757d57f5f78880c9a4084fe9",
+          "size": 31033
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V5_4_PSAReady.swift",
+          "mode": "100644",
+          "sha": "c3282a1d396018bf725da5ddd4786db931c76eb4",
+          "size": 37363
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V5_Graded.swift",
+          "mode": "100644",
+          "sha": "61505daadb011079c3df03fec109b0a2d144edae",
+          "size": 32092
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V6_PSA.swift",
+          "mode": "100644",
+          "sha": "53971780552cf0ac177acfb36d14085bcc4e43af",
+          "size": 35923
+        },
+        {
+          "path": "web/archive/vision/BTCo_HandsFreeScanner_V6_PSA_regenerated.swift",
+          "mode": "100644",
+          "sha": "53971780552cf0ac177acfb36d14085bcc4e43af",
+          "size": 35923
+        },
+        {
+          "path": "web/archive/vision/BTCo_Vision_Server_V6_PSA.js",
+          "mode": "100644",
+          "sha": "3543b9292d8ba989371d974b0b585643c02932fc",
+          "size": 44705
+        },
+        {
+          "path": "web/archive/vision/BTCo_server_V6_PSA_Cache.js",
+          "mode": "100644",
+          "sha": "e99cb3066a9821e2bbe5c85a32ea8a61d82741f6",
+          "size": 49974
+        },
+        {
+          "path": "web/archive/vision/Ballard Trading Co. AI Analyst/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.pbxproj",
+          "mode": "100644",
+          "sha": "ea7c87ed8e0e383f9903e919e0d9a3b011a0498d",
+          "size": 14299
+        },
+        {
+          "path": "web/archive/vision/Ballard Trading Co. AI Analyst/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+          "mode": "100644",
+          "sha": "919434a6254f0e9651f402737811be6634a03e9c",
+          "size": 135
+        },
+        {
+          "path": "web/archive/vision/Ballard Trading Co. AI Analyst/BTCo-Vision-Info.plist",
+          "mode": "100644",
+          "sha": "c03afde171ebfd1ac33399e6b929016c89e65701",
+          "size": 519
+        },
+        {
+          "path": "web/archive/vision/Ballard Trading Co. AI Analyst/ContentView.swift",
+          "mode": "100644",
+          "sha": "0ca0a3d7b0d84cccdd288a39d8b1723d69df8fc2",
+          "size": 19520
+        },
+        {
+          "path": "web/archive/vision/Ballard Trading Co. AI Analyst/MyApp.swift",
+          "mode": "100644",
+          "sha": "4e5bac1bf0c060e9312421accf9ee1a64b4d8f8a",
+          "size": 140
+        },
+        {
+          "path": "web/archive/vision/ContentView.swift",
+          "mode": "100644",
+          "sha": "0ca0a3d7b0d84cccdd288a39d8b1723d69df8fc2",
+          "size": 19520
+        },
+        {
+          "path": "web/archive/vision/HandsFreeScanner(1).swift",
+          "mode": "100644",
+          "sha": "5cee09eacdad15edf50a7cec8e589a80e0e64500",
+          "size": 50599
+        },
+        {
+          "path": "web/archive/vision/HandsFreeScanner.swift",
+          "mode": "100644",
+          "sha": "cab580a6647265d14cbcedc824be0c9fb5ee6b40",
+          "size": 17346
+        },
+        {
+          "path": "web/archive/vision/HandsFreeScanner_V2.swift",
+          "mode": "100644",
+          "sha": "cab580a6647265d14cbcedc824be0c9fb5ee6b40",
+          "size": 17346
+        },
+        {
+          "path": "web/archive/vision/HandsFreeScanner_V3.swift",
+          "mode": "100644",
+          "sha": "209aa0d8ded48016e8ed8ab859104596534517cf",
+          "size": 26622
+        },
+        {
+          "path": "web/archive/vision/server.js",
+          "mode": "100644",
+          "sha": "dc4a62b366c963b753bb46e10d008510f0ee3566",
+          "size": 37911
+        },
+        {
+          "path": "web/build/connector-preview-plugin.mjs",
+          "mode": "100644",
+          "sha": "f29e9953bdac6f25be5f1b58e5a02ef0457bafbe",
+          "size": 7211
+        },
+        {
+          "path": "web/build/connector-preview-worker.mjs",
+          "mode": "100644",
+          "sha": "f4d5f1974728c4b295d05a1422d7e2bce75635e5",
+          "size": 594
+        },
+        {
+          "path": "web/build/sites-vite-plugin.LICENSE",
+          "mode": "100644",
+          "sha": "4243cb4a9aaa50f954498e54c850773e9ba13eea",
+          "size": 1063
+        },
+        {
+          "path": "web/build/sites-vite-plugin.ts",
+          "mode": "100644",
+          "sha": "2ece1b96530b40a7ea4981e6341b52771a07813e",
+          "size": 7185
+        },
+        {
+          "path": "web/build/sites-worker.ts",
+          "mode": "100644",
+          "sha": "f5589039057a3f3f221b4a5418d6a4e595e63224",
+          "size": 1279
+        },
+        {
+          "path": "web/cloudflare-env.d.ts",
+          "mode": "100644",
+          "sha": "856e090c902917b4e1cebee0e08ea1d398fd01c3",
+          "size": 99
+        },
+        {
+          "path": "web/components.json",
+          "mode": "100644",
+          "sha": "c8f5bb16f79ed774f67415a8dc2b4a38243e3e90",
+          "size": 420
+        },
+        {
+          "path": "web/components/connector-error.tsx",
+          "mode": "100644",
+          "sha": "3c994dc58811e4b02250092fec54b0b788edcc2c",
+          "size": 1082
+        },
+        {
+          "path": "web/components/ui/accordion.tsx",
+          "mode": "100644",
+          "sha": "91e3a250ce6ee0797b0258454d774800650adcc8",
+          "size": 2048
+        },
+        {
+          "path": "web/components/ui/alert-dialog.tsx",
+          "mode": "100644",
+          "sha": "dad327341382f200b84d5f833eb1b7a74b0e7469",
+          "size": 5439
+        },
+        {
+          "path": "web/components/ui/alert.tsx",
+          "mode": "100644",
+          "sha": "f99164ed4b320790482f514342dab5e72f284aca",
+          "size": 1614
+        },
+        {
+          "path": "web/components/ui/aspect-ratio.tsx",
+          "mode": "100644",
+          "sha": "57e38fa96f9c0cb767d7b8de0d6dbc171d1b921a",
+          "size": 274
+        },
+        {
+          "path": "web/components/ui/attachment.tsx",
+          "mode": "100644",
+          "sha": "5bdd1ce7db5800eb55198cd0291a1e47dc67fb0d",
+          "size": 6002
+        },
+        {
+          "path": "web/components/ui/avatar.tsx",
+          "mode": "100644",
+          "sha": "ea658505703a577fe93341e5e1a0b478c27245f7",
+          "size": 2916
+        },
+        {
+          "path": "web/components/ui/badge.tsx",
+          "mode": "100644",
+          "sha": "6eb2a057aae0e23a74368cc4daf9657210e9a740",
+          "size": 1776
+        },
+        {
+          "path": "web/components/ui/breadcrumb.tsx",
+          "mode": "100644",
+          "sha": "004bb63a4c92229e612b6126d79fb7b078aa7565",
+          "size": 2350
+        },
+        {
+          "path": "web/components/ui/bubble.tsx",
+          "mode": "100644",
+          "sha": "792146e61d80ef595d032d5d09a3d572d50f1374",
+          "size": 4699
+        },
+        {
+          "path": "web/components/ui/button-group.tsx",
+          "mode": "100644",
+          "sha": "cd550d7afca6562548afe3f595b352406f7f3951",
+          "size": 2202
+        },
+        {
+          "path": "web/components/ui/button.tsx",
+          "mode": "100644",
+          "sha": "4d38506cee5430d95a59ec6a2a0cef2b79217e7a",
+          "size": 2392
+        },
+        {
+          "path": "web/components/ui/calendar.tsx",
+          "mode": "100644",
+          "sha": "5d31419b130a18c52320f5a21546a9236123b6bf",
+          "size": 7832
+        },
+        {
+          "path": "web/components/ui/card.tsx",
+          "mode": "100644",
+          "sha": "acf57dc5a534792273b8fb86227e92e001f3dc53",
+          "size": 1987
+        },
+        {
+          "path": "web/components/ui/carousel.tsx",
+          "mode": "100644",
+          "sha": "0e05a77ea155fde6af5d9a4848b1d3953df6ea5a",
+          "size": 5556
+        },
+        {
+          "path": "web/components/ui/chart.tsx",
+          "mode": "100644",
+          "sha": "9813c584e125847d88e9e7e7f9edff7e9ba45a97",
+          "size": 10614
+        },
+        {
+          "path": "web/components/ui/checkbox.tsx",
+          "mode": "100644",
+          "sha": "f5a7e433f3795b82a00c5c06a1fc6decf116a84a",
+          "size": 1214
+        },
+        {
+          "path": "web/components/ui/collapsible.tsx",
+          "mode": "100644",
+          "sha": "2f7a4e7fc64a8874373c1584646a63f28cd63c47",
+          "size": 795
+        },
+        {
+          "path": "web/components/ui/combobox.tsx",
+          "mode": "100644",
+          "sha": "2415bd801031a16bbcee8343058825feecfaea69",
+          "size": 9158
+        },
+        {
+          "path": "web/components/ui/command.tsx",
+          "mode": "100644",
+          "sha": "8fe3ccb406be52d28961b0c0220e87ecd19596ca",
+          "size": 4818
+        },
+        {
+          "path": "web/components/ui/context-menu.tsx",
+          "mode": "100644",
+          "sha": "5aaca76552cf0468b1def03c9e2c42f1f0b60734",
+          "size": 8268
+        },
+        {
+          "path": "web/components/ui/dialog.tsx",
+          "mode": "100644",
+          "sha": "84bdef4bb307087da1bfaf3cadf7be5dbda73f24",
+          "size": 4303
+        },
+        {
+          "path": "web/components/ui/direction.tsx",
+          "mode": "100644",
+          "sha": "22e165774bd595fbf41d0c45efef1cf996897983",
+          "size": 506
+        },
+        {
+          "path": "web/components/ui/drawer.tsx",
+          "mode": "100644",
+          "sha": "ad08671442203fe345093f364696bdf43528e0b7",
+          "size": 4255
+        },
+        {
+          "path": "web/components/ui/dropdown-menu.tsx",
+          "mode": "100644",
+          "sha": "ae1fcf62f1e3b648554789b8fe02943d92bf00fc",
+          "size": 8418
+        },
+        {
+          "path": "web/components/ui/empty.tsx",
+          "mode": "100644",
+          "sha": "ce4b0095f6d19d2eae2e465060e9060b0c210856",
+          "size": 2396
+        },
+        {
+          "path": "web/components/ui/field.tsx",
+          "mode": "100644",
+          "sha": "ec849dae4d3dd06a973ba22e4b2248a25cf18148",
+          "size": 6159
+        },
+        {
+          "path": "web/components/ui/form.tsx",
+          "mode": "100644",
+          "sha": "f371fea1bc35380d28678c6cf53df8f65deb2776",
+          "size": 3757
+        },
+        {
+          "path": "web/components/ui/hover-card.tsx",
+          "mode": "100644",
+          "sha": "91e869c0d3091cbeddf5cb0266e82ddf56f829a6",
+          "size": 1526
+        },
+        {
+          "path": "web/components/ui/input-group.tsx",
+          "mode": "100644",
+          "sha": "a7652d936fffd9c5bca4b88e6b9715bf559e667d",
+          "size": 5065
+        },
+        {
+          "path": "web/components/ui/input-otp.tsx",
+          "mode": "100644",
+          "sha": "6a556afacd71996bf0e385ff2b04869fb2ee4523",
+          "size": 2254
+        },
+        {
+          "path": "web/components/ui/input.tsx",
+          "mode": "100644",
+          "sha": "f1124aea14eee062fc2f4c55dad5f0d9de0ccc1a",
+          "size": 962
+        },
+        {
+          "path": "web/components/ui/item.tsx",
+          "mode": "100644",
+          "sha": "d5dbb1a9c2e70456e45a39887a4b7cc56d484a45",
+          "size": 4486
+        },
+        {
+          "path": "web/components/ui/kbd.tsx",
+          "mode": "100644",
+          "sha": "2459224fbc531f6306b73aaeb22e9022d9985332",
+          "size": 862
+        },
+        {
+          "path": "web/components/ui/label.tsx",
+          "mode": "100644",
+          "sha": "1ac80f701ebfe9dc02d632c08cafade732e46625",
+          "size": 606
+        },
+        {
+          "path": "web/components/ui/marker.tsx",
+          "mode": "100644",
+          "sha": "cfa76c6c014ab342befcbf7571eb932917406522",
+          "size": 1864
+        },
+        {
+          "path": "web/components/ui/menubar.tsx",
+          "mode": "100644",
+          "sha": "4af16a428377f81cbb3f66adfe518308e0b690d8",
+          "size": 8389
+        },
+        {
+          "path": "web/components/ui/message-scroller.tsx",
+          "mode": "100644",
+          "sha": "0b05011259c026a357380c3834bce0ead8565d22",
+          "size": 3992
+        },
+        {
+          "path": "web/components/ui/message.tsx",
+          "mode": "100644",
+          "sha": "53437e8db2b0fad1da06a7499e54ddaf116295c2",
+          "size": 2232
+        },
+        {
+          "path": "web/components/ui/native-select.tsx",
+          "mode": "100644",
+          "sha": "3058398399ad6c029ad527052475b360b114715b",
+          "size": 1995
+        },
+        {
+          "path": "web/components/ui/navigation-menu.tsx",
+          "mode": "100644",
+          "sha": "0a673f513c97fbeaae0872403b7582ab2ba7e3c3",
+          "size": 6658
+        },
+        {
+          "path": "web/components/ui/pagination.tsx",
+          "mode": "100644",
+          "sha": "1dcfb0cc050c5f2bdd930522d627313d03d3690c",
+          "size": 2717
+        },
+        {
+          "path": "web/components/ui/popover.tsx",
+          "mode": "100644",
+          "sha": "30058c4ec284ca9cad1ed1162d084ce3cd94e2b0",
+          "size": 2357
+        },
+        {
+          "path": "web/components/ui/progress.tsx",
+          "mode": "100644",
+          "sha": "b3ae25089ad549b7f13125e482f99b43dd895bd2",
+          "size": 755
+        },
+        {
+          "path": "web/components/ui/radio-group.tsx",
+          "mode": "100644",
+          "sha": "fe514536ed771f7adef0a6b9e4d1aeadc2c95481",
+          "size": 1460
+        },
+        {
+          "path": "web/components/ui/resizable.tsx",
+          "mode": "100644",
+          "sha": "a76832a10b4c5c2a137e25c16478567ba86daf0d",
+          "size": 1815
+        },
+        {
+          "path": "web/components/ui/scroll-area.tsx",
+          "mode": "100644",
+          "sha": "73c4eb1cdcd4a699b150a9ddc3e87bfb90b63d09",
+          "size": 1639
+        },
+        {
+          "path": "web/components/ui/select.tsx",
+          "mode": "100644",
+          "sha": "c0dc7120b4f78008ae5efc6d1c8b7ec8205c35d5",
+          "size": 6353
+        },
+        {
+          "path": "web/components/ui/separator.tsx",
+          "mode": "100644",
+          "sha": "cd873e3631b571060f166897b7b62e033e87c18f",
+          "size": 694
+        },
+        {
+          "path": "web/components/ui/sheet.tsx",
+          "mode": "100644",
+          "sha": "cb53bb28b6850745c9519e8e7462e05f85a50c93",
+          "size": 4188
+        },
+        {
+          "path": "web/components/ui/sidebar.tsx",
+          "mode": "100644",
+          "sha": "f5f6c5aefc88ffa2e999e284b299472215c05161",
+          "size": 21526
+        },
+        {
+          "path": "web/components/ui/skeleton.tsx",
+          "mode": "100644",
+          "sha": "3ec6be770b846170b8e7f8916e5f165e2d1730df",
+          "size": 276
+        },
+        {
+          "path": "web/components/ui/slider.tsx",
+          "mode": "100644",
+          "sha": "46ebc4b4df1e9baf1f3997a4b6c08ef80c84a9c9",
+          "size": 1991
+        },
+        {
+          "path": "web/components/ui/sonner.tsx",
+          "mode": "100644",
+          "sha": "9b20afe2e10fd9b94d1abc1ae732054b2fb9821c",
+          "size": 1034
+        },
+        {
+          "path": "web/components/ui/spinner.tsx",
+          "mode": "100644",
+          "sha": "a70e713c5b4ecb2af186efe3fadea51805f26ba5",
+          "size": 331
+        },
+        {
+          "path": "web/components/ui/switch.tsx",
+          "mode": "100644",
+          "sha": "8baa844fdb17d668b3ce07cfbd6a7ef52e2eb5eb",
+          "size": 1408
+        },
+        {
+          "path": "web/components/ui/table.tsx",
+          "mode": "100644",
+          "sha": "7add5f1a22db954ac6cb3446f1bf8c8a9fc5c335",
+          "size": 2478
+        },
+        {
+          "path": "web/components/ui/tabs.tsx",
+          "mode": "100644",
+          "sha": "b463afd170637df477e36184aa27d2ad1bd3c3e0",
+          "size": 3782
+        },
+        {
+          "path": "web/components/ui/textarea.tsx",
+          "mode": "100644",
+          "sha": "e67d8fefe50c41dfa2deed9a5096d5be7691581a",
+          "size": 759
+        },
+        {
+          "path": "web/components/ui/toggle-group.tsx",
+          "mode": "100644",
+          "sha": "9894607b212ff7182bf2024f4262da03df0a8973",
+          "size": 2308
+        },
+        {
+          "path": "web/components/ui/toggle.tsx",
+          "mode": "100644",
+          "sha": "5250c98ff7f11f531af38c227230a76b7d25bf19",
+          "size": 1565
+        },
+        {
+          "path": "web/components/ui/tooltip.tsx",
+          "mode": "100644",
+          "sha": "ec65c1e4255f050d9555c6cdade90a5f8a6c0c29",
+          "size": 1830
+        },
+        {
+          "path": "web/db/index.ts",
+          "mode": "100644",
+          "sha": "19b379900d94124b674f07ffe2dbba8f70bd8d6d",
+          "size": 423
+        },
+        {
+          "path": "web/db/schema.ts",
+          "mode": "100644",
+          "sha": "c2409b86dae930271e77eadf88793c8c6a796a44",
+          "size": 2516
+        },
+        {
+          "path": "web/docs/CDP-INTAKE.md",
+          "mode": "100644",
+          "sha": "599340b5518de80bd7a0c2eef29fc6820f126bb9",
+          "size": 5180
+        },
+        {
+          "path": "web/docs/DAILY-INVENTORY.md",
+          "mode": "100644",
+          "sha": "969cbb5157b94640a654178c84547539e3d2762c",
+          "size": 5211
+        },
+        {
+          "path": "web/docs/DEVELOPMENT.md",
+          "mode": "100644",
+          "sha": "a0d6161217c67f2735de7218da3b3d27f64b8ede",
+          "size": 1712
+        },
+        {
+          "path": "web/docs/RELEASES.md",
+          "mode": "100644",
+          "sha": "8fa55d4481275adae13f671559e64e4501eb48ff",
+          "size": 2110
+        },
+        {
+          "path": "web/docs/VISION-ACCEPTANCE.md",
+          "mode": "100644",
+          "sha": "e9a859ebeaef01a3d6af4d3640134b46843ba8e2",
+          "size": 7446
+        },
+        {
+          "path": "web/docs/VISION.md",
+          "mode": "100644",
+          "sha": "b6961f5366a1555c0f611cc7710bf42fde354ef0",
+          "size": 12157
+        },
+        {
+          "path": "web/docs/original-static-shell.html",
+          "mode": "100644",
+          "sha": "e654ded21df07a39d82b5b7002832d8ae73269b1",
+          "size": 1183
+        },
+        {
+          "path": "web/docs/releases/0.10.0.md",
+          "mode": "100644",
+          "sha": "95cef18193f1b8af616403dca6d9d28bd8eb1e62",
+          "size": 3030
+        },
+        {
+          "path": "web/docs/releases/0.11.0.md",
+          "mode": "100644",
+          "sha": "c6dd68aaf5762e72e667a1ed2617d087fb34039d",
+          "size": 2156
+        },
+        {
+          "path": "web/docs/releases/0.11.1.md",
+          "mode": "100644",
+          "sha": "724d59044cfaf22484c4c100f539e9932aaf8d90",
+          "size": 1999
+        },
+        {
+          "path": "web/docs/releases/0.5.0.md",
+          "mode": "100644",
+          "sha": "84d6f2525de9f4848d7d695a5013689758a0681a",
+          "size": 4029
+        },
+        {
+          "path": "web/docs/releases/0.6.0.md",
+          "mode": "100644",
+          "sha": "16ebe157f7ce0c6f642fbb28a07fd69874ac2d72",
+          "size": 4552
+        },
+        {
+          "path": "web/docs/releases/0.7.0.md",
+          "mode": "100644",
+          "sha": "6107f9dc8d02c72c1c84575099d9051064ad88ef",
+          "size": 3631
+        },
+        {
+          "path": "web/docs/releases/0.7.1.md",
+          "mode": "100644",
+          "sha": "17905934d41232e48506d0d0d9bc4fd20d01ec2c",
+          "size": 1251
+        },
+        {
+          "path": "web/docs/releases/0.7.2.md",
+          "mode": "100644",
+          "sha": "b1b282929fc8067e95245b7636bea4d03d65072a",
+          "size": 2294
+        },
+        {
+          "path": "web/docs/releases/0.7.3.md",
+          "mode": "100644",
+          "sha": "e49534a2a326727aa3c9825c060259ea0d17a391",
+          "size": 2355
+        },
+        {
+          "path": "web/docs/releases/0.7.4.md",
+          "mode": "100644",
+          "sha": "e9f20e6a774041c363eb7ac3abd096feccc9f517",
+          "size": 2527
+        },
+        {
+          "path": "web/docs/releases/0.7.5.md",
+          "mode": "100644",
+          "sha": "404d5468273ae25f47c98f2748b93941c1dbaedf",
+          "size": 2342
+        },
+        {
+          "path": "web/docs/releases/0.8.0.md",
+          "mode": "100644",
+          "sha": "cdba66b025c9a4e020143adc8625dfdda88bbca7",
+          "size": 2408
+        },
+        {
+          "path": "web/docs/releases/0.9.0.md",
+          "mode": "100644",
+          "sha": "732857669f871e753475965d4eec6c2bde751571",
+          "size": 2900
+        },
+        {
+          "path": "web/docs/vision-sources.json",
+          "mode": "100644",
+          "sha": "6b5653263f850c2db3f24442c7460562d996a4be",
+          "size": 17043
+        },
+        {
+          "path": "web/domain/core.mjs",
+          "mode": "100644",
+          "sha": "103d756dbd226c4ac17a9514fb03e8a48fbf3efe",
+          "size": 22181
+        },
+        {
+          "path": "web/domain/device-merge.mjs",
+          "mode": "100644",
+          "sha": "b3fccaff97e06061987d73e88b96c4bdd7b534b1",
+          "size": 1440
+        },
+        {
+          "path": "web/domain/ebay-api-refresh.mjs",
+          "mode": "100644",
+          "sha": "655c4fc836895fb86c5bf00207150f590f7b88e2",
+          "size": 8524
+        },
+        {
+          "path": "web/domain/ebay-import.mjs",
+          "mode": "100644",
+          "sha": "6682884fb54ec9d35a92ae0907b57fb53db25ded",
+          "size": 3924
+        },
+        {
+          "path": "web/domain/ebay-refresh.mjs",
+          "mode": "100644",
+          "sha": "748d591cf021ad3c350eab902839c2bc9c412f62",
+          "size": 4982
+        },
+        {
+          "path": "web/domain/intake-contract.mjs",
+          "mode": "100644",
+          "sha": "5576dd2de8e947c703b5e785431a75de6dda7dc1",
+          "size": 3921
+        },
+        {
+          "path": "web/domain/listing-collector.mjs",
+          "mode": "100644",
+          "sha": "19ada7fec720a388e69f0af85f8b9e58eac56d83",
+          "size": 834
+        },
+        {
+          "path": "web/domain/module-views.mjs",
+          "mode": "100644",
+          "sha": "dd2822c8a80b25a8f024c93803f1bab3d3b6fe9a",
+          "size": 1476
+        },
+        {
+          "path": "web/domain/psa-public.mjs",
+          "mode": "100644",
+          "sha": "a7bb2a36fb84f376a44ec79933ff8f5245e921ec",
+          "size": 422
+        },
+        {
+          "path": "web/domain/sync-pack.mjs",
+          "mode": "100644",
+          "sha": "58de6b0fa476d84e2da5e10b4a315bb68146b504",
+          "size": 2486
+        },
+        {
+          "path": "web/domain/vision-economics.mjs",
+          "mode": "100644",
+          "sha": "025655cba6f177c147390bc88512d11a9d96c175",
+          "size": 3750
+        },
+        {
+          "path": "web/domain/vision-intake.mjs",
+          "mode": "100644",
+          "sha": "1665fc162f98750572fcb8a1b0c6777f42d8f3fa",
+          "size": 4800
+        },
+        {
+          "path": "web/domain/vision-legacy-matcher.mjs",
+          "mode": "100644",
+          "sha": "6d180eb6ce67b2786e9a2e10ede986a5bfcbff9d",
+          "size": 6373
+        },
+        {
+          "path": "web/domain/vision.mjs",
+          "mode": "100644",
+          "sha": "53d284d2047a85fafa22da8523fc3ae37c9efba7",
+          "size": 5410
+        },
+        {
+          "path": "web/drizzle.config.ts",
+          "mode": "100644",
+          "sha": "c2b2f34376984744343453838ce66658ad9d9b6a",
+          "size": 148
+        },
+        {
+          "path": "web/drizzle/0000_chilly_outlaw_kid.sql",
+          "mode": "100644",
+          "sha": "eebb27ba923f84c1665cf389eb11b3e5124131ae",
+          "size": 930
+        },
+        {
+          "path": "web/drizzle/0001_tricky_the_leader.sql",
+          "mode": "100644",
+          "sha": "39856997b1e00e9fe376c2fd776ff98c9730235f",
+          "size": 724
+        },
+        {
+          "path": "web/drizzle/0002_worthless_hulk.sql",
+          "mode": "100644",
+          "sha": "e327f26baee5146a6e82cf6c17e6d65fc02bdaf5",
+          "size": 192
+        },
+        {
+          "path": "web/drizzle/meta/0000_snapshot.json",
+          "mode": "100644",
+          "sha": "7ce3528575455369a6a4953bdc542bab1fc9d32d",
+          "size": 5307
+        },
+        {
+          "path": "web/drizzle/meta/0001_snapshot.json",
+          "mode": "100644",
+          "sha": "e27de7a5cad0557d8eb87c5b16f94385fa0acd99",
+          "size": 9637
+        },
+        {
+          "path": "web/drizzle/meta/0002_snapshot.json",
+          "mode": "100644",
+          "sha": "124016e67a93bc7f3e5d77aa61c407a9edfb2a55",
+          "size": 10827
+        },
+        {
+          "path": "web/drizzle/meta/_journal.json",
+          "mode": "100644",
+          "sha": "d48608bc3ba3fc4c0ffce44ccbe9d17961d09963",
+          "size": 494
+        },
+        {
+          "path": "web/eslint.config.mjs",
+          "mode": "100644",
+          "sha": "1c56c0144ce558825265a2d79d06b1ce6150d24f",
+          "size": 846
+        },
+        {
+          "path": "web/examples/d1/app/api/notes/route.ts",
+          "mode": "100644",
+          "sha": "07f8318c3c290d68163e95aa3e170ad92a235f27",
+          "size": 1700
+        },
+        {
+          "path": "web/examples/d1/db/schema.ts",
+          "mode": "100644",
+          "sha": "7bb0c157110799b9b53c767517e0d192b7201f2e",
+          "size": 370
+        },
+        {
+          "path": "web/hooks/use-mobile.ts",
+          "mode": "100644",
+          "sha": "2b0fe1dfef3b17850bbac040665f514a8ffd0f15",
+          "size": 565
+        },
+        {
+          "path": "web/lib/connector-context.ts",
+          "mode": "100644",
+          "sha": "6cdeac72bf2df63e0a73159af25e0b4564ed1d43",
+          "size": 612
+        },
+        {
+          "path": "web/lib/connector-contract.mts",
+          "mode": "100644",
+          "sha": "f146418508b4c272a4495ec5498b6f0554b1f966",
+          "size": 5362
+        },
+        {
+          "path": "web/lib/connector-errors.mts",
+          "mode": "100644",
+          "sha": "c9d2fe845ec965062d3724fd28a0892b4fbf5a9b",
+          "size": 2717
+        },
+        {
+          "path": "web/lib/connector-preview.d.ts",
+          "mode": "100644",
+          "sha": "bb3f498b67e3dfd93601626aa2675af07dfe711c",
+          "size": 433
+        },
+        {
+          "path": "web/lib/connectors.ts",
+          "mode": "100644",
+          "sha": "30b85c0dd699e7236ec1694e03466b03caa2a7dc",
+          "size": 416
+        },
+        {
+          "path": "web/lib/utils.ts",
+          "mode": "100644",
+          "sha": "b500fb167fdaa78785feb0ff03b51f8a182a44ae",
+          "size": 177
+        },
+        {
+          "path": "web/native/vision-ios/BTCo Vision.xcodeproj/project.pbxproj",
+          "mode": "100644",
+          "sha": "ea7c87ed8e0e383f9903e919e0d9a3b011a0498d",
+          "size": 14299
+        },
+        {
+          "path": "web/native/vision-ios/BTCo Vision.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+          "mode": "100644",
+          "sha": "919434a6254f0e9651f402737811be6634a03e9c",
+          "size": 135
+        },
+        {
+          "path": "web/native/vision-ios/BTCo Vision/AcquisitionEconomics.swift",
+          "mode": "100644",
+          "sha": "5705eda66c835154a0b312fdf0356859ba26cf6d",
+          "size": 13769
+        },
+        {
+          "path": "web/native/vision-ios/BTCo Vision/Assets.xcassets/Contents.json",
+          "mode": "100644",
+          "sha": "fe97fb1fb646f117876be9c7a4e03c698290eb4a",
+          "size": 43
+        },
+        {
+          "path": "web/native/vision-ios/BTCo Vision/ContentView.swift",
+          "mode": "100644",
+          "sha": "f4c41efedca1bdb2a68157d9d0b470c4542e8d83",
+          "size": 19642
+        },
+        {
+          "path": "web/native/vision-ios/BTCo Vision/HandsFreeScanner.swift",
+          "mode": "100644",
+          "sha": "a22e46b876ac073f6bb89c2d60c49734a913781d",
+          "size": 50746
+        },
+        {
+          "path": "web/native/vision-ios/BTCo Vision/MyApp.swift",
+          "mode": "100644",
+          "sha": "4e5bac1bf0c060e9312421accf9ee1a64b4d8f8a",
+          "size": 140
+        },
+        {
+          "path": "web/native/vision-ios/BTCo Vision/VisionConnection.swift",
+          "mode": "100644",
+          "sha": "5aafe4b10bb02c90a9dcff0a78cdc564367c1e4d",
+          "size": 3518
+        },
+        {
+          "path": "web/native/vision-ios/BTCo-Vision-Info.plist",
+          "mode": "100644",
+          "sha": "c03afde171ebfd1ac33399e6b929016c89e65701",
+          "size": 519
+        },
+        {
+          "path": "web/native/vision-ios/README.txt",
+          "mode": "100644",
+          "sha": "bc6c254dfcbaf99bd136db26739c2bf15ddf13f7",
+          "size": 1326
+        },
+        {
+          "path": "web/next.config.ts",
+          "mode": "100644",
+          "sha": "e9ffa3083ad279ecf95fd8eae59cb253e9a539c4",
+          "size": 133
+        },
+        {
+          "path": "web/package-lock.json",
+          "mode": "100644",
+          "sha": "7e37bc896b13e5577be89fb821153000a45e964b",
+          "size": 504191
+        },
+        {
+          "path": "web/package.json",
+          "mode": "100644",
+          "sha": "9f4678203780246833898cd15ba3d75d26585336",
+          "size": 2318
+        },
+        {
+          "path": "web/postcss.config.mjs",
+          "mode": "100644",
+          "sha": "61e36849cf7cfa9f1f71b4a3964a4953e3e243d3",
+          "size": 94
+        },
+        {
+          "path": "web/public/app.mjs",
+          "mode": "100644",
+          "sha": "ad4145dfffd09c9170876023239ef46d4ba9c866",
+          "size": 65011
+        },
+        {
+          "path": "web/public/architecture.md",
+          "mode": "100644",
+          "sha": "ec185ec7ed3ba0ef428a3c50218edb51eefcba26",
+          "size": 5864
+        },
+        {
+          "path": "web/public/modules-ui.mjs",
+          "mode": "100644",
+          "sha": "27cf03733a13702a8975175322f7ba5726b23fd5",
+          "size": 5772
+        },
+        {
+          "path": "web/public/release.json",
+          "mode": "100644",
+          "sha": "79dda6f8e819500607038bb9ccb1da103fe00f53",
+          "size": 172
+        },
+        {
+          "path": "web/public/schema.sql",
+          "mode": "100644",
+          "sha": "e3330abe7e05ca8a4104c9f8a8018289e1e44e8d",
+          "size": 13178
+        },
+        {
+          "path": "web/public/shared-storage.mjs",
+          "mode": "100644",
+          "sha": "2196524e24316b40704fbb6f247082235f51377e",
+          "size": 6307
+        },
+        {
+          "path": "web/public/storage.mjs",
+          "mode": "100644",
+          "sha": "286dbb5e8d75e13c9cadf4231e367cbff11bc5e7",
+          "size": 2399
+        },
+        {
+          "path": "web/public/styles.css",
+          "mode": "100644",
+          "sha": "2d80458d3b73bbff3ba043013550b1807fefcb99",
+          "size": 24495
+        },
+        {
+          "path": "web/public/vision-photo.mjs",
+          "mode": "100644",
+          "sha": "0d3603eaf53d77b771cdaf56ce0267dd2fefd7b6",
+          "size": 1728
+        },
+        {
+          "path": "web/public/vision-ui.mjs",
+          "mode": "100644",
+          "sha": "dc6ebe8fc50188fc8f238659688af9579d6cc1ae",
+          "size": 28558
+        },
+        {
+          "path": "web/public/vision.css",
+          "mode": "100644",
+          "sha": "861e5133922439d85cc2ad928ba54d225d640a56",
+          "size": 3887
+        },
+        {
+          "path": "web/scripts/build-verified.sh",
+          "mode": "100755",
+          "sha": "6c69cf3ad6855c25c312b67f02fd1afffb97b63d",
+          "size": 661
+        },
+        {
+          "path": "web/scripts/check-release.mjs",
+          "mode": "100644",
+          "sha": "d27a991c5434f8cbaee8e31e765b89429303f4b4",
+          "size": 1879
+        },
+        {
+          "path": "web/scripts/connector-preview/connector-preview-session.mjs",
+          "mode": "100644",
+          "sha": "aa2d2d92f663e547e4af956e3f0475a6198b1bf2",
+          "size": 6855
+        },
+        {
+          "path": "web/scripts/connector-preview/host-binding.mjs",
+          "mode": "100644",
+          "sha": "88e6efb56e6ceb044dd3c9127d26960b5bb9c5e9",
+          "size": 7793
+        },
+        {
+          "path": "web/scripts/connector-preview/protocol.mjs",
+          "mode": "100644",
+          "sha": "6476ba302de4ee408ba549fc0d790861185dd919",
+          "size": 1781
+        },
+        {
+          "path": "web/scripts/execution-profile.mjs",
+          "mode": "100644",
+          "sha": "f27aec211320d9a5fd0dbbb07f5c508222b2b8d4",
+          "size": 624
+        },
+        {
+          "path": "web/scripts/install-ci.mjs",
+          "mode": "100644",
+          "sha": "22bd7d555c8f2a996d5bfe5be0ba9a5a43a1bf7f",
+          "size": 1685
+        },
+        {
+          "path": "web/scripts/install-ci.sh",
+          "mode": "100755",
+          "sha": "7b4a810e1663afb4572d167eb78e09b3db07be10",
+          "size": 6783
+        },
+        {
+          "path": "web/scripts/install-pnpm.sh",
+          "mode": "100755",
+          "sha": "573ecdb89461a5922386ec9ccf5a83504fa9caae",
+          "size": 9015
+        },
+        {
+          "path": "web/scripts/inventory-refresh.mjs",
+          "mode": "100644",
+          "sha": "3f4f0772002ede00cd84334d4f4ac47c8fd50595",
+          "size": 2050
+        },
+        {
+          "path": "web/scripts/npm-install.mjs",
+          "mode": "100644",
+          "sha": "64ade63f6092ed209b1a76718145d80de38b34f2",
+          "size": 7025
+        },
+        {
+          "path": "web/scripts/pnpm-install.mjs",
+          "mode": "100644",
+          "sha": "ae92c9fe150ee780e46f590947ceacd03b7226ad",
+          "size": 10633
+        },
+        {
+          "path": "web/scripts/prepare-client.mjs",
+          "mode": "100644",
+          "sha": "60cf4b5259236f20bde2dcafa13ba658fe0953e6",
+          "size": 414
+        },
+        {
+          "path": "web/scripts/run-framework.mjs",
+          "mode": "100644",
+          "sha": "166b0c2487819135ddfb30c9267e790ebb8c498f",
+          "size": 993
+        },
+        {
+          "path": "web/scripts/sites-env.mjs",
+          "mode": "100644",
+          "sha": "1eeedb5e13e4b9af70d89446d981dfd4cd92a3fd",
+          "size": 906
+        },
+        {
+          "path": "web/scripts/sites-env.sh",
+          "mode": "100755",
+          "sha": "728416424d5d2f4c9a746d53621668225645356c",
+          "size": 1530
+        },
+        {
+          "path": "web/server/inventory-sync.mjs",
+          "mode": "100644",
+          "sha": "06f0b55c0618c2b6da1068d7a1369bc0a1bd215c",
+          "size": 3950
+        },
+        {
+          "path": "web/server/vault-api.mjs",
+          "mode": "100644",
+          "sha": "559c146b5e0985f250b3aff5f5d4d7a3c02cb22c",
+          "size": 9595
+        },
+        {
+          "path": "web/server/vision-api.mjs",
+          "mode": "100644",
+          "sha": "d94ee25e8250f68e45759213e38e999adb210343",
+          "size": 10992
+        },
+        {
+          "path": "web/server/vision-credentials.mjs",
+          "mode": "100644",
+          "sha": "2ab4c3f4abe1de57a20eecfede3bfbb4644a4dcc",
+          "size": 2932
+        },
+        {
+          "path": "web/server/vision-network.mjs",
+          "mode": "100644",
+          "sha": "4e3eecf2c452223a33613808f9d2f59cc5cd08d7",
+          "size": 1579
+        },
+        {
+          "path": "web/server/vision-provider.mjs",
+          "mode": "100644",
+          "sha": "f572ed5f5496008254660efc262d6feca6112317",
+          "size": 8405
+        },
+        {
+          "path": "web/server/vision-store.mjs",
+          "mode": "100644",
+          "sha": "48c148fbe1e902d6dbfca75722a6c7c625d8ba0e",
+          "size": 3755
+        },
+        {
+          "path": "web/services/vision-node/.env.example",
+          "mode": "100644",
+          "sha": "73e41745ac7782e3bb930bacfe6383f51b2cd45c",
+          "size": 282
+        },
+        {
+          "path": "web/services/vision-node/README.md",
+          "mode": "100644",
+          "sha": "c4987bba72e623daaaec72f93aa2345f2b235a3e",
+          "size": 1966
+        },
+        {
+          "path": "web/services/vision-node/access.cjs",
+          "mode": "100644",
+          "sha": "d8ad3eab61e7d0ff28544799e084ba43709b7238",
+          "size": 774
+        },
+        {
+          "path": "web/services/vision-node/package-lock.json",
+          "mode": "100644",
+          "sha": "7af244efc7652c810338f49a02f92aa836435f7c",
+          "size": 34525
+        },
+        {
+          "path": "web/services/vision-node/package.json",
+          "mode": "100644",
+          "sha": "903e6da6233db77b19644b4bb77e19e32456dff1",
+          "size": 355
+        },
+        {
+          "path": "web/services/vision-node/server.cjs",
+          "mode": "100644",
+          "sha": "d2eca7547708852887c0239853a63d2813beb576",
+          "size": 50186
+        },
+        {
+          "path": "web/tests/fixtures.mjs",
+          "mode": "100644",
+          "sha": "c8cff8da94cae3047d34008d704917359f655a9a",
+          "size": 1613
+        },
+        {
+          "path": "web/tests/import.test.mjs",
+          "mode": "100644",
+          "sha": "6b482671fdc359717035c101156456da932c0cbb",
+          "size": 4301
+        },
+        {
+          "path": "web/tests/inventory-sync-worker.test.mjs",
+          "mode": "100644",
+          "sha": "8f6e25b5e8a3e406e0f02c8510bbb67bc38e90f2",
+          "size": 3719
+        },
+        {
+          "path": "web/tests/inventory-sync.test.mjs",
+          "mode": "100644",
+          "sha": "3560ef4bd174558f72c45f4187c25228a05640b0",
+          "size": 9390
+        },
+        {
+          "path": "web/tests/modules.test.mjs",
+          "mode": "100644",
+          "sha": "7975134df31fc3c4c942a34ab24f68ccd9f4088d",
+          "size": 3012
+        },
+        {
+          "path": "web/tests/prices.test.mjs",
+          "mode": "100644",
+          "sha": "f96c7a7dd4cec96ed4071d7a5ae321893ee29bf9",
+          "size": 5724
+        },
+        {
+          "path": "web/tests/psa-public.test.mjs",
+          "mode": "100644",
+          "sha": "87d29954c4c1cdbb571c69835ec6a2d2a41963d0",
+          "size": 932
+        },
+        {
+          "path": "web/tests/refresh.test.mjs",
+          "mode": "100644",
+          "sha": "95f47e86ca5591148b0814142e435745521e4401",
+          "size": 3885
+        },
+        {
+          "path": "web/tests/shared-client.test.mjs",
+          "mode": "100644",
+          "sha": "ad5f757e19f667f049c9f995825a6e78e8d5a3a1",
+          "size": 3388
+        },
+        {
+          "path": "web/tests/shared.test.mjs",
+          "mode": "100644",
+          "sha": "01949e777767ab4d5d55cdcce82322640c76fefd",
+          "size": 9026
+        },
+        {
+          "path": "web/tests/vault.test.mjs",
+          "mode": "100644",
+          "sha": "3dd9ba0a6b06a78ea24a1f89a677d635d8616ee4",
+          "size": 6553
+        },
+        {
+          "path": "web/tests/vision-api.test.mjs",
+          "mode": "100644",
+          "sha": "dd24542ed1b8270f87909c9e65d30a41754a6172",
+          "size": 23065
+        },
+        {
+          "path": "web/tests/vision-intake.test.mjs",
+          "mode": "100644",
+          "sha": "09651ffde5de7bad0ba40516c9b59be88069ed2b",
+          "size": 8667
+        },
+        {
+          "path": "web/tests/vision-network.test.mjs",
+          "mode": "100644",
+          "sha": "310ad104831d7bb9c74e4aec7e92b3253fd33de6",
+          "size": 2961
+        },
+        {
+          "path": "web/tests/vision-service.test.mjs",
+          "mode": "100644",
+          "sha": "ca35acd36b3f6e3e5029ef4cced047d92442fa4d",
+          "size": 1920
+        },
+        {
+          "path": "web/tests/vision-worker.test.mjs",
+          "mode": "100644",
+          "sha": "7183d7fae725eff9b605a45b42992e74f7b9f882",
+          "size": 5629
+        },
+        {
+          "path": "web/tests/vision.test.mjs",
+          "mode": "100644",
+          "sha": "bcf07d5e10b41b7183366e232e7507223dc508b2",
+          "size": 7388
+        },
+        {
+          "path": "web/tsconfig.json",
+          "mode": "100644",
+          "sha": "be170f57ec372cc118f2d343092a53b85fc189a4",
+          "size": 800
+        },
+        {
+          "path": "web/vendor/shadcn-tailwind-4.13.0.LICENSE.md",
+          "mode": "100644",
+          "sha": "fad4d887a681dd49233e5ed01ee2c7a1513089a0",
+          "size": 1063
+        },
+        {
+          "path": "web/vendor/shadcn-tailwind-4.13.0.css",
+          "mode": "100644",
+          "sha": "7807c58eb94de8b764b9b6b7b5d8cde6d012b17f",
+          "size": 16041
+        },
+        {
+          "path": "web/vite.config.ts",
+          "mode": "100644",
+          "sha": "62c760210840bf230b9738c8d20a51f48b7dd5f0",
+          "size": 3115
+        }
+      ]
+    },
+    {
+      "name": "shopballardtradingco-rgb/btco-ebay-connector",
+      "commit": "346b67639917ff1dd4c895b2114a989ada0331a6",
+      "files": [
+        {
+          "path": ".dockerignore",
+          "mode": "100644",
+          "sha": "0b463edfdf9893fa8310bb0108903041305ca6b1",
+          "size": 81
+        },
+        {
+          "path": ".env.example",
+          "mode": "100644",
+          "sha": "7f32288bc692321b907f6df3f5978ce3adbe2779",
+          "size": 334
+        },
+        {
+          "path": ".gitignore",
+          "mode": "100644",
+          "sha": "5fb7d763904e044ffe2199fb2ad05d733ddfe8f9",
+          "size": 109
+        },
+        {
+          "path": "CHANGELOG.md",
+          "mode": "100644",
+          "sha": "5747b77be0e3dbdae2be08b192824a300b385bc2",
+          "size": 706
+        },
+        {
+          "path": "Dockerfile",
+          "mode": "100644",
+          "sha": "ff9300d26169d689fe669ba12ac98fe98899f5f4",
+          "size": 636
+        },
+        {
+          "path": "README.md",
+          "mode": "100644",
+          "sha": "50faea61355e8baf7c16b29730fffbe48861ffa4",
+          "size": 13233
+        },
+        {
+          "path": "btco_ebay/__init__.py",
+          "mode": "100644",
+          "sha": "9315b812be206dbdd0db6ed1921b5e1120a75044",
+          "size": 44
+        },
+        {
+          "path": "btco_ebay/auth.py",
+          "mode": "100644",
+          "sha": "cfead3e0d34869cefa8ac8238a611890665f0cec",
+          "size": 9360
+        },
+        {
+          "path": "btco_ebay/config.py",
+          "mode": "100644",
+          "sha": "0068642eda110b268862b16493a3f0411a9fffb2",
+          "size": 2016
+        },
+        {
+          "path": "btco_ebay/ebay.py",
+          "mode": "100644",
+          "sha": "cfd437603c586e75dfddfd04d603444a58ad8aa8",
+          "size": 10870
+        },
+        {
+          "path": "btco_ebay/inventory.py",
+          "mode": "100644",
+          "sha": "18280054116bdfcccdd92b4afac41b89105f6e66",
+          "size": 8897
+        },
+        {
+          "path": "btco_ebay/listing_drafts.py",
+          "mode": "100644",
+          "sha": "8398e58668ee5bf868e0055f26bb89345617d547",
+          "size": 3484
+        },
+        {
+          "path": "btco_ebay/server.py",
+          "mode": "100644",
+          "sha": "7ce3af4533e0a09bd5a59ce4511c89a30d60d6d0",
+          "size": 17012
+        },
+        {
+          "path": "btco_ebay/store.py",
+          "mode": "100644",
+          "sha": "4e3494b9e32fa56cf3dea352f2376a3679b13ef3",
+          "size": 2681
+        },
+        {
+          "path": "docs/releases/0.2.0.md",
+          "mode": "100644",
+          "sha": "e88eadd44b298155a2c2ffaad094204680d6c72c",
+          "size": 2866
+        },
+        {
+          "path": "pyproject.toml",
+          "mode": "100644",
+          "sha": "1b92222b464bd910dbecafea21adc6f0c6df5b68",
+          "size": 560
+        },
+        {
+          "path": "railway.json",
+          "mode": "100644",
+          "sha": "cd774aecced630892349968777342d2d0b8fba29",
+          "size": 330
+        },
+        {
+          "path": "requirements.lock.txt",
+          "mode": "100644",
+          "sha": "54c68c6c4af5779dbe7268ca23e736ee157ad281",
+          "size": 613
+        },
+        {
+          "path": "tests/test_connector.py",
+          "mode": "100644",
+          "sha": "93c26a47db708c3fdbebb539d73894e74e608fc2",
+          "size": 20574
+        },
+        {
+          "path": "tests/test_inventory.py",
+          "mode": "100644",
+          "sha": "abc68361237d160524eb8b633fdbf60e4ade81f5",
+          "size": 8074
+        }
+      ]
+    }
+  ]
+}

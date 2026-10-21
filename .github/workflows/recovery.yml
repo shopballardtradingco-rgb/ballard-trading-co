@@ -1,0 +1,29 @@
+name: Source recovery checkpoint
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 11 * * 1'
+permissions:
+  contents: read
+jobs:
+  source-checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - run: python3 tools/check-public.py
+      - run: python3 tools/verify-source.py
+      - name: Build source archive and complete public Git bundle
+        run: bash tools/archive-source.sh "$RUNNER_TEMP/ballard-source-backup"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ballard-source-${{ github.sha }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/ballard-source-backup/*
+          retention-days: 90
+          if-no-files-found: error
+      - run: echo 'Source checkpoint only. This is on GitHub, not an independent-provider data backup.' >> "$GITHUB_STEP_SUMMARY"

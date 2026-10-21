@@ -1,0 +1,290 @@
+{
+  "date": "2026-10-15",
+  "test": "Same-five development retest after evidence guards; not blind validation",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "request_version": "comic-research-v4",
+  "reasoning_effort": "low",
+  "live_research_module_sha256": "0d77a4ad4d752385f570d38a110a1c319c9e13d304a814a560dd50adb0ce9e77",
+  "offline_reparse_module_sha256": "96b2e6826e432a9a2017683c84d7193b9c9f2df6a457eec4ef93fac73f21672a",
+  "scope": "Same ten authorized original images, no additional unique books or production mutations; five saved provider responses reparsed locally after two parser corrections, no further API calls",
+  "live_five_service_seconds": 92.508577,
+  "live_five_runner_seconds": 92.617216,
+  "live_five_elapsed_first_start_to_last_end_seconds": 172.792454,
+  "live_five_mean_service_seconds": 18.501715,
+  "live_five_estimated_cost_micros": 185180,
+  "whole_pass_elapsed_including_timeout_and_gaps_seconds": 248.699066,
+  "whole_pass_service_including_timeout_seconds": 142.571257,
+  "completed_proposals": 5,
+  "live_five_transport_or_schema_failures": 0,
+  "automatic_retries": 0,
+  "preceding_medium_reasoning_attempt": {
+    "request_version": "comic-research-v3",
+    "status": "uncertain",
+    "elapsed_seconds": 50.06268,
+    "usage_receipt": false,
+    "retained_reservation_micros": 1000000
+  },
+  "deliberate_new_attempt_after_timeout": 1,
+  "supported_complete_core_identities_live": 2,
+  "supported_complete_core_identities_after_offline_fix": 3,
+  "additional_complete_candidate_with_restricted_reference": 1,
+  "fully_verified_printing_variant_identities": 0,
+  "verified_sold_comparables": 0,
+  "condition_holds": 5,
+  "negative_claim_condition_holds": 3,
+  "completed_owner_reviewed_listing_drafts": 0,
+  "time_per_completed_listing_seconds": null,
+  "owner_active_seconds": null,
+  "manual_baseline_seconds": null,
+  "owner_interactions_new_listing_workflow": null,
+  "owner_actions_context": "Archived originals reused under prior authorization; no new input requested for this pass. Owner questions are not a timed listing baseline. Five physical condition reviews/corrections remain unresolved.",
+  "production_productivity_improvement": null,
+  "pilot_completed_api_requests": 13,
+  "pilot_uncertain_requests": 2,
+  "pilot_attempts": 15,
+  "pilot_estimated_completed_usage_micros": 538042,
+  "pilot_uncertain_reservations_micros": 2000000,
+  "pilot_committed_micros": 2538042,
+  "pilot_remaining_micros": 2461958,
+  "budget_note": "Same persistent nonrenewing $5 ledger. Both uncertain attempts retain full reservations; estimates are not billing receipts. No more paid calls in this pass.",
+  "cases": [
+    {
+      "case": 1,
+      "reference": "Elementals #3 (1985; historical archive label was #6 1986)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 22.514904,
+      "runner_elapsed_seconds": 22.542385,
+      "usage": {
+        "input_tokens": 18922,
+        "output_tokens": 1156,
+        "web_calls": 2,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 39394
+      },
+      "live_proposal_identity": {
+        "series": "Elementals",
+        "issue": "6",
+        "year": null,
+        "publisher": "Comico",
+        "printing": null,
+        "variant": null,
+        "confidence": "low"
+      },
+      "offline_reparse_identity": {
+        "series": "Elementals",
+        "issue": "6",
+        "year": null,
+        "publisher": "Comico",
+        "printing": null,
+        "variant": null,
+        "confidence": "low"
+      },
+      "condition": null,
+      "price_usd": null,
+      "live_market_sources": 0,
+      "offline_market_sources": 0,
+      "offline_rejected_sources": [],
+      "assessment": {
+        "core_identity": "incorrect_issue_and_missing_year",
+        "required_corrections": [
+          "Issue 6 conflicts with visible No. 3 and independently matched cover",
+          "Publication year remains null",
+          "Source series label differs from proposal; strict consistency check rejects it"
+        ],
+        "condition": "Held on a negative staining claim; no inspected owner condition",
+        "market": "No prices returned"
+      }
+    },
+    {
+      "case": 2,
+      "reference": "Journey #2 (1983)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 20.934451,
+      "runner_elapsed_seconds": 20.953006,
+      "usage": {
+        "input_tokens": 18950,
+        "output_tokens": 1315,
+        "web_calls": 2,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 40130
+      },
+      "live_proposal_identity": {
+        "series": "Journey",
+        "issue": "2",
+        "year": null,
+        "publisher": "Aardvark-Vanaheim",
+        "printing": null,
+        "variant": null,
+        "confidence": "low"
+      },
+      "offline_reparse_identity": {
+        "series": "Journey",
+        "issue": "2",
+        "year": 1983,
+        "publisher": "Aardvark-Vanaheim",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "condition": null,
+      "price_usd": null,
+      "live_market_sources": 2,
+      "offline_market_sources": 2,
+      "offline_rejected_sources": [],
+      "assessment": {
+        "core_identity": "supported_after_offline_issue_marker_fix",
+        "required_corrections": [
+          "Live parser unnecessarily rejected #2 versus 2; fixed and replayed offline",
+          "Possible surface mark needs owner inspection"
+        ],
+        "condition": "Held on ambiguous marks",
+        "market": "Two asking prices from the same retailer; 9.70 and 9.00 independently visible; no sold records"
+      }
+    },
+    {
+      "case": 3,
+      "reference": "Kid Eternity #1 (1993)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 17.947459,
+      "runner_elapsed_seconds": 17.967233,
+      "usage": {
+        "input_tokens": 18988,
+        "output_tokens": 1294,
+        "web_calls": 2,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 40064
+      },
+      "live_proposal_identity": {
+        "series": "Kid Eternity",
+        "issue": "1",
+        "year": 1993,
+        "publisher": "DC Comics / Vertigo",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "offline_reparse_identity": {
+        "series": "Kid Eternity",
+        "issue": "1",
+        "year": 1993,
+        "publisher": "DC Comics / Vertigo",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "condition": null,
+      "price_usd": null,
+      "live_market_sources": 2,
+      "offline_market_sources": 1,
+      "offline_rejected_sources": [
+        {
+          "group": "price",
+          "index": 0,
+          "reason": "Invalid price/date, value estimate or unsupported source URL"
+        }
+      ],
+      "assessment": {
+        "core_identity": "supported",
+        "required_corrections": [
+          "Guide value 4.36 mislabeled asking; quarantined by offline parser fix",
+          "eBay snippet 1.99 differs from independently opened current discounted 1.79; shipping 7.00 omitted",
+          "Unsupported standard direct edition language remains only in research evidence; variant fields stay null"
+        ],
+        "condition": "Held on a negative staining claim",
+        "market": "One remaining asking candidate after guide rejection; current price correction required"
+      }
+    },
+    {
+      "case": 4,
+      "reference": "Nestrobber #1 (1992)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 14.295537,
+      "runner_elapsed_seconds": 14.317943,
+      "usage": {
+        "input_tokens": 14500,
+        "output_tokens": 1275,
+        "web_calls": 1,
+        "completed_web_calls": 1,
+        "estimated_cost_micros": 26613
+      },
+      "live_proposal_identity": {
+        "series": "Nestrobber",
+        "issue": "1",
+        "year": 1992,
+        "publisher": "Blue Sky Blue",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "offline_reparse_identity": {
+        "series": "Nestrobber",
+        "issue": "1",
+        "year": 1992,
+        "publisher": "Blue Sky Blue",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "condition": null,
+      "price_usd": null,
+      "live_market_sources": 2,
+      "offline_market_sources": 2,
+      "offline_rejected_sources": [],
+      "assessment": {
+        "core_identity": "supported",
+        "required_corrections": [
+          "Printed blue feature now uncertain, still not correctly recognized as printed art",
+          "MyComicShop 9.00 candidate could not be confirmed; supplied URL returned 404"
+        ],
+        "condition": "Held; no marker/stain defect was promoted",
+        "market": "Walmart 9.98 plus 6.99 shipping independently visible; higher-condition asking copy, not a comparable sale"
+      }
+    },
+    {
+      "case": 5,
+      "reference": "The Final Cycle: Part 1 #3 (1987 reference; source recheck restricted)",
+      "status": "needs_owner_review",
+      "service_elapsed_seconds": 16.816226,
+      "runner_elapsed_seconds": 16.836649,
+      "usage": {
+        "input_tokens": 18477,
+        "output_tokens": 1138,
+        "web_calls": 2,
+        "completed_web_calls": 2,
+        "estimated_cost_micros": 38979
+      },
+      "live_proposal_identity": {
+        "series": "The Final Cycle: Part 1",
+        "issue": "3",
+        "year": 1987,
+        "publisher": "Dragon's Teeth",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "offline_reparse_identity": {
+        "series": "The Final Cycle: Part 1",
+        "issue": "3",
+        "year": 1987,
+        "publisher": "Dragon's Teeth",
+        "printing": null,
+        "variant": null,
+        "confidence": "high"
+      },
+      "condition": null,
+      "price_usd": null,
+      "live_market_sources": 0,
+      "offline_market_sources": 0,
+      "offline_rejected_sources": [],
+      "assessment": {
+        "core_identity": "complete_candidate_not_independently_reverified",
+        "required_corrections": [
+          "Exact title/year/publisher now supplied, but cited catalog access remains restricted",
+          "Confirm physical condition; prior archive used Acceptable"
+        ],
+        "condition": "Held on negative writing claim",
+        "market": "No prices returned"
+      }
+    }
+  ]
+}

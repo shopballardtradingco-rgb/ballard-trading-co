@@ -1,0 +1,409 @@
+{
+  "importedOn": "2026-10-11",
+  "note": "Source snapshots only; not a Git ancestry merge. Archive excludes Xcode user state and macOS metadata. Latest iPhone-only source overlays the cleaned project.",
+  "sources": [
+    {
+      "path": "/HandsFreeScanner.swift",
+      "name": "HandsFreeScanner.swift",
+      "library_file_id": "libfile_76b46dc38ccc8191a10fccd8c6b8e5b6",
+      "modified_at": "2026-09-27T00:45:08.217699Z",
+      "sha256": "7a37160b79527a7e13a000e796512e6b2b5cfa895afd8587d6fb77ba8b50e301",
+      "files": [
+        {
+          "path": "archive/vision/HandsFreeScanner.swift",
+          "sha256": "7a37160b79527a7e13a000e796512e6b2b5cfa895afd8587d6fb77ba8b50e301"
+        }
+      ]
+    },
+    {
+      "path": "/Ballard Trading Co. AI Analyst/MyApp.swift",
+      "name": "MyApp.swift",
+      "library_file_id": "libfile_2aca6c5f25648191a8728126ae74cda0",
+      "modified_at": "2026-10-09T23:33:36.806765Z",
+      "sha256": "d851f4b2518aadf2359d4a2b03583b0b6c5d42754c98e12b65c087de77d3cfbc",
+      "files": [
+        {
+          "path": "archive/vision/Ballard Trading Co. AI Analyst/MyApp.swift",
+          "sha256": "d851f4b2518aadf2359d4a2b03583b0b6c5d42754c98e12b65c087de77d3cfbc"
+        }
+      ]
+    },
+    {
+      "path": "/Ballard Trading Co. AI Analyst/BTCo-Vision-Info.plist",
+      "name": "BTCo-Vision-Info.plist",
+      "library_file_id": "libfile_8b80f1a196fc81918f5b88a5efedcf5e",
+      "modified_at": "2026-10-09T23:33:36.637581Z",
+      "sha256": "0ba683c310f69eaeaf469dd2ef2f431fb8e8924d6005b5baf606682e7340b8ea",
+      "files": [
+        {
+          "path": "archive/vision/Ballard Trading Co. AI Analyst/BTCo-Vision-Info.plist",
+          "sha256": "0ba683c310f69eaeaf469dd2ef2f431fb8e8924d6005b5baf606682e7340b8ea"
+        }
+      ]
+    },
+    {
+      "path": "/Ballard Trading Co. AI Analyst/BTCo Vision.xcodeproj.zip",
+      "name": "BTCo Vision.xcodeproj.zip",
+      "library_file_id": "libfile_378263dce1f081919620a05830d386a2",
+      "modified_at": "2026-10-09T23:33:36.609703Z",
+      "sha256": "63830e9733603473d711153a45de4ad1dfda03a0f7cc1a5a054c4ff8839f502c",
+      "files": [
+        {
+          "path": "archive/vision/Ballard Trading Co. AI Analyst/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.pbxproj",
+          "sha256": "68438b6ee6a6c83a5c67586502225fcbc236d34d8bbc12561df041a1c8fa6666"
+        },
+        {
+          "path": "archive/vision/Ballard Trading Co. AI Analyst/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+          "sha256": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo-Vision-iPhone-Update.zip",
+      "name": "BTCo-Vision-iPhone-Update.zip",
+      "library_file_id": "libfile_957d8907799c81919ffa061df06c3201",
+      "modified_at": "2026-10-09T23:33:36.302264Z",
+      "sha256": "7f5dfed08a79afeee65d1378cd6bc37454458a2d06ffc2698ba613a99490dc78",
+      "files": [
+        {
+          "path": "archive/vision/BTCo-Vision-iPhone-Update/BTCo-Vision-Info.plist",
+          "sha256": "0ba683c310f69eaeaf469dd2ef2f431fb8e8924d6005b5baf606682e7340b8ea"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-iPhone-Update/README.txt",
+          "sha256": "df9805a4b6a94a370914465ce60faff02beda53ef7961f56aff4470039d87da7"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision/MyApp.swift",
+          "sha256": "d851f4b2518aadf2359d4a2b03583b0b6c5d42754c98e12b65c087de77d3cfbc"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision/HandsFreeScanner.swift",
+          "sha256": "5851e721d65522fc75504d5f464cb337fdedca8cadcdd14121ad441261f72848"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision/ContentView.swift",
+          "sha256": "5744d1b5226ba9278b02160f6c14aa415b43b1f82609585c2314e02a238aab2d"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision.xcodeproj/project.pbxproj",
+          "sha256": "68438b6ee6a6c83a5c67586502225fcbc236d34d8bbc12561df041a1c8fa6666"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision/Assets.xcassets/Contents.json",
+          "sha256": "e8e8ef4b27126d62305af321d12a6e64b866ca0b160f0f83efae90111f0ee576"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-iPhone-Update/BTCo Vision.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+          "sha256": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo-Vision-Glasses-Update.zip",
+      "name": "BTCo-Vision-Glasses-Update.zip",
+      "library_file_id": "libfile_5b7a1e6ffa308191b5181d2562349ab0",
+      "modified_at": "2026-10-02T21:50:23.787013Z",
+      "sha256": "2703950ef7ff73ac4e4f6626b5c0c154a2eedd01fa2b581c64e5ba4b52f5065c",
+      "files": [
+        {
+          "path": "archive/vision/BTCo-Vision-Glasses-Update/MyApp.swift",
+          "sha256": "600d52a2f8cebe606309cf470e409b5a26c7f40e08cc6f453e730eb53c442682"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-Glasses-Update/HandsFreeScanner.swift",
+          "sha256": "ac698dcb110fbc7bff18853b6b8518e177604ae3b8e4ae5237937761947a6dc5"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-Glasses-Update/BTCo-Vision-Info.plist",
+          "sha256": "c90f0b853aed7295a7a8112ed3daec0400a86f38ef58ef283ee2244ffd206d92"
+        },
+        {
+          "path": "archive/vision/BTCo-Vision-Glasses-Update/INSTALL.txt",
+          "sha256": "b96b0d98e24eac4799f6a6e885d6e4c327ec5b27b4219f636297fe7fe7d99c0c"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo Vision.xcodeproj.zip",
+      "name": "BTCo Vision.xcodeproj.zip",
+      "library_file_id": "libfile_39ca0145483881918baa254084acdc8b",
+      "modified_at": "2026-10-02T21:31:16.611299Z",
+      "sha256": "5d5953cf1c93881076559e34406b5a415bbabe5e5014a5f1b871d202e90f9b44",
+      "files": [
+        {
+          "path": "archive/vision/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.pbxproj",
+          "sha256": "30cdf49a675d29abf90c90e41b915e1e25a7d3f296870ba084867d833a1c4f7e"
+        },
+        {
+          "path": "archive/vision/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+          "sha256": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f"
+        },
+        {
+          "path": "archive/vision/BTCo Vision.xcodeproj/BTCo Vision.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+          "sha256": "a58637b0868ac5a5fa4a9038149a5c18feee14061e1443f29455d1fde5e3d01b"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V5_3_1_PSA.swift",
+      "name": "BTCo_HandsFreeScanner_V5_3_1_PSA.swift",
+      "library_file_id": "libfile_a3654b66a04c8191bee03b5334914d8e",
+      "modified_at": "2026-09-27T02:10:12.124429Z",
+      "sha256": "dcce7bf70961f4c513f678491b6da2182444aa50f48c6c95b389e07c44bd0fa6",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V5_3_1_PSA.swift",
+          "sha256": "dcce7bf70961f4c513f678491b6da2182444aa50f48c6c95b389e07c44bd0fa6"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V5_4_PSAReady.swift",
+      "name": "BTCo_HandsFreeScanner_V5_4_PSAReady.swift",
+      "library_file_id": "libfile_9b94954fbe38819192d46149fc3bc7fa",
+      "modified_at": "2026-09-27T02:04:38.462468Z",
+      "sha256": "5ea786ed50f7fbd82630ac9b2b3c6bb0849eed57b7ddc7cc179e2494340e99dd",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V5_4_PSAReady.swift",
+          "sha256": "5ea786ed50f7fbd82630ac9b2b3c6bb0849eed57b7ddc7cc179e2494340e99dd"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_server_V6_PSA_Cache.js",
+      "name": "BTCo_server_V6_PSA_Cache.js",
+      "library_file_id": "libfile_88cfd354124881918f73409df97162d4",
+      "modified_at": "2026-09-27T01:59:14.467593Z",
+      "sha256": "e0be9e554670f1271599f465cfb5bde777327be559df6c4f4f2d7cbcd1979109",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_server_V6_PSA_Cache.js",
+          "sha256": "e0be9e554670f1271599f465cfb5bde777327be559df6c4f4f2d7cbcd1979109"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_Vision_Server_V6_PSA.js",
+      "name": "BTCo_Vision_Server_V6_PSA.js",
+      "library_file_id": "libfile_f7c64ec7f03481919bdec3999033dfc6",
+      "modified_at": "2026-09-27T01:48:52.271503Z",
+      "sha256": "e888eb827eb8b39319fe7c34df1d5aee89483690b53ccbbe6af24ffb87444445",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_Vision_Server_V6_PSA.js",
+          "sha256": "e888eb827eb8b39319fe7c34df1d5aee89483690b53ccbbe6af24ffb87444445"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V6_PSA_regenerated.swift",
+      "name": "BTCo_HandsFreeScanner_V6_PSA_regenerated.swift",
+      "library_file_id": "libfile_1f5cb27b79648191a85152df17a3c5a9",
+      "modified_at": "2026-09-27T01:24:55.443786Z",
+      "sha256": "3fdbcf9277e99b25d78f98a0731b4bcb833102dc3e087b73e49801df9ee7192b",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V6_PSA_regenerated.swift",
+          "sha256": "3fdbcf9277e99b25d78f98a0731b4bcb833102dc3e087b73e49801df9ee7192b"
+        }
+      ]
+    },
+    {
+      "path": "/HandsFreeScanner(1).swift",
+      "name": "HandsFreeScanner(1).swift",
+      "library_file_id": "libfile_1b270a2ede9c819188ffa8c02ae540b2",
+      "modified_at": "2026-10-09T23:49:40.378349Z",
+      "sha256": "4d1f353400d07db08bb5686fcb01ca102ed229b2809f701ba08d82d3f531c5bc",
+      "files": [
+        {
+          "path": "archive/vision/HandsFreeScanner(1).swift",
+          "sha256": "4d1f353400d07db08bb5686fcb01ca102ed229b2809f701ba08d82d3f531c5bc"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V6_PSA.swift",
+      "name": "BTCo_HandsFreeScanner_V6_PSA.swift",
+      "library_file_id": "libfile_a795609c26a881919e34f714fa69c331",
+      "modified_at": "2026-09-27T01:22:20.338598Z",
+      "sha256": "3fdbcf9277e99b25d78f98a0731b4bcb833102dc3e087b73e49801df9ee7192b",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V6_PSA.swift",
+          "sha256": "3fdbcf9277e99b25d78f98a0731b4bcb833102dc3e087b73e49801df9ee7192b"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V5_3_Clean.swift",
+      "name": "BTCo_HandsFreeScanner_V5_3_Clean.swift",
+      "library_file_id": "libfile_5ee26a71e1388191bb3cd9be139447fc",
+      "modified_at": "2026-09-27T01:11:30.241834Z",
+      "sha256": "9b7140d0a18995182e05a3ed7bf4ff9035363c99d208fb7b5aff73b3af5f541e",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V5_3_Clean.swift",
+          "sha256": "9b7140d0a18995182e05a3ed7bf4ff9035363c99d208fb7b5aff73b3af5f541e"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V5_2_Fixed.swift",
+      "name": "BTCo_HandsFreeScanner_V5_2_Fixed.swift",
+      "library_file_id": "libfile_ee81ffcdd6848191990462a23ef6b431",
+      "modified_at": "2026-09-27T01:10:17.738629Z",
+      "sha256": "66942a765e5b70984d5d718ec72bfbeeb30334526cf60482ba264a1ca57528e4",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V5_2_Fixed.swift",
+          "sha256": "66942a765e5b70984d5d718ec72bfbeeb30334526cf60482ba264a1ca57528e4"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V5_Graded.swift",
+      "name": "BTCo_HandsFreeScanner_V5_Graded.swift",
+      "library_file_id": "libfile_9d5337cdfe6081919fc5a113000ec78b",
+      "modified_at": "2026-09-27T01:07:47.840054Z",
+      "sha256": "e727acc1669f00a3954c3647ad53f1846fc2ae2a436594f628d5e08232c93415",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V5_Graded.swift",
+          "sha256": "e727acc1669f00a3954c3647ad53f1846fc2ae2a436594f628d5e08232c93415"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V4_2.swift",
+      "name": "BTCo_HandsFreeScanner_V4_2.swift",
+      "library_file_id": "libfile_37df6fa9ec1881919e035936d6177b5d",
+      "modified_at": "2026-09-27T01:04:00.707167Z",
+      "sha256": "5015becaf430b7d6ac288832b5e999210219bf5620d88550a19cbaa243edc4d8",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V4_2.swift",
+          "sha256": "5015becaf430b7d6ac288832b5e999210219bf5620d88550a19cbaa243edc4d8"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V4_1.swift",
+      "name": "BTCo_HandsFreeScanner_V4_1.swift",
+      "library_file_id": "libfile_3da5c627789c8191a1711aa639f6ef8c",
+      "modified_at": "2026-09-27T01:00:04.669614Z",
+      "sha256": "d455f399cf9c481780d5a987b68f7f8ab9a60b19d439a40ce063c85dd916e108",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V4_1.swift",
+          "sha256": "d455f399cf9c481780d5a987b68f7f8ab9a60b19d439a40ce063c85dd916e108"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V4.swift",
+      "name": "BTCo_HandsFreeScanner_V4.swift",
+      "library_file_id": "libfile_5548d7ac4d14819193aca0442eaa1c8c",
+      "modified_at": "2026-09-27T00:58:12.853656Z",
+      "sha256": "caf0b9b28796041f8129a3ffb3e54ea05d6c2dfe0fc16b116ad5f7cf5fb34210",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V4.swift",
+          "sha256": "caf0b9b28796041f8129a3ffb3e54ea05d6c2dfe0fc16b116ad5f7cf5fb34210"
+        }
+      ]
+    },
+    {
+      "path": "/BTCo_HandsFreeScanner_V3.swift",
+      "name": "BTCo_HandsFreeScanner_V3.swift",
+      "library_file_id": "libfile_62603d82f83881918caf6c1224046694",
+      "modified_at": "2026-09-27T00:54:41.427144Z",
+      "sha256": "32270022b77ca400f3884d217279c477b03ce540441dd25daa46d4be18c0e632",
+      "files": [
+        {
+          "path": "archive/vision/BTCo_HandsFreeScanner_V3.swift",
+          "sha256": "32270022b77ca400f3884d217279c477b03ce540441dd25daa46d4be18c0e632"
+        }
+      ]
+    },
+    {
+      "path": "/HandsFreeScanner_V3.swift",
+      "name": "HandsFreeScanner_V3.swift",
+      "library_file_id": "libfile_56b577d1e8188191bed20e8a5440bf4c",
+      "modified_at": "2026-09-27T00:49:56.034575Z",
+      "sha256": "13da9d0b24172f23f5109116fb3571e2ecfce5168b775e99db0499b6672a84e2",
+      "files": [
+        {
+          "path": "archive/vision/HandsFreeScanner_V3.swift",
+          "sha256": "13da9d0b24172f23f5109116fb3571e2ecfce5168b775e99db0499b6672a84e2"
+        }
+      ]
+    },
+    {
+      "path": "/HandsFreeScanner_V2.swift",
+      "name": "HandsFreeScanner_V2.swift",
+      "library_file_id": "libfile_64eeeec8dedc81918a2b966338e943cc",
+      "modified_at": "2026-09-27T00:46:00.704030Z",
+      "sha256": "7a37160b79527a7e13a000e796512e6b2b5cfa895afd8587d6fb77ba8b50e301",
+      "files": [
+        {
+          "path": "archive/vision/HandsFreeScanner_V2.swift",
+          "sha256": "7a37160b79527a7e13a000e796512e6b2b5cfa895afd8587d6fb77ba8b50e301"
+        }
+      ]
+    },
+    {
+      "path": "/Ballard Trading Co. AI Analyst/ContentView.swift",
+      "name": "ContentView.swift",
+      "library_file_id": "libfile_e8e5e0b127cc8191b9fef1d443230ebb",
+      "modified_at": "2026-10-02T21:39:42.148200Z",
+      "sha256": "5744d1b5226ba9278b02160f6c14aa415b43b1f82609585c2314e02a238aab2d",
+      "files": [
+        {
+          "path": "archive/vision/Ballard Trading Co. AI Analyst/ContentView.swift",
+          "sha256": "5744d1b5226ba9278b02160f6c14aa415b43b1f82609585c2314e02a238aab2d"
+        }
+      ]
+    },
+    {
+      "path": "/ContentView.swift",
+      "name": "ContentView.swift",
+      "library_file_id": "libfile_3472496faefc8191aa0f737a7ee8d15e",
+      "modified_at": "2026-09-27T00:08:18.683440Z",
+      "sha256": "5744d1b5226ba9278b02160f6c14aa415b43b1f82609585c2314e02a238aab2d",
+      "files": [
+        {
+          "path": "archive/vision/ContentView.swift",
+          "sha256": "5744d1b5226ba9278b02160f6c14aa415b43b1f82609585c2314e02a238aab2d"
+        }
+      ]
+    },
+    {
+      "path": "/AcquisitionEconomics.swift",
+      "name": "AcquisitionEconomics.swift",
+      "library_file_id": "libfile_5106bbcdc3348191bf4e369144e537b3",
+      "modified_at": "2026-10-09T23:49:40.193628Z",
+      "sha256": "f5f23b4b9ca7207144ecd1e083ac40f0b67ba7eea8ce468ff99c131c033e77b6",
+      "files": [
+        {
+          "path": "archive/vision/AcquisitionEconomics.swift",
+          "sha256": "f5f23b4b9ca7207144ecd1e083ac40f0b67ba7eea8ce468ff99c131c033e77b6"
+        }
+      ]
+    },
+    {
+      "path": "/server.js",
+      "name": "server.js",
+      "library_file_id": "libfile_9b71fe0334e88191bc72414b29c430c5",
+      "modified_at": "2026-09-27T01:21:12.894532Z",
+      "sha256": "17d33efcada9bbeac3e92274874b5622247535b03c6d72964dd0474f7572ef2c",
+      "files": [
+        {
+          "path": "archive/vision/server.js",
+          "sha256": "17d33efcada9bbeac3e92274874b5622247535b03c6d72964dd0474f7572ef2c"
+        }
+      ]
+    }
+  ]
+}

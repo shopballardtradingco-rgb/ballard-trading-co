@@ -1,0 +1,42 @@
+name: Public source verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: btco-os/core/package-lock.json
+      - run: npm ci --prefix btco-os/core --ignore-scripts --no-audit --no-fund
+      - run: npm run check --prefix btco-os/core
+      - run: npm test --prefix btco-os/core
+      - run: python3 -m unittest discover -s btco-os/tests -v
+        env:
+          PYTHONPATH: btco-os
+  connect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: btconnect
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.lock.txt
+      - run: pip install -e '.[test]'
+      - run: pytest -q

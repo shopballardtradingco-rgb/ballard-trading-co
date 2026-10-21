@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1791750744105,
+      "tag": "0000_chilly_outlaw_kid",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1791758068970,
+      "tag": "0001_tricky_the_leader",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791759816534,
+      "tag": "0002_worthless_hulk",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "version": "0.11.4",
+  "date": "2026-10-13",
+  "name": "Owner-confirmed comic locations",
+  "inventorySchemaVersion": 1,
+  "releaseNotes": "docs/releases/0.11.4.md"
+}

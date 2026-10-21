@@ -1,0 +1,19 @@
+{
+  "name": "@btco/vision-service",
+  "version": "0.11.4",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node server.cjs",
+    "check": "node --check server.cjs"
+  },
+  "dependencies": {
+    "dotenv": "18.0.7",
+    "express": "5.3.0",
+    "multer": "2.4.0",
+    "openai": "7.32.0"
+  }
+}

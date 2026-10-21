@@ -1,0 +1,11 @@
+{
+  "note": "Synthetic Python-signed interoperability fixture. No production data or private key.",
+  "publicKeyB64": "nIObo+Pqz1J9BX0YHHgLngH0/DWF5DDPS6hO8hSV4OI=",
+  "envelope": {
+    "schema": "btco.signed-publication.v1",
+    "algorithm": "Ed25519",
+    "key_id": "e9931da002b3719ab21a6452ce1877526a924bbed3fbe6c3fad91b1204805aab",
+    "payload_b64": "eyJjdXJyZW5jeSI6IlVTRCIsImRyYWZ0X2lkIjoiYnRjby1jb21pYy10ZXN0IiwiaXRlbV9pZCI6Ijk5OTAwMDAwMDAwMSIsImxpc3Rpbmdfc2t1IjoiVEVTVC1PTkxZLTEiLCJtYXN0ZXJfc2t1IjpudWxsLCJwaHlzaWNhbF9pdGVtX2lkIjoidGVzdC1jb21pYy0xIiwicHJpY2VfdXNkIjoiOCIsInByb21vdGlvbiI6eyJyZWFzb24iOiJTeW50aGV0aWMgaW5lbGlnaWJsZSBsaXN0aW5nIGZvciB0ZXN0cyBvbmx5IiwicmVxdWVzdGVkX3BlcmNlbnQiOjUsInN0YXR1cyI6InVuc3VwcG9ydGVkIn0sInJldmlzaW9uIjoiYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYSIsInNjaGVtYSI6ImJ0Y28ucHVibGljYXRpb24udjEiLCJzZWxsZXJfaWQiOiJ0ZXN0LXNlbGxlciIsInRpdGxlIjoiU3ludGhldGljIGNvbWljIOKAlCB0ZXN0IG9ubHkiLCJ1cmwiOiJodHRwczovL3d3dy5lYmF5LmNvbS9pdG0vOTk5MDAwMDAwMDAxIiwidmF1bHRfcmVjb25jaWxpYXRpb24iOiJwZW5kaW5nIiwidmVyaWZpZWRfYXQiOiIyMDI2LTEwLTEyVDIwOjAwOjAwKzAwOjAwIn0=",
+    "signature_b64": "jjDPSnDCOVQEXWbWS4d9RiYQzvLI+hO8HEgN2b9TZkYcWIoViLHLLXbk6Dx1Uz4C15kq378M4AUZbABmHt3GCw=="
+  }
+}

@@ -1,0 +1,67 @@
+BTCo Vision — Meta Glasses Camera Update
+Prepared October 2, 2026 for the project's Meta Wearables DAT 1.0.0 dependency.
+
+INSTALL IN YOUR EXISTING XCODE PROJECT
+
+1. Save a backup copy of your current project folder in Finder.
+2. Replace the contents of the existing MyApp.swift with the included MyApp.swift.
+3. Replace the contents of the existing HandsFreeScanner.swift with the included
+   HandsFreeScanner.swift. Keep its Xcode filename HandsFreeScanner.swift.
+4. Replace the contents of the existing BTCo-Vision-Info.plist with the included
+   plist. In Xcode, right-click the plist > Open As > Source Code to paste XML.
+5. Keep ContentView.swift in the project. It contains the shared response models.
+6. Select Tim's iPhone as the run destination and press Command-R.
+
+Use the existing files in Xcode; do not add duplicate copies of the Swift files.
+The existing project already links MWDATCore and MWDATCamera. No new Swift file
+or package is required. The bundled ZIP is an update, not a standalone project.
+
+FIRST HARDWARE CHECK
+
+1. Keep the Mac backend running. The scanner still uses http://192.168.4.50:3000.
+2. Enable Developer Mode in the Meta AI app's glasses settings. This plist uses
+   MetaAppID 0 for local developer testing, with no production app credentials.
+3. Wear the paired glasses with their arms open.
+4. Launch BTCo Vision and tap Connect Glasses. Complete the Meta AI registration
+   flow and return to BTCo Vision.
+5. Tap Start Glasses Camera. Approve camera access in Meta AI if prompted.
+6. Confirm the preview follows the glasses when you turn your head. The camera
+   stream does not need the card identification server for this preview check.
+7. Tap Scan Cards. Hold up a card, wait for front capture, flip to the back,
+   and wait for identification. Results remain until Scan Another Card is tapped.
+
+BEHAVIOR
+
+- Uses the real DAT DeviceSession -> Camera -> Stream path, with no phone-camera
+  fallback or mock-device setup. Stream: raw decoded frames, high resolution,
+  7 fps, no glasses-microphone recording.
+- Displays registration, device count, live status, and SDK errors.
+- Keeps the existing card detection thresholds, front/back capture, server
+  endpoints, inventory lookup, active-market checks, and PSA response handling.
+- Stops the camera session when backgrounded. Return and start it again.
+- Back to Glasses closes the scanner but leaves the preview running. Stop
+  Glasses Camera ends the session. The scanner's Stop button pauses scanning.
+- Reset, Scan Another Card, and leaving the scanner cancel pending card work
+  so older requests cannot overwrite a new scan or speak after you leave.
+
+IF SOMETHING FAILS
+
+- Build error: send the first red Xcode error and its highlighted line.
+- Connection error: send the BTCo Vision screen with the registration status,
+  device count, and exact red error message.
+- Live preview but no card capture: send a screenshot of the card in preview
+  plus the status text. The existing sharpness threshold needs hardware testing
+  with the glasses; it has not been retuned for this camera yet.
+
+VALIDATION AND LIMITS
+
+The public SDK symbols used here were checked against the exact installed
+1.0.0 revision, 1f38beecba83c4c8b5e343540f9cd615323ab19a, including its shipped
+Swift interfaces. The plist was parsed, matching callback settings checked,
+and the scanner changes reviewed against the uploaded source. There is no
+Xcode or iPhone runtime in the editing environment, so compilation, registration,
+glasses video, and end-to-end card scanning still require the hardware check.
+
+Official SDK reference:
+https://github.com/facebook/meta-wearables-dat-ios
+https://github.com/facebook/meta-wearables-dat-ios/blob/main/AGENTS.md

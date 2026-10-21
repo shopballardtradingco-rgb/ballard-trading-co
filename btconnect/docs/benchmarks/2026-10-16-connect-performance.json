@@ -1,0 +1,243 @@
+{
+  "scope": "offline encrypted storage and mock HTTP; not owner productivity or live eBay",
+  "repeats": 5,
+  "mock_latency_ms": 50,
+  "comparisons": [
+    {
+      "operation": "saved_draft_read",
+      "unrelated_records": 1000,
+      "baseline_seconds": 0.0002884426299988263,
+      "candidate_seconds": 0.00012161867999566312,
+      "reduction_percent": 57.8360937853888
+    },
+    {
+      "operation": "review_25_items",
+      "unrelated_records": 1000,
+      "baseline_seconds": 0.010997779499984973,
+      "candidate_seconds": 0.0030689474499922655,
+      "reduction_percent": 72.094844691181
+    },
+    {
+      "operation": "saved_draft_read",
+      "unrelated_records": 10000,
+      "baseline_seconds": 0.001266914590005399,
+      "candidate_seconds": 0.00012802485999600322,
+      "reduction_percent": 89.89475210041921
+    },
+    {
+      "operation": "review_25_items",
+      "unrelated_records": 10000,
+      "baseline_seconds": 0.032743700150012954,
+      "candidate_seconds": 0.002883851799970216,
+      "reduction_percent": 91.19265145124696
+    },
+    {
+      "operation": "fresh_policy_validation",
+      "unrelated_records": null,
+      "baseline_seconds": 0.3082330309998724,
+      "candidate_seconds": 0.15589604699925985,
+      "reduction_percent": 49.42266683958204
+    },
+    {
+      "operation": "prepare_5_items",
+      "unrelated_records": null,
+      "baseline_seconds": 0.31945506800002477,
+      "candidate_seconds": 0.16750079200028267,
+      "reduction_percent": 47.566713200408614
+    }
+  ],
+  "runs": {
+    "baseline": [
+      {
+        "operation": "saved_draft_read",
+        "unrelated_records": 1000,
+        "median_seconds": 0.0002884426299988263,
+        "samples_seconds": [
+          0.0002765761799946631,
+          0.0002884426299988263,
+          0.00028707319000204735,
+          0.0002938495200032776,
+          0.0004164541499994812
+        ],
+        "counts_per_operation": {
+          "connections": 1.0,
+          "write_transactions": 1.0,
+          "expiry_cleanup_scans": 1.0
+        }
+      },
+      {
+        "operation": "review_25_items",
+        "unrelated_records": 1000,
+        "median_seconds": 0.010997779499984973,
+        "samples_seconds": [
+          0.012621862300011343,
+          0.010997779499984973,
+          0.010663939799997024,
+          0.010645144000000073,
+          0.011952862099997219
+        ],
+        "counts_per_operation": {
+          "connections": 26.0,
+          "write_transactions": 26.0,
+          "expiry_cleanup_scans": 26.0
+        }
+      },
+      {
+        "operation": "saved_draft_read",
+        "unrelated_records": 10000,
+        "median_seconds": 0.001266914590005399,
+        "samples_seconds": [
+          0.0012162575599995761,
+          0.001266914590005399,
+          0.001653850290003902,
+          0.0012899336900045455,
+          0.001176669890000994
+        ],
+        "counts_per_operation": {
+          "connections": 1.0,
+          "write_transactions": 1.0,
+          "expiry_cleanup_scans": 1.0
+        }
+      },
+      {
+        "operation": "review_25_items",
+        "unrelated_records": 10000,
+        "median_seconds": 0.032743700150012954,
+        "samples_seconds": [
+          0.032743700150012954,
+          0.03150806459998421,
+          0.03219300405003196,
+          0.03400999654995758,
+          0.03303292874998078
+        ],
+        "counts_per_operation": {
+          "connections": 26.0,
+          "write_transactions": 26.0,
+          "expiry_cleanup_scans": 26.0
+        }
+      },
+      {
+        "operation": "fresh_policy_validation",
+        "median_seconds": 0.3082330309998724,
+        "samples_seconds": [
+          0.3096273619994463,
+          0.3082330309998724,
+          0.30799347900028806,
+          0.3082512069995573,
+          0.3079924690000553
+        ],
+        "requests_per_operation": 6.0,
+        "peak_concurrent_requests": 1
+      },
+      {
+        "operation": "prepare_5_items",
+        "median_seconds": 0.31945506800002477,
+        "samples_seconds": [
+          0.3183006990002468,
+          0.3223425819996919,
+          0.3196622200002821,
+          0.31945506800002477,
+          0.3190101619993584
+        ],
+        "requests_per_operation": 6.0,
+        "every_sample_creates_5_fresh_drafts": true
+      }
+    ],
+    "candidate": [
+      {
+        "operation": "saved_draft_read",
+        "unrelated_records": 1000,
+        "median_seconds": 0.00012161867999566312,
+        "samples_seconds": [
+          0.00011806335000073887,
+          0.00011685734000820957,
+          0.00012374155000543396,
+          0.00012161867999566312,
+          0.00012168678000307409
+        ],
+        "counts_per_operation": {
+          "connections": 1.0,
+          "write_transactions": 0.0,
+          "expiry_cleanup_scans": 0.0
+        }
+      },
+      {
+        "operation": "review_25_items",
+        "unrelated_records": 1000,
+        "median_seconds": 0.0030689474499922655,
+        "samples_seconds": [
+          0.003586286449990439,
+          0.0029417189500236416,
+          0.002947475549990486,
+          0.0031457128499823737,
+          0.0030689474499922655
+        ],
+        "counts_per_operation": {
+          "connections": 1.0,
+          "write_transactions": 0.0,
+          "expiry_cleanup_scans": 0.0
+        }
+      },
+      {
+        "operation": "saved_draft_read",
+        "unrelated_records": 10000,
+        "median_seconds": 0.00012802485999600322,
+        "samples_seconds": [
+          0.00014072086000851413,
+          0.00012802485999600322,
+          0.0001260896599978878,
+          0.00015742598000542785,
+          0.00012380965000375
+        ],
+        "counts_per_operation": {
+          "connections": 1.0,
+          "write_transactions": 0.0,
+          "expiry_cleanup_scans": 0.0
+        }
+      },
+      {
+        "operation": "review_25_items",
+        "unrelated_records": 10000,
+        "median_seconds": 0.002883851799970216,
+        "samples_seconds": [
+          0.002889521299994158,
+          0.0029177711499869473,
+          0.002883851799970216,
+          0.0028641307500038237,
+          0.0028032997499849444
+        ],
+        "counts_per_operation": {
+          "connections": 1.0,
+          "write_transactions": 0.0,
+          "expiry_cleanup_scans": 0.0
+        }
+      },
+      {
+        "operation": "fresh_policy_validation",
+        "median_seconds": 0.15589604699925985,
+        "samples_seconds": [
+          0.15649491000021953,
+          0.15561371200055873,
+          0.15556349700000283,
+          0.1564366369993877,
+          0.15589604699925985
+        ],
+        "requests_per_operation": 6.0,
+        "peak_concurrent_requests": 3
+      },
+      {
+        "operation": "prepare_5_items",
+        "median_seconds": 0.16750079200028267,
+        "samples_seconds": [
+          0.16863666099925467,
+          0.16592352200041205,
+          0.16750079200028267,
+          0.1662680449999243,
+          0.17564595400017424
+        ],
+        "requests_per_operation": 6.0,
+        "every_sample_creates_5_fresh_drafts": true
+      }
+    ]
+  }
+}

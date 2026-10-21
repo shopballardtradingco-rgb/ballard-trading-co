@@ -1,0 +1,6 @@
+*
+!Dockerfile
+!requirements.lock.txt
+!pyproject.toml
+!btco_ebay/
+!btco_ebay/*.py

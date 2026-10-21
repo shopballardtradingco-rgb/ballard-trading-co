@@ -1,0 +1,27 @@
+{
+  "measured_on": "2026-10-15",
+  "test": "Live Responses API abstention with two synthetic solid-color originals",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "elapsed_seconds": 12.580073,
+  "metrics": {
+    "input_tokens": 6547,
+    "output_tokens": 337,
+    "web_calls": 0,
+    "estimated_cost_micros": 6427
+  },
+  "result": {
+    "collectible_type": "unknown",
+    "confidence": "low",
+    "price_proposed": null,
+    "condition_proposed": null,
+    "sources_count": 0,
+    "search_performed": false,
+    "publication_approved": false
+  },
+  "actual_collectible_accuracy_measured": false,
+  "representative_five_comic_benchmark": false,
+  "confirmed_estimated_cost_usd": "0.006427",
+  "uncertain_reserved_usd": "1.00",
+  "remaining_authorized_usd": "3.993573",
+  "limitation": "Automatic approval review blocked archived-original egress; no completed result or usage receipt. Reservation is not a confirmed charge."
+}

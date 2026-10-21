@@ -1,0 +1,323 @@
+{
+  "scope": "synthetic in-process MCP ingestion and service-level batches; not live productivity",
+  "baseline_github_commit": "e94834fbb2f2c732799af39e7893037ffe609631",
+  "heartbeat_period_ms": 5,
+  "rss_sampling_ms": 2,
+  "repeats": 5,
+  "runs": {
+    "baseline": [
+      {
+        "operation": "100_ready",
+        "samples": [
+          {
+            "elapsed_seconds": 0.6775970540002163,
+            "max_event_loop_delay_seconds": 0.6730201609999494,
+            "starting_rss_bytes": 73392128,
+            "sampled_peak_rss_bytes": 77352960,
+            "batch_writes": 120,
+            "batch_json_bytes_encrypted": 28095647,
+            "preparation_calls": 20,
+            "policy_validation_calls": 20
+          },
+          {
+            "elapsed_seconds": 0.7289364839998598,
+            "max_event_loop_delay_seconds": 0.7241435360002652,
+            "starting_rss_bytes": 78340096,
+            "sampled_peak_rss_bytes": 79572992,
+            "batch_writes": 120,
+            "batch_json_bytes_encrypted": 28095084,
+            "preparation_calls": 20,
+            "policy_validation_calls": 20
+          },
+          {
+            "elapsed_seconds": 0.7114011499998014,
+            "max_event_loop_delay_seconds": 0.7067012809994776,
+            "starting_rss_bytes": 79581184,
+            "sampled_peak_rss_bytes": 80232448,
+            "batch_writes": 120,
+            "batch_json_bytes_encrypted": 28094571,
+            "preparation_calls": 20,
+            "policy_validation_calls": 20
+          },
+          {
+            "elapsed_seconds": 0.777457840000352,
+            "max_event_loop_delay_seconds": 0.772723920000426,
+            "starting_rss_bytes": 80384000,
+            "sampled_peak_rss_bytes": 80400384,
+            "batch_writes": 120,
+            "batch_json_bytes_encrypted": 28094163,
+            "preparation_calls": 20,
+            "policy_validation_calls": 20
+          },
+          {
+            "elapsed_seconds": 0.6790550559999247,
+            "max_event_loop_delay_seconds": 0.6742134949992032,
+            "starting_rss_bytes": 80396288,
+            "sampled_peak_rss_bytes": 80400384,
+            "batch_writes": 120,
+            "batch_json_bytes_encrypted": 28094828,
+            "preparation_calls": 20,
+            "policy_validation_calls": 20
+          }
+        ],
+        "median_seconds": 0.7114011499998014,
+        "median_max_event_loop_delay_seconds": 0.7067012809994776,
+        "max_sampled_rss_bytes": 80400384
+      },
+      {
+        "operation": "100_unresolved",
+        "samples": [
+          {
+            "elapsed_seconds": 0.055905151000843034,
+            "max_event_loop_delay_seconds": 0.051086864999087996,
+            "starting_rss_bytes": 80400384,
+            "sampled_peak_rss_bytes": 80404480,
+            "batch_writes": 101,
+            "batch_json_bytes_encrypted": 2118417,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          },
+          {
+            "elapsed_seconds": 0.05360202200063213,
+            "max_event_loop_delay_seconds": 0.04879843800074014,
+            "starting_rss_bytes": 80711680,
+            "sampled_peak_rss_bytes": 80715776,
+            "batch_writes": 101,
+            "batch_json_bytes_encrypted": 2118398,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          },
+          {
+            "elapsed_seconds": 0.052667788999315235,
+            "max_event_loop_delay_seconds": 0.04785155599995051,
+            "starting_rss_bytes": 82214912,
+            "sampled_peak_rss_bytes": 82219008,
+            "batch_writes": 101,
+            "batch_json_bytes_encrypted": 2118293,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          },
+          {
+            "elapsed_seconds": 0.06394735499998205,
+            "max_event_loop_delay_seconds": 0.05912932899911539,
+            "starting_rss_bytes": 83333120,
+            "sampled_peak_rss_bytes": 83337216,
+            "batch_writes": 101,
+            "batch_json_bytes_encrypted": 2118405,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          },
+          {
+            "elapsed_seconds": 0.05851771899870073,
+            "max_event_loop_delay_seconds": 0.05378934800057323,
+            "starting_rss_bytes": 83918848,
+            "sampled_peak_rss_bytes": 83922944,
+            "batch_writes": 101,
+            "batch_json_bytes_encrypted": 2118401,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          }
+        ],
+        "median_seconds": 0.055905151000843034,
+        "median_max_event_loop_delay_seconds": 0.051086864999087996,
+        "max_sampled_rss_bytes": 83922944
+      },
+      {
+        "operation": "12mp_original_ingest",
+        "input_bytes": 9993736,
+        "samples": [
+          {
+            "elapsed_seconds": 0.23858964800092508,
+            "max_event_loop_delay_seconds": 0.233844452000194,
+            "starting_rss_bytes": 94511104,
+            "sampled_peak_rss_bytes": 205369344
+          },
+          {
+            "elapsed_seconds": 0.24829056199996558,
+            "max_event_loop_delay_seconds": 0.2435313959987252,
+            "starting_rss_bytes": 94334976,
+            "sampled_peak_rss_bytes": 205504512
+          },
+          {
+            "elapsed_seconds": 0.23128271700079495,
+            "max_event_loop_delay_seconds": 0.22648679400037508,
+            "starting_rss_bytes": 94334976,
+            "sampled_peak_rss_bytes": 205504512
+          },
+          {
+            "elapsed_seconds": 0.23513107400140143,
+            "max_event_loop_delay_seconds": 0.23033490099907794,
+            "starting_rss_bytes": 94334976,
+            "sampled_peak_rss_bytes": 205504512
+          },
+          {
+            "elapsed_seconds": 0.23768461299914634,
+            "max_event_loop_delay_seconds": 0.2329381770006148,
+            "starting_rss_bytes": 94334976,
+            "sampled_peak_rss_bytes": 205504512
+          }
+        ],
+        "median_seconds": 0.23768461299914634,
+        "median_max_event_loop_delay_seconds": 0.2329381770006148,
+        "max_sampled_rss_bytes": 205504512
+      }
+    ],
+    "candidate": [
+      {
+        "operation": "100_ready",
+        "samples": [
+          {
+            "elapsed_seconds": 0.43240517000049294,
+            "max_event_loop_delay_seconds": 0.02478559499933908,
+            "starting_rss_bytes": 73646080,
+            "sampled_peak_rss_bytes": 77250560,
+            "batch_writes": 100,
+            "batch_json_bytes_encrypted": 23389709,
+            "preparation_calls": 5,
+            "policy_validation_calls": 5
+          },
+          {
+            "elapsed_seconds": 0.4516490199985128,
+            "max_event_loop_delay_seconds": 0.027080442999358637,
+            "starting_rss_bytes": 78471168,
+            "sampled_peak_rss_bytes": 79589376,
+            "batch_writes": 100,
+            "batch_json_bytes_encrypted": 23390511,
+            "preparation_calls": 5,
+            "policy_validation_calls": 5
+          },
+          {
+            "elapsed_seconds": 0.4707022799993865,
+            "max_event_loop_delay_seconds": 0.030054019001108826,
+            "starting_rss_bytes": 80433152,
+            "sampled_peak_rss_bytes": 80752640,
+            "batch_writes": 100,
+            "batch_json_bytes_encrypted": 23389799,
+            "preparation_calls": 5,
+            "policy_validation_calls": 5
+          },
+          {
+            "elapsed_seconds": 0.5063697770001454,
+            "max_event_loop_delay_seconds": 0.05771820300025866,
+            "starting_rss_bytes": 81956864,
+            "sampled_peak_rss_bytes": 82001920,
+            "batch_writes": 100,
+            "batch_json_bytes_encrypted": 23390826,
+            "preparation_calls": 5,
+            "policy_validation_calls": 5
+          },
+          {
+            "elapsed_seconds": 0.4963193029998365,
+            "max_event_loop_delay_seconds": 0.037888230998869406,
+            "starting_rss_bytes": 81997824,
+            "sampled_peak_rss_bytes": 82006016,
+            "batch_writes": 100,
+            "batch_json_bytes_encrypted": 23389917,
+            "preparation_calls": 5,
+            "policy_validation_calls": 5
+          }
+        ],
+        "median_seconds": 0.4707022799993865,
+        "median_max_event_loop_delay_seconds": 0.030054019001108826,
+        "max_sampled_rss_bytes": 82006016
+      },
+      {
+        "operation": "100_unresolved",
+        "samples": [
+          {
+            "elapsed_seconds": 0.0016685539994796272,
+            "max_event_loop_delay_seconds": 0.0008766559996001887,
+            "starting_rss_bytes": 82006016,
+            "sampled_peak_rss_bytes": 82010112,
+            "batch_writes": 1,
+            "batch_json_bytes_encrypted": 25433,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          },
+          {
+            "elapsed_seconds": 0.0014965899990784237,
+            "max_event_loop_delay_seconds": 0.0006847030009521403,
+            "starting_rss_bytes": 82006016,
+            "sampled_peak_rss_bytes": 82010112,
+            "batch_writes": 1,
+            "batch_json_bytes_encrypted": 25433,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          },
+          {
+            "elapsed_seconds": 0.0019465539990051184,
+            "max_event_loop_delay_seconds": 0.0002312470015749567,
+            "starting_rss_bytes": 82006016,
+            "sampled_peak_rss_bytes": 82010112,
+            "batch_writes": 1,
+            "batch_json_bytes_encrypted": 25434,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          },
+          {
+            "elapsed_seconds": 0.0018442999989929376,
+            "max_event_loop_delay_seconds": 0.001116190999819082,
+            "starting_rss_bytes": 82231296,
+            "sampled_peak_rss_bytes": 82235392,
+            "batch_writes": 1,
+            "batch_json_bytes_encrypted": 25434,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          },
+          {
+            "elapsed_seconds": 0.0023521059993072413,
+            "max_event_loop_delay_seconds": 0.0007116790012514683,
+            "starting_rss_bytes": 84062208,
+            "sampled_peak_rss_bytes": 84066304,
+            "batch_writes": 1,
+            "batch_json_bytes_encrypted": 25433,
+            "preparation_calls": 1,
+            "policy_validation_calls": 0
+          }
+        ],
+        "median_seconds": 0.0018442999989929376,
+        "median_max_event_loop_delay_seconds": 0.0007116790012514683,
+        "max_sampled_rss_bytes": 84066304
+      },
+      {
+        "operation": "12mp_original_ingest",
+        "input_bytes": 9993736,
+        "samples": [
+          {
+            "elapsed_seconds": 0.24855707399910898,
+            "max_event_loop_delay_seconds": 0.026214591001116786,
+            "starting_rss_bytes": 97402880,
+            "sampled_peak_rss_bytes": 208908288
+          },
+          {
+            "elapsed_seconds": 0.2156907320004393,
+            "max_event_loop_delay_seconds": 0.021577096999972126,
+            "starting_rss_bytes": 152666112,
+            "sampled_peak_rss_bytes": 205971456
+          },
+          {
+            "elapsed_seconds": 0.2177186159988196,
+            "max_event_loop_delay_seconds": 0.022896913001313805,
+            "starting_rss_bytes": 152666112,
+            "sampled_peak_rss_bytes": 205971456
+          },
+          {
+            "elapsed_seconds": 0.235616318999746,
+            "max_event_loop_delay_seconds": 0.04551603299943963,
+            "starting_rss_bytes": 152670208,
+            "sampled_peak_rss_bytes": 215969792
+          },
+          {
+            "elapsed_seconds": 0.21145418000014615,
+            "max_event_loop_delay_seconds": 0.02004052199947182,
+            "starting_rss_bytes": 152670208,
+            "sampled_peak_rss_bytes": 215969792
+          }
+        ],
+        "median_seconds": 0.2177186159988196,
+        "median_max_event_loop_delay_seconds": 0.022896913001313805,
+        "max_sampled_rss_bytes": 215969792
+      }
+    ]
+  }
+}

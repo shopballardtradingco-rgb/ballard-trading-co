@@ -1,0 +1,10 @@
+# Public recovery hub changelog
+
+## 2026-10-20 — independent source and recovery foundation
+
+- Published reviewed current BTCore 0.7.1 and BTConnect 0.6.0 source snapshots, their tests, historical documentation and legacy/native code; upstream commits and all file hashes are recorded.
+- Added a standalone system map, owner/product rules, dependency-removal roadmap, recovery runbook and agent handoff instructions.
+- Added offline restore-drill and source-verification/archive tools, plus GitHub source verification and weekly/on-push recovery workflows.
+- Core export restored offline with original hashes verified and occupied-target overwrite rejected. Complete current source and Core export copied to a private independent provider.
+- Remaining gaps are explicit: scheduled independent data backups, connector/legacy recovery, original private Git-history backup, deployment/source mirroring, open-access boundary and CDP/channel cutover acceptance.
+- Validation: 99 Core tests passed, 1 PostgreSQL-dependent test skipped locally. Production PostgreSQL/S3 failover and native iOS acceptance were not performed. No live deployment, marketplace write, secret rotation or subscription cancellation.

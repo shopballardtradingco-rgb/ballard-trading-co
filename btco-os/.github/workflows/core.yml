@@ -1,0 +1,76 @@
+name: BTCore standalone
+on:
+  push:
+    branches: [feature/standalone-btcore-app, feature/btcore-intake-v0.2, feature/card-bulk-upload, feature/marketplace-mirror, release/btcore-development]
+  pull_request:
+    paths: ['core/**', 'web/domain/**', '.github/workflows/core.yml', '.github/scripts/**']
+permissions:
+  contents: read
+jobs:
+  independent-runtime:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: synthetic-ci-password
+          POSTGRES_USER: core_test
+          POSTGRES_DB: btcore_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U core_test -d btcore_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: core/package-lock.json
+      - run: npm ci --prefix core --ignore-scripts --no-audit --no-fund
+      - run: node --test .github/scripts/promote-core.test.mjs
+      - run: npm run check --prefix core
+      - run: npm test --prefix core
+      - run: npm run test:postgres --prefix core
+        env:
+          BTCORE_TEST_DATABASE_URL: postgresql://core_test:synthetic-ci-password@127.0.0.1:5432/btcore_test
+      - run: npx --prefix core playwright install --with-deps chromium
+      - run: npm run test:browser --prefix core
+      - run: npm run test:open-browser --prefix core
+      - run: npm run test:preparation-browser --prefix core
+      - run: npm run test:pricing-browser --prefix core
+      - run: npm run test:bulk-editor-browser --prefix core
+      - run: npm run test:ebay-browser --prefix core
+      - run: npm run test:collx-browser --prefix core
+      - run: npm run test:mirror-browser --prefix core
+      - run: docker build -f core/Dockerfile -t btcore-acceptance .
+      - name: Run packaged application without external services
+        run: |
+          docker run -d --name btcore-smoke -e BTCORE_LOCAL=1 -e BTCORE_SQLITE_PATH=/tmp/btcore.sqlite -e BTCORE_ORIGIN=http://127.0.0.1:3000 btcore-acceptance
+          docker exec -i btcore-smoke node --input-type=module < core/tests/container-smoke.mjs
+      - name: Remove disposable container
+        if: always()
+        run: docker rm -f btcore-smoke || true
+  promote-development:
+    needs: independent-runtime
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feature/card-bulk-upload' && github.repository == 'shopballardtradingco-rgb/btco-os'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: btcore-development-promotion
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Promote tested commit to Railway release branch
+        run: node .github/scripts/promote-core.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CORE_RUNTIME_RESULT: ${{ needs.independent-runtime.result }}

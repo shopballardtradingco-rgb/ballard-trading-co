@@ -1,0 +1,253 @@
+{
+  "scope": "synthetic local preparation and retry only",
+  "repeats": 5,
+  "simulated_read_latency_ms": 30,
+  "summary": {
+    "baseline": {
+      "initial_seconds": 0.14826624099987384,
+      "retry_seconds": 0.14408161899973493,
+      "total_seconds": 0.2923478599996088,
+      "seconds_per_saved_draft": 0.058469571999921754,
+      "retry_reads": {
+        "policies": 2,
+        "campaigns": 1,
+        "active": 1,
+        "originals": 12
+      },
+      "request_bytes": 10331,
+      "ready": 5,
+      "injected_failures": 1,
+      "retry_calls": 1,
+      "ebay_writes": 0,
+      "owner_interactions_measured": null,
+      "identification_accuracy_measured": null,
+      "pricing_accuracy_measured": null
+    },
+    "candidate": {
+      "initial_seconds": 0.15594903599958343,
+      "retry_seconds": 0.10623444900011236,
+      "total_seconds": 0.25938261699957366,
+      "seconds_per_saved_draft": 0.051876523399914734,
+      "retry_reads": {
+        "policies": 1,
+        "campaigns": 1,
+        "active": 1,
+        "originals": 4
+      },
+      "request_bytes": 7629,
+      "ready": 5,
+      "injected_failures": 1,
+      "retry_calls": 1,
+      "ebay_writes": 0,
+      "owner_interactions_measured": null,
+      "identification_accuracy_measured": null,
+      "pricing_accuracy_measured": null
+    }
+  },
+  "runs": {
+    "baseline": [
+      {
+        "initial_seconds": 0.16127786900051433,
+        "retry_seconds": 0.14421482600027957,
+        "total_seconds": 0.3054926950007939,
+        "seconds_per_saved_draft": 0.06109853900015878,
+        "retry_reads": {
+          "policies": 2,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 12
+        },
+        "request_bytes": 10331,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      },
+      {
+        "initial_seconds": 0.14363813300042239,
+        "retry_seconds": 0.1437368979995881,
+        "total_seconds": 0.2873750310000105,
+        "seconds_per_saved_draft": 0.0574750062000021,
+        "retry_reads": {
+          "policies": 2,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 12
+        },
+        "request_bytes": 10331,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      },
+      {
+        "initial_seconds": 0.15356069300014497,
+        "retry_seconds": 0.1478954900003373,
+        "total_seconds": 0.30145618300048227,
+        "seconds_per_saved_draft": 0.06029123660009646,
+        "retry_reads": {
+          "policies": 2,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 12
+        },
+        "request_bytes": 10331,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      },
+      {
+        "initial_seconds": 0.14542341800006398,
+        "retry_seconds": 0.1394396189998588,
+        "total_seconds": 0.28486303699992277,
+        "seconds_per_saved_draft": 0.056972607399984554,
+        "retry_reads": {
+          "policies": 2,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 12
+        },
+        "request_bytes": 10331,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      },
+      {
+        "initial_seconds": 0.14826624099987384,
+        "retry_seconds": 0.14408161899973493,
+        "total_seconds": 0.2923478599996088,
+        "seconds_per_saved_draft": 0.058469571999921754,
+        "retry_reads": {
+          "policies": 2,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 12
+        },
+        "request_bytes": 10331,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      }
+    ],
+    "candidate": [
+      {
+        "initial_seconds": 0.1563493430003291,
+        "retry_seconds": 0.10553049899954203,
+        "total_seconds": 0.26187984199987113,
+        "seconds_per_saved_draft": 0.05237596839997423,
+        "retry_reads": {
+          "policies": 1,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 4
+        },
+        "request_bytes": 7629,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      },
+      {
+        "initial_seconds": 0.16555703399990307,
+        "retry_seconds": 0.12211556600050244,
+        "total_seconds": 0.2876726000004055,
+        "seconds_per_saved_draft": 0.0575345200000811,
+        "retry_reads": {
+          "policies": 1,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 4
+        },
+        "request_bytes": 7629,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      },
+      {
+        "initial_seconds": 0.15189381499931187,
+        "retry_seconds": 0.10748880200026178,
+        "total_seconds": 0.25938261699957366,
+        "seconds_per_saved_draft": 0.051876523399914734,
+        "retry_reads": {
+          "policies": 1,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 4
+        },
+        "request_bytes": 7629,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      },
+      {
+        "initial_seconds": 0.14874825999959285,
+        "retry_seconds": 0.10623444900011236,
+        "total_seconds": 0.2549827089997052,
+        "seconds_per_saved_draft": 0.05099654179994104,
+        "retry_reads": {
+          "policies": 1,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 4
+        },
+        "request_bytes": 7629,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      },
+      {
+        "initial_seconds": 0.15594903599958343,
+        "retry_seconds": 0.10254689300018072,
+        "total_seconds": 0.25849592899976415,
+        "seconds_per_saved_draft": 0.05169918579995283,
+        "retry_reads": {
+          "policies": 1,
+          "campaigns": 1,
+          "active": 1,
+          "originals": 4
+        },
+        "request_bytes": 7629,
+        "ready": 5,
+        "injected_failures": 1,
+        "retry_calls": 1,
+        "ebay_writes": 0,
+        "owner_interactions_measured": null,
+        "identification_accuracy_measured": null,
+        "pricing_accuracy_measured": null
+      }
+    ]
+  }
+}
