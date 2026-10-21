@@ -1,3 +1,5 @@
+import {migrateCDP,locationAudit,resolveInventory,linkIdentifier,reconcileEbayLinks} from './inventory-locations.mjs';
+import {fulfillmentReport,recordMarketplaceOrder,reconcileFulfillment} from './fulfillment.mjs';
 import {editListingRows} from './listing-editor.mjs';
 import {ebaySnapshot,exportSnapshot,applySnapshot,mirrorReport} from './mirror.mjs';
 import {createMirrorWorker} from './mirror-worker.mjs';
@@ -23,7 +25,7 @@ import {inspectPhoto,MAX_PHOTO,MAX_PHOTO_STORAGE,DATABASE_PHOTO_STORAGE} from '.
 
 import {objectStorageFromEnv,photoBytes,storePhoto} from './object-storage.mjs';
 
-const assets=new Map([['/listing-desk-policy.mjs',['listing-desk-policy.mjs','text/javascript']],['/listing-controls.mjs',['listing-controls.mjs','text/javascript']],['/ebay-settings.mjs',['ebay-settings.mjs','text/javascript']],['/',['index.html','text/html; charset=utf-8']],['/app.mjs',['app.mjs','text/javascript']],['/collx-ui.mjs',['collx-ui.mjs','text/javascript']],['/mirror-ui.mjs',['mirror-ui.mjs','text/javascript']],['/batch.mjs',['batch.mjs','text/javascript']],['/preparation-policy.mjs',['preparation-policy.mjs','text/javascript']],['/photo-policy.mjs',['photo-policy.mjs','text/javascript']],['/pricing.mjs',['pricing.mjs','text/javascript']],['/price-review.mjs',['price-review.mjs','text/javascript']],['/styles.css',['styles.css','text/css']],['/manifest.webmanifest',['manifest.webmanifest','application/manifest+json']],['/icon.svg',['icon.svg','image/svg+xml']]]);
+const assets=new Map([['/locations.mjs',['locations.mjs','text/javascript']],['/listing-desk-policy.mjs',['listing-desk-policy.mjs','text/javascript']],['/listing-controls.mjs',['listing-controls.mjs','text/javascript']],['/ebay-settings.mjs',['ebay-settings.mjs','text/javascript']],['/',['index.html','text/html; charset=utf-8']],['/app.mjs',['app.mjs','text/javascript']],['/collx-ui.mjs',['collx-ui.mjs','text/javascript']],['/mirror-ui.mjs',['mirror-ui.mjs','text/javascript']],['/batch.mjs',['batch.mjs','text/javascript']],['/preparation-policy.mjs',['preparation-policy.mjs','text/javascript']],['/photo-policy.mjs',['photo-policy.mjs','text/javascript']],['/pricing.mjs',['pricing.mjs','text/javascript']],['/price-review.mjs',['price-review.mjs','text/javascript']],['/styles.css',['styles.css','text/css']],['/manifest.webmanifest',['manifest.webmanifest','application/manifest+json']],['/icon.svg',['icon.svg','image/svg+xml']]]);
 const safeHeaders={'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','X-Frame-Options':'DENY','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",'Permissions-Policy':'camera=(self), microphone=(), geolocation=()'};
 const reply=(res,status,body,extra={})=>{res.writeHead(status,{'Content-Type':'application/json',...safeHeaders,...extra});res.end(JSON.stringify(body));};
 async function bytes(req,max){
@@ -86,16 +88,16 @@ export async function createApp({store,origin,setupTokenHash,allowLocal=false,ac
     if(req.headers.origin!==origin)fail('Open BTCore directly to make this change.',403);
     if(req.headers['sec-fetch-site']&&req.headers['sec-fetch-site']!=='same-origin'&&req.headers['sec-fetch-site']!=='none')fail('Cross-site changes are not allowed.',403);
    }
-   if(path==='/healthz'&&req.method==='GET'){await store.query('SELECT revision FROM core_workspace WHERE id=1');return reply(res,200,{status:'ready',product:'BTCore',version:'0.7.2'});}
+   if(path==='/healthz'&&req.method==='GET'){await store.query('SELECT revision FROM core_workspace WHERE id=1');return reply(res,200,{status:'ready',product:'BTCore',version:'0.7.3'});}
    if(['GET','HEAD'].includes(req.method)&&assets.has(path)){
     const [name,type]=assets.get(path);return await serveAsset(req,res,name,type,safeHeaders);
    }
    if(path==='/api/session'&&req.method==='GET'){
     if(openAccess){
      const current=openAccess.sessionFor(req),issued=current?null:openAccess.issue(),session=current??issued.session;
-     return reply(res,200,{authenticated:true,loginRequired:false,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.2'},issued?{'Set-Cookie':issued.cookie}:{});
+     return reply(res,200,{authenticated:true,loginRequired:false,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.3'},issued?{'Set-Cookie':issued.cookie}:{});
     }
-    const session=await sessionFor(store,req);if(session)return reply(res,200,{authenticated:true,email:session.email,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.2'});
+    const session=await sessionFor(store,req);if(session)return reply(res,200,{authenticated:true,email:session.email,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.3'});
     const owners=await store.query('SELECT id,password_hash FROM core_owner');return reply(res,200,{authenticated:false,setupRequired:!owners.length||owners[0].password_hash===OPEN_OWNER_PASSWORD,setupEnabled:Boolean(setupTokenHash)});
    }
    if(openAccess&&['/api/setup','/api/login','/api/logout','/api/password'].includes(path))fail('Sign-in is turned off for this workspace.',409);
@@ -150,6 +152,20 @@ export async function createApp({store,origin,setupTokenHash,allowLocal=false,ac
    }
    if(path==='/api/ebay/disconnect'&&req.method==='POST'){
     await mirror.disable();connector?.disconnect(res);return reply(res,200,{disconnected:true});
+   }
+   if(path==='/api/inventory/lookup'&&req.method==='GET')return reply(res,200,resolveInventory(await store.workspace(),Object.fromEntries(new URL(req.url,origin).searchParams)));
+   if(path==='/api/inventory/locations'&&req.method==='GET')return reply(res,200,locationAudit(await store.workspace()));
+   if(path==='/api/fulfillment'&&req.method==='GET')return reply(res,200,{orders:fulfillmentReport(await store.workspace())});
+   if(path==='/api/inventory/import/preview'&&req.method==='POST'){
+    const input=await body(req,10*1024*1024),state=await store.workspace();return reply(res,200,{revision:state.revision,...migrateCDP(state,input.data)});
+   }
+   if(['/api/inventory/import/cdp','/api/inventory/link','/api/fulfillment/record'].includes(path)&&req.method==='POST'){
+    const input=await body(req,10*1024*1024);
+    return reply(res,200,await mutate(session,input.expectedRevision,input.operationId,{path,data:input.data},state=>{
+     if(path==='/api/inventory/import/cdp'){const result=migrateCDP(state,input.data);const links=reconcileEbayLinks(state);return {...result,links,fulfillment:reconcileFulfillment(state)};}
+     if(path==='/api/inventory/link'){const result=linkIdentifier(state,input.data);reconcileFulfillment(state);return result;}
+     return recordMarketplaceOrder(state,input.data);
+    }));
    }
    if(path==='/api/mirror'&&req.method==='GET')return reply(res,200,{...mirrorReport(await store.workspace()),sync:await mirror.status()});
    if(path==='/api/mirror/sync'&&req.method==='POST')return reply(res,200,await mirror.enable(req,res));
@@ -310,7 +326,7 @@ if(process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1]){
  const connector=createConnector({origin,connectorOrigin:process.env.BTCONNECT_ORIGIN,key:process.env.BTCORE_CONNECTOR_KEY});
  const assessor=createCardAssessor({apiKey:apiKeyFromEnv()});
  const {server,preparation,mirror}=await createApp({store,origin,objectStore,assessor,connector,setupTokenHash:process.env.BTCORE_SETUP_TOKEN_HASH,allowLocal,accessMode:process.env.BTCORE_ACCESS_MODE??'private'});
- const port=Number(process.env.PORT??3000);server.listen(port,allowLocal?'127.0.0.1':'0.0.0.0',()=>console.log(`BTCore 0.7.2 listening on port ${port}; storage=${store.kind}`));
+ const port=Number(process.env.PORT??3000);server.listen(port,allowLocal?'127.0.0.1':'0.0.0.0',()=>console.log(`BTCore 0.7.3 listening on port ${port}; storage=${store.kind}`));
  const close=()=>server.close(async()=>{await preparation.stop();await mirror.stop();await store.close();process.exit(0);});process.on('SIGTERM',close);process.on('SIGINT',close);
 }
 

@@ -113,3 +113,6 @@ body:has(dialog[open]) .bulk-selection-dock{display:none}
  #desk-shipping .form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .desk-bulk .form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* Inventory migration controls stay usable on a narrow fulfillment screen. */
+@media(max-width:760px){.heading:has(#inventory-cdp-csv){flex-direction:column;align-items:stretch}.heading:has(#inventory-cdp-csv)>.actions{max-width:100%;flex-shrink:1;justify-content:flex-start}.heading:has(#inventory-cdp-csv) .btn{white-space:normal}.table-scroll td:nth-child(2){min-width:170px;overflow-wrap:anywhere}}

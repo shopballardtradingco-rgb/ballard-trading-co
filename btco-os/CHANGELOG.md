@@ -1,5 +1,14 @@
 ## BTCore 0.7.2 — 2026-10-20
 
+## BTCore 0.7.3 — inventory locations and fulfillment
+
+- Import original CDP inventory rows into Core with exact master identity, original cost evidence, all five physical-location fields and a dated migration baseline. Preview changes and retain exceptions without overwriting existing stock, costs or locations.
+- Search linked CDP, CollX and eBay identifiers; link eBay records only when exact master SKU and exact title agree uniquely. Keep other mappings explicit and evidence-backed.
+- Resolve order pick locations and consume confirmed paid stock once. Preserve cancellations/refunds for review without silently restocking. Keep historical orders behind the migration cutoff and financial sale reconciliation separate.
+- Show missing, partial and conflicting locations in the Vault and order observations. CollX, HipComic and Mercari feeds and automatic delisting remain unconnected.
+- Add synthetic import, lookup, fulfillment, replay, finance and mobile browser coverage. See docs/releases/0.7.3.md for validation and rollout gates.
+
+
 - Compress/revalidate static assets once per process; authenticated preview revalidation avoids repeated object reads and never loads full database originals.
 - Skip idle preparation locks and whole-workspace parsing; retain revision/lease wakeups, costs, retries and original integrity checks.
 - Prevent overlapping/background preparation polls and delayed redraws over active edits.

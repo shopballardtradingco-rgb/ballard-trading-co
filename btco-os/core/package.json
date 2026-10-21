@@ -1,6 +1,6 @@
 {
   "name": "btcore-standalone",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "private": true,
   "type": "module",
   "engines": {
@@ -18,7 +18,8 @@
     "test:bulk-editor-browser": "node tests/bulk-editor.browser.mjs",
     "test:ebay-browser": "node tests/ebay.browser.mjs",
     "test:collx-browser": "node tests/collx.browser.mjs",
-    "test:mirror-browser": "node tests/mirror.browser.mjs"
+    "test:mirror-browser": "node tests/mirror.browser.mjs",
+    "test:locations-browser": "node tests/inventory-locations.browser.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1153.0",
