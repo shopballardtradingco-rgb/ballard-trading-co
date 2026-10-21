@@ -1,8 +1,8 @@
 # CDP replacement acceptance ledger
 
-Updated 2026-10-20 · standalone BTCore 0.7.1 · development release
+Updated 2026-10-20 · standalone BTCore 0.7.2 · development release
 
-Goal: run the complete card selling workflow in Core without needing a CDP subscription or a CDP-mediated connection. CollX posting is a required cutover gate, not an optional later enhancement. Mercari and HipComic are authorized later phases under docs/CORE-MARKETPLACE-HUB.md; no live Core connection is claimed. Existing Sites/D1 data and BTConnect are separate; features in the older Site do not count as delivered in standalone Core.
+Goal: run the complete card selling workflow in Core without needing a CDP subscription or a CDP-mediated connection. Latest owner priority supersedes the earlier all-channel delivery order: performance and paid-tool independence only in this pass, CDP first, ChatGPT second. CollX, Mercari and HipComic remain secondary but integral to the eventual strategy; preserve their architecture, independent prices and provenance. Before cancelling CDP, document a safe supported or explicitly owner-accepted manual plan for every channel actually in use. Direct CollX posting is still unimplemented; reprioritization does not establish parity. Existing Sites/D1 data and BTConnect are separate; older Site features do not count as delivered in standalone Core. See docs/DEPENDENCY-AUDIT.md.
 
 **CDP is not yet fully replaceable.** The largest gaps are direct CollX publication and lifecycle access, verified listing/order reconciliation, and proven cross-channel delisting. A prepared record, CSV download, successful mock test, or manually recorded status does not satisfy a live integration gate.
 

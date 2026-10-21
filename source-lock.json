@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-20 America/Los_Angeles",
   "source_commits": {
-    "btco-os": "f09f6fdad6ae1b62ce57c3d0880130e06ba0d65b",
+    "btco-os": "089ab911eff02b02db9ce594016f155627dc2f1e",
     "btconnect": "337a5a044152d5a587ccc33587d6f6ee043ff400"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
@@ -45,8 +45,8 @@
     },
     {
       "path": "btco-os/CHANGELOG.md",
-      "upstream_git_blob": "db6ffee57450ff9325587ba9b71c4c18060c9da7",
-      "published_sha256": "3b1e89afdb1a7d69772910d4fa7e130b057dbd2716a624b0fbd84f860f80ec8a",
+      "upstream_git_blob": "79372ccd56ff31155a88a4e8269c24cfa59a933a",
+      "published_sha256": "96830d78780a5eef846f8b5b89900f0fccd7a2257c0dbec2c1beac041bb2f50c",
       "sanitized": false
     },
     {
@@ -87,8 +87,8 @@
     },
     {
       "path": "btco-os/core/README.md",
-      "upstream_git_blob": "d938b880c8a434625d3fc66e3d77bb8305260f0c",
-      "published_sha256": "9951fd1cc2ae7b25973ed671fbc4ab87d3155bc872f21af8fb8a6997297794c2",
+      "upstream_git_blob": "7d8e31858e7a4fa99c7881f3ef7f4f5732b85972",
+      "published_sha256": "da8817fcef315e5ce84f5505210ead10270a9f0e84924376976535cb4f6fb326",
       "sanitized": false
     },
     {
@@ -140,6 +140,12 @@
       "sanitized": false
     },
     {
+      "path": "btco-os/core/http-assets.mjs",
+      "upstream_git_blob": "4aa55d55d159e0bc596a1970f774b1036f85c8c4",
+      "published_sha256": "86bcafaf4ed9c7b1e0fba8ecfc44c6d2d029ae56b1b57490b1289b3424b02e62",
+      "sanitized": false
+    },
+    {
       "path": "btco-os/core/listing-defaults.mjs",
       "upstream_git_blob": "9390191e933d76bf1729743da7c9937ce1371295",
       "published_sha256": "186f5f23d5d6dce8619e06476c795b76407fafc137f19d6a49903dc89b3e9f94",
@@ -177,14 +183,14 @@
     },
     {
       "path": "btco-os/core/package-lock.json",
-      "upstream_git_blob": "0569437cce9ebdfaf00513618fa4883b65ee99ea",
-      "published_sha256": "2352d8deb8c0a8daf43a592f708e801a5fc488774fba5380c01edbf047281fb3",
+      "upstream_git_blob": "9ba6759fe5a20d6a4a1f789cfe92d4893739d8a4",
+      "published_sha256": "17695fb9f2cb02cc579de47a9f7e6dbd3189da1950e5f1449793732b4a8c8735",
       "sanitized": false
     },
     {
       "path": "btco-os/core/package.json",
-      "upstream_git_blob": "a8dbfd170d9c41704dc4cf326e70eb2f38446771",
-      "published_sha256": "512baf4780c0760cd0f51f2b479b57a7084a4ebe4c298742b3784c2c071f50e5",
+      "upstream_git_blob": "2f3f7c62e470fc7d9ed7943a24ff7fb36de7bbd5",
+      "published_sha256": "9c952ec63407bcc22059fed66517e2f4c10e239c8c6633d75d60ab902d7c382b",
       "sanitized": false
     },
     {
@@ -195,8 +201,8 @@
     },
     {
       "path": "btco-os/core/preparation.mjs",
-      "upstream_git_blob": "f38e8abce87b16a1a498ad4862fbf49b8ea3b4fb",
-      "published_sha256": "4e0e15650b421c0b7b770eafeeb91e971753db9d241c46a7ee1f38938e0ffb27",
+      "upstream_git_blob": "77247543d699a2973019c14602164ad025c00700",
+      "published_sha256": "4a9a00ef97c727f4ccf2a9a71f373cef44789e60c4aa0d50200de6b8f6db7b47",
       "sanitized": false
     },
     {
@@ -213,8 +219,8 @@
     },
     {
       "path": "btco-os/core/public/app.mjs",
-      "upstream_git_blob": "bcb8fa0fa56fd7b8aaa81e1fca99a75511f327bd",
-      "published_sha256": "bb2f81f33915f0f95af2828ffaf19e4e45b59cba1944dd9cdb773635692c6f5f",
+      "upstream_git_blob": "e181b719d8e6b856b2936446b2455256b9762884",
+      "published_sha256": "bbcafa2882928bca53f3e0631cbb1332b5bab0f73e975b3a6c0afb859b5245af",
       "sanitized": false
     },
     {
@@ -315,8 +321,8 @@
     },
     {
       "path": "btco-os/core/server.mjs",
-      "upstream_git_blob": "767ffd7a3e0397e555c443233d243b86091ba527",
-      "published_sha256": "cac9963f4227bb12d8308643f141847e9167019e256e40a30a4e99228f954a31",
+      "upstream_git_blob": "6f74871347ae15bcb01847d021b3a4858595cfa6",
+      "published_sha256": "c99b3dc4d46628805f627466580000b153422764ac6105c0e7fc783fd5eb82e4",
       "sanitized": false
     },
     {
@@ -458,6 +464,12 @@
       "sanitized": false
     },
     {
+      "path": "btco-os/core/tests/performance.test.mjs",
+      "upstream_git_blob": "02315cf198776bbfa9766729e74b0675b93daaba",
+      "published_sha256": "3f9866313160af3bc1c86bdce7571a841ef5ea41df19dadf4297592bc2a97452",
+      "sanitized": false
+    },
+    {
       "path": "btco-os/core/tests/photo-policy.test.mjs",
       "upstream_git_blob": "480c50272ea7010af592246f87b91661936a819a",
       "published_sha256": "b2d1feb5884c9f4a967deaa1d16f7614a0cb436ed8982002f0a93482db3f11a6",
@@ -537,8 +549,8 @@
     },
     {
       "path": "btco-os/docs/CDP-REPLACEMENT.md",
-      "upstream_git_blob": "8f4cdee85ed975981b15f4e3649f28723d7fdb70",
-      "published_sha256": "fba68fe30de5f78c1e0145472f514e2022a2cf76b4e911a242034fb50a282728",
+      "upstream_git_blob": "64ebe9fad36fce3dfe5c846c584e5ba639eef89b",
+      "published_sha256": "f8f3b4c4cb0a36d5ce7760bfae367f807c252cb1ca0f2579b86894edec204cec",
       "sanitized": false
     },
     {
@@ -549,8 +561,14 @@
     },
     {
       "path": "btco-os/docs/CORE-MARKETPLACE-HUB.md",
-      "upstream_git_blob": "beefbd4d2f36ee2dc50ec9bc7713f6549e2dac4d",
-      "published_sha256": "e7613734f42c9d63923a34606f68182aed19f8958960654cc00042ae97b68d98",
+      "upstream_git_blob": "f462788f05743d5a510e87fac041911a8a754d69",
+      "published_sha256": "96ce1b67893877e92b9832d4e5505f2e27fa91eabe400496f70e0464aaff6a92",
+      "sanitized": false
+    },
+    {
+      "path": "btco-os/docs/DEPENDENCY-AUDIT.md",
+      "upstream_git_blob": "c93e7f0e4f071d72f18fc038fbb0b3c05b4047f3",
+      "published_sha256": "25b95e558bfbe1d13eb1677c41bf1c9b014d9f25f5ef8abbbcdf94d46083e637",
       "sanitized": false
     },
     {
@@ -719,6 +737,12 @@
       "path": "btco-os/docs/releases/0.7.1.md",
       "upstream_git_blob": "1d9e6c3fae2dabb93d2a3ee0532fa67e3b16bdf9",
       "published_sha256": "39de0843a53b8e0391b694b5b34c6fda225fa56e8921ef4fa5f0da9c9d2cd86a",
+      "sanitized": false
+    },
+    {
+      "path": "btco-os/docs/releases/0.7.2.md",
+      "upstream_git_blob": "935af2f1fd51050dd23d246e644855236a0aec3a",
+      "published_sha256": "9e84b0f71767bd00dbee1c4f47b6405265bd2730daef9c802825ef52e1ad02be",
       "sanitized": false
     },
     {

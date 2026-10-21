@@ -1,3 +1,10 @@
+## BTCore 0.7.2 — 2026-10-20
+
+- Compress/revalidate static assets once per process; authenticated preview revalidation avoids repeated object reads and never loads full database originals.
+- Skip idle preparation locks and whole-workspace parsing; retain revision/lease wakeups, costs, retries and original integrity checks.
+- Prevent overlapping/background preparation polls and delayed redraws over active edits.
+- Document CDP-first and ChatGPT-second maintenance priorities while preserving secondary-market contracts and dated strategy evidence. No new product features, schema or paid dependencies. See docs/releases/0.7.2.md.
+
 ## BTCore 0.7.0 — 2026-10-20
 
 ## BTCore 0.7.1 — Identified years and owner condition defaults

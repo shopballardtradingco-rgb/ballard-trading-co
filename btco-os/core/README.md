@@ -1,8 +1,8 @@
 Pricing: AI research never sets the asking price. Check price on older AI-prepared cards, or enter a price for new cards, before listing approval. A suggestion is based only on matching reported sales within 180 days, uses the median item price before shipping and fees, and still needs the owner to inspect its sources. Manual asking prices do not require comps.
 
-> Latest: 0.6.0 — Read-only marketplace mirror and side-by-side trial. Direct CollX posting is not connected. See [release notes](../docs/releases/0.6.0.md) and the [CDP replacement acceptance ledger](../docs/CDP-REPLACEMENT.md).
+> Latest: 0.7.2 — Performance and independence maintenance; no new product features. See [release notes](../docs/releases/0.7.2.md), [dependency audit](../docs/DEPENDENCY-AUDIT.md) and [CDP replacement acceptance ledger](../docs/CDP-REPLACEMENT.md). Direct CollX posting remains unconnected.
 
-# BTCore standalone application · 0.6.0
+# BTCore standalone application · 0.7.2
 
 A private, independently authenticated inventory and intake application for Ballard Trading Co. It runs on Node 22 and PostgreSQL with no ChatGPT, Sites, MCP, or external identity dependency. Optional card preparation uses the OpenAI API. The existing `web/` Site and BTConnect remain separate products and data stores.
 

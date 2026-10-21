@@ -1,5 +1,13 @@
 # Public recovery hub changelog
 
+## 2026-10-20 — BTCore 0.7.2 maintenance
+
+- Gzip transfers reduce the main app script from 141,227 to 40,425 bytes (71%) and CSS from 36,403 to 8,634 bytes (76%); unchanged assets return 304.
+- Authenticated preview revalidation avoids repeated object reads and full-original database reads. Original SHA checks remain mandatory.
+- Idle AI preparation uses revision checks instead of repeated workspace parsing/locks; hidden and overlapping browser polls stop.
+- No new features, packages, schema or paid tools. Recorded CDP-first, ChatGPT-second priority and retained secondary-market architecture and provenance.
+- Source checkpoint: Core `089ab911eff02b02db9ce594016f155627dc2f1e`; Connect remains `337a5a044152d5a587ccc33587d6f6ee043ff400`. See the release evidence in docs/SYSTEM.md.
+
 ## 2026-10-20 — independent source and recovery foundation
 
 - Published reviewed current BTCore 0.7.1 and BTConnect 0.6.0 source snapshots, their tests, historical documentation and legacy/native code; upstream commits and all file hashes are recorded.

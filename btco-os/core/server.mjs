@@ -11,7 +11,7 @@ import {apiKeyFromEnv,createCardAssessor} from './ai-provider.mjs';
 import {createPreparationWorker,enqueuePreparation,approveListings,updateListingDetails,isListingApproved,needsPreparation} from './preparation.mjs';
 import {cdpCSV} from './cdp.mjs';
 import http from 'node:http';
-import {readFile} from 'node:fs/promises';
+import {serveAsset,matchesETag} from './http-assets.mjs';
 import {fileURLToPath} from 'node:url';
 import {randomUUID} from 'node:crypto';
 import {once} from 'node:events';
@@ -86,16 +86,16 @@ export async function createApp({store,origin,setupTokenHash,allowLocal=false,ac
     if(req.headers.origin!==origin)fail('Open BTCore directly to make this change.',403);
     if(req.headers['sec-fetch-site']&&req.headers['sec-fetch-site']!=='same-origin'&&req.headers['sec-fetch-site']!=='none')fail('Cross-site changes are not allowed.',403);
    }
-   if(path==='/healthz'&&req.method==='GET'){await store.query('SELECT revision FROM core_workspace WHERE id=1');return reply(res,200,{status:'ready',product:'BTCore',version:'0.7.1'});}
-   if(req.method==='GET'&&assets.has(path)){
-    const [name,type]=assets.get(path);const data=await readFile(new URL('./public/'+name,import.meta.url));res.writeHead(200,{'Content-Type':type,...safeHeaders});return res.end(data);
+   if(path==='/healthz'&&req.method==='GET'){await store.query('SELECT revision FROM core_workspace WHERE id=1');return reply(res,200,{status:'ready',product:'BTCore',version:'0.7.2'});}
+   if(['GET','HEAD'].includes(req.method)&&assets.has(path)){
+    const [name,type]=assets.get(path);return await serveAsset(req,res,name,type,safeHeaders);
    }
    if(path==='/api/session'&&req.method==='GET'){
     if(openAccess){
      const current=openAccess.sessionFor(req),issued=current?null:openAccess.issue(),session=current??issued.session;
-     return reply(res,200,{authenticated:true,loginRequired:false,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.1'},issued?{'Set-Cookie':issued.cookie}:{});
+     return reply(res,200,{authenticated:true,loginRequired:false,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.2'},issued?{'Set-Cookie':issued.cookie}:{});
     }
-    const session=await sessionFor(store,req);if(session)return reply(res,200,{authenticated:true,email:session.email,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.1'});
+    const session=await sessionFor(store,req);if(session)return reply(res,200,{authenticated:true,email:session.email,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.2'});
     const owners=await store.query('SELECT id,password_hash FROM core_owner');return reply(res,200,{authenticated:false,setupRequired:!owners.length||owners[0].password_hash===OPEN_OWNER_PASSWORD,setupEnabled:Boolean(setupTokenHash)});
    }
    if(openAccess&&['/api/setup','/api/login','/api/logout','/api/password'].includes(path))fail('Sign-in is turned off for this workspace.',409);
@@ -233,8 +233,14 @@ export async function createApp({store,origin,setupTokenHash,allowLocal=false,ac
    }
    const image=path.match(/^\/api\/photos\/([a-f0-9-]+)\/(original|preview)$/);
    if(image&&req.method==='GET'){
-    const p=(await store.query('SELECT * FROM core_photos WHERE id=? AND owner_id=?',[image[1],session.owner_id]))[0];if(!p)fail('Photo not found.',404);
-    const preview=image[2]==='preview',content=await photoBytes(p,objectStore,preview);res.writeHead(200,{...safeHeaders,'Content-Type':preview?'image/jpeg':p.media_type,'Content-Disposition':`${preview?'inline':'attachment'}; filename="${safeFilename(p.filename)}"`});return res.end(content);
+    // Authenticate and check ownership before validating any cached derivative.
+    // Read metadata first so an unchanged preview never reads a blob or S3 object.
+    const params=[image[1],session.owner_id],p=(await store.query('SELECT id,filename,media_type,sha256,original_key,preview_key FROM core_photos WHERE id=? AND owner_id=?',params))[0];if(!p)fail('Photo not found.',404);
+    const preview=image[2]==='preview',etag='W/"preview-v1-'+p.id+'-'+hash(p.preview_key??p.sha256)+'"',cache=preview?{'Cache-Control':'private, no-cache',ETag:etag}:{};
+    if(preview&&matchesETag(req.headers['if-none-match'],etag)){res.writeHead(304,{...safeHeaders,...cache});return res.end();}
+    const column=preview?'preview':'original';
+    if(!p[column+'_key'])Object.assign(p,(await store.query(`SELECT ${column} FROM core_photos WHERE id=? AND owner_id=?`,params))[0]);
+    const content=await photoBytes(p,objectStore,preview);res.writeHead(200,{...safeHeaders,...cache,'Content-Type':preview?'image/jpeg':p.media_type,'Content-Disposition':`${preview?'inline':'attachment'}; filename="${safeFilename(p.filename)}"`});return res.end(content);
    }
    if(path==='/api/export/inventory.csv'&&req.method==='GET'){const state=await store.workspace();res.writeHead(200,{...safeHeaders,'Content-Type':'text/csv','Content-Disposition':'attachment; filename="BTCore-inventory.csv"'});return res.end(inventoryCSV(state.inventory));}
    if(path==='/api/export/sales.csv'&&req.method==='GET'){const state=await store.workspace();res.writeHead(200,{...safeHeaders,'Content-Type':'text/csv','Content-Disposition':'attachment; filename="BTCore-sales.csv"'});return res.end(salesCSV(state.inventory));}
@@ -304,7 +310,7 @@ if(process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1]){
  const connector=createConnector({origin,connectorOrigin:process.env.BTCONNECT_ORIGIN,key:process.env.BTCORE_CONNECTOR_KEY});
  const assessor=createCardAssessor({apiKey:apiKeyFromEnv()});
  const {server,preparation,mirror}=await createApp({store,origin,objectStore,assessor,connector,setupTokenHash:process.env.BTCORE_SETUP_TOKEN_HASH,allowLocal,accessMode:process.env.BTCORE_ACCESS_MODE??'private'});
- const port=Number(process.env.PORT??3000);server.listen(port,allowLocal?'127.0.0.1':'0.0.0.0',()=>console.log(`BTCore 0.7.1 listening on port ${port}; storage=${store.kind}`));
+ const port=Number(process.env.PORT??3000);server.listen(port,allowLocal?'127.0.0.1':'0.0.0.0',()=>console.log(`BTCore 0.7.2 listening on port ${port}; storage=${store.kind}`));
  const close=()=>server.close(async()=>{await preparation.stop();await mirror.stop();await store.close();process.exit(0);});process.on('SIGTERM',close);process.on('SIGINT',close);
 }
 

@@ -37,20 +37,24 @@ export function updateListingDetails(state,entries){
  return {updated:updates.length};
 }
 export function createPreparationWorker({store,objectStore,assessor,monthlyBudgetMicros=10000000,commit,clock=()=>Date.now()}){
- let running=false,stopped=false,timer;
+ let running=false,stopped=false,timer,idle=null;
  const tick=async()=>{
   if(running||stopped||!assessor)return;running=true;
   try{
+   // Idle checks read only the revision, avoiding a full workspace parse and
+   // row lock every 1.5 seconds. Other processes still wake us through revisions.
+   if(idle&&clock()<idle.until){const row=(await store.query('SELECT revision FROM core_workspace WHERE id=1'))[0];if(row.revision===idle.revision)return;}
+   idle=null;
    const job=await commit(async(state,q)=>{
     let changed=false;for(const d of state.drafts){if(d.preparation?.status==='running'&&d.preparation.leaseUntil<clock()){d.preparation.status='error';d.preparation.error='Preparation was interrupted. Retry this card.';changed=true;}}
-    const d=state.drafts.find(d=>d.status==='draft'&&d.preparation?.status==='queued');if(!d)return {changed};
+    const d=state.drafts.find(d=>d.status==='draft'&&d.preparation?.status==='queued');if(!d)return {changed,idle:{revision:state.revision,until:Math.min(Infinity,...state.drafts.filter(d=>d.preparation?.status==='running').map(d=>d.preparation.leaseUntil))}};
     const period=new Date(clock()).toISOString().slice(0,7);state.aiUsage??={};const usage=state.aiUsage[period]??={chargedMicros:0,attempts:0};
     if(usage.chargedMicros+RESERVE_MICROS>monthlyBudgetMicros){d.preparation.status='error';d.preparation.error='Monthly AI allowance reached. Saved photos remain available.';return {changed:true};}
     const owner=(await q('SELECT id FROM core_owner'))[0];if(!owner)return {changed};
     usage.chargedMicros+=RESERVE_MICROS;usage.attempts++;const token=randomUUID();d.preparation={...d.preparation,status:'running',token,startedAt:now(),leaseUntil:clock()+240000,attempts:d.preparation.attempts+1,inputFingerprint:fingerprint(d)};
     return {changed:true,job:{draft:structuredClone(d),ownerId:owner.id,token,period}};
    });
-   if(!job?.job)return;const {draft,ownerId,token,period}=job.job;
+   if(!job?.job){idle=job?.idle??null;return;}const {draft,ownerId,token,period}=job.job;
    let assessment,error,errorStatus;
    try{const photos=[];for(const ref of draft.photos){const p=(await store.query('SELECT * FROM core_photos WHERE id=? AND owner_id=?',[ref.id,ownerId]))[0];if(!p)fail('An original photo could not be read.',502);photos.push({role:ref.role,bytes:await photoBytes(p,objectStore)});}assessment=await assessor({draft,photos});}
    catch(e){errorStatus=e.status;error=e.status?e.message:'Card preparation failed. Your saved photos are safe.';}

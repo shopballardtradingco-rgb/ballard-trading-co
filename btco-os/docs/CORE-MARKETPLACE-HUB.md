@@ -1,5 +1,7 @@
 # Core marketplace hub — owner direction, October 20, 2026
 
+Latest maintenance direction: no new features in the current pass. Improve performance and independence from paid tools, CDP first and ChatGPT second. The other marketplaces remain secondary in delivery order and integral to the owner's eventual patent strategy. Preserve channel contracts and dated implementation evidence; the future phases below are not authorization to expand this maintenance release. See [dependency audit](DEPENDENCY-AUDIT.md).
+
 Core is the operating hub. The owner approved an exception-first listing workflow and, in later phases, HipComic, Mercari and CollX publishing and sale synchronization. Marketplace publication still requires the owner's final confirmation for the exact reviewed cards. This direction does not authorize sending the prepared CollX access request or purchasing services.
 
 ## Phase 1: current eBay card workflow
