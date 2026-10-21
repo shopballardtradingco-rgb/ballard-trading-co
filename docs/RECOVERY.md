@@ -7,11 +7,13 @@ Updated October 20, 2026 (Pacific). Recovery is a release requirement. This docu
 | Layer | Evidence | What it does not cover |
 | --- | --- | --- |
 | Current source | 530 files recovered from exact Core and Connect commits, all original Git blob hashes matched; reviewed public snapshot | Complete original Git histories, GitHub settings, issues, PRs or secrets |
-| Independent source copy | Complete original source snapshot uploaded to owner-only Google Drive recovery folder | A scheduled mirror or live-deployment migration |
-| Core logical backup | Full workspace plus original bytes exported and copied to owner-only Google Drive | Passwords, sessions, saved eBay authorization grants, connector database, legacy D1 or account recovery |
+| Independent source copy | Complete original source snapshot uploaded to owner-only Google Drive recovery folder, downloaded again and SHA-256 verified | A scheduled mirror or live-deployment migration |
+| Core logical backup | Full workspace plus original bytes exported and copied to owner-only Google Drive, downloaded again and SHA-256 verified | Passwords, sessions, saved eBay authorization grants, connector database, legacy D1 or account recovery |
 | Restore drill | Offline empty workspace restored; every original read back and hash verified; a second restore into the occupied target was rejected | A production PostgreSQL/S3 failover, cross-channel resumption or reconnecting seller grants |
-| GitHub source archive workflow | On-push, manual and weekly workflow defined here; creates source tarball, public Git bundle and checksums; retains Actions artifact for 90 days | Independent-provider delivery and runtime data backup; first successful run must be verified |
+| GitHub source archive workflow | First on-push run succeeded; on-push/manual/weekly workflow creates source tarball, public Git bundle and checksums, retaining each Actions artifact for 90 days | Scheduled independent-provider delivery and runtime data backup |
 | Railway volume backup | Current account's Backups screen requires a Pro upgrade to create snapshots or schedules | No new backup plan/subscription was activated; no native schedule is claimed |
+
+Checkpoint evidence: [first source archive run](https://github.com/shopballardtradingco-rgb/ballard-trading-co/actions/runs/39541817600) and [Core/Connect CI](https://github.com/shopballardtradingco-rgb/ballard-trading-co/actions/runs/39541817538) succeeded on public commit `c02e894853375088817534f288aac199f92bcc8f`. All 546 public file blobs at that commit matched the reviewed local content.
 
 ## Target policy — not yet fully active
 

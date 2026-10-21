@@ -15,6 +15,9 @@ base="$out/ballard-source-$stamp-$sha"
 git archive --format=tar.gz --prefix=ballard-trading-co/ --output="$base.tar.gz" HEAD
 git bundle create "$base.bundle" --all
 git bundle verify "$base.bundle"
-sha256sum "$base.tar.gz" "$base.bundle" > "$base.sha256"
+(
+  cd "$out"
+  sha256sum "$(basename "$base.tar.gz")" "$(basename "$base.bundle")" > "$base.sha256"
+)
 printf 'Source recovery files created for commit %s in %s\n' "$sha" "$out"
 echo 'Copy them to another provider or an offline device. This does not back up runtime inventory, photos or credentials.'
