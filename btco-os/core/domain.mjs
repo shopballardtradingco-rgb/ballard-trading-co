@@ -1,3 +1,5 @@
+import {validateLocations,normalizeLocation} from './inventory-locations.mjs';
+import {validateFulfillment} from './fulfillment.mjs';
 import {conditionChoices} from './public/listing-controls.mjs';
 import {validateMirror} from './mirror.mjs';
 import {validateChannelRecords} from './collx.mjs';
@@ -19,7 +21,8 @@ export function itemInput(input,previous){
  const item={...(previous??makeItem()),...input};
  if(!previous){item.id=randomUUID();if(!item.sku)item.sku='CORE-'+item.id.slice(0,8).toUpperCase();}
  item.askCents=roundAskingCents(item.askCents);
- if(previous?.source?.cdpSku&&item.sku!==previous.sku)fail('The confirmed master SKU is locked.');
+ if((previous?.source?.cdpSku||previous?.cdpLink?.sku)&&item.sku!==previous.sku)fail('The confirmed master SKU is locked.');
+ if(previous&&Object.hasOwn(input,'location')&&input.location!==previous.location){item.physicalLocation=normalizeLocation({Location:input.location},'owner');}
  return item;
 }
 const draftFields=['shippingMode','team','sport','condition','rookie','title','kind','location','subject','year','setName','number','parallel','serial','gradeCompany','grade','cert','notes','vendor','acquisitionRef','acquiredDate','autograph','costCents','askCents','description','conditionNotes','identityReviewed','conditionReviewed','photoPolicy','cardClass','singlePhotoMaxCents','memorabilia'];
@@ -101,9 +104,16 @@ export function editInventory(state,input,itemId){
 }
 export function saveSale(state,input){
  if(input.id||input.cogsCents!==undefined||input.voidedAt!==undefined)fail('Sale identifiers and cost allocation are calculated by BTCore.');
- state.inventory=recordSale(state.inventory,{...input});return {saleId:state.inventory.sales.at(-1).id};
+ const allocations=state.inventory.marketplaceAllocations??[];
+ const matches=allocations.filter(a=>a.itemId===input.itemId&&!a.accountedSaleId&&a.channel===input.channel?.toLowerCase()&&a.orderId===input.reference);
+ if(matches.length){
+  if(matches.length!==1||matches[0].quantity!==input.quantity)fail('Select and reconcile the exact marketplace order line before recording its finances.',409);
+  const a=matches[0],inventory=structuredClone(state.inventory);inventory.marketplaceAllocations=inventory.marketplaceAllocations.filter(x=>x.id!==a.id);
+  const next=recordSale(inventory,{...input});next.marketplaceAllocations.push({...a,accountedSaleId:next.sales.at(-1).id});state.inventory=next;
+ }else state.inventory=recordSale(state.inventory,{...input});
+ return {saleId:state.inventory.sales.at(-1).id};
 }
-export function reverseSale(state,id){state.inventory=voidSale(state.inventory,id);return {saleId:id};}
+export function reverseSale(state,id){state.inventory=voidSale(state.inventory,id);for(const a of state.inventory.marketplaceAllocations??[])if(a.accountedSaleId===id)delete a.accountedSaleId;return {saleId:id};}
 export function validateWorkspace(state){
  if(!state||state.schemaVersion!==1||!Array.isArray(state.drafts)||state.drafts.length>10000||!Number.isSafeInteger(state.revision)||state.revision<0)fail('Invalid workspace.');
  validateState(state.inventory);if(state.inventory.mode!=='work'||state.inventory.revision!==state.revision)fail('Invalid workspace revision.');
@@ -122,6 +132,8 @@ export function validateWorkspace(state){
    photoIds.add(p.id);if(!retired)roles.add(p.role);
   }
  }
+ validateLocations(state);
+ validateFulfillment(state);
  validateChannelRecords(state);
  validateMirror(state);
  return state;

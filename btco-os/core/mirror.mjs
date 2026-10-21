@@ -1,3 +1,5 @@
+import {checkedRaw,normalizeLocation,locationStatus,reconcileEbayLinks} from './inventory-locations.mjs';
+import {reconcileFulfillment,fulfillmentReport} from './fulfillment.mjs';
 import {createHash} from 'node:crypto';
 import {validateListingPages} from '../web/domain/ebay-api-refresh.mjs';
 import {remaining,listingPrice,cents} from '../web/domain/core.mjs';
@@ -49,7 +51,7 @@ export function exportSnapshot(input,{now=Date.now()}={}){
  if(!['cdp','collx'].includes(input.source)||!stamp(input.observedAt)||Date.parse(input.observedAt)>now+300000||!Array.isArray(input.records)||input.records.length>20000)fail('Invalid dated export.');
  const ids=new Set();const records=input.records.map(r=>{
   if(!text(r.id,200)||!r.id.trim()||ids.has(r.id)||!text(r.sku,4000)||!text(r.title,4000)||![null,undefined].includes(r.priceCents)&&(!Number.isSafeInteger(r.priceCents)||r.priceCents<0||r.priceCents>99999999999)||r.quantity!==null&&(!Number.isSafeInteger(r.quantity)||r.quantity<0||r.quantity>1000000)||!text(r.status,100)||!text(r.ebayId??'',100)||!text(r.collxId??'',200))fail('Invalid or duplicate export row.');
-  ids.add(r.id);return {id:r.id,sku:r.sku,title:r.title,priceCents:r.priceCents??null,quantity:r.quantity,status:r.status||'unknown',ebayId:r.ebayId??'',collxId:r.collxId??''};
+  ids.add(r.id);return {id:r.id,sku:r.sku,title:r.title,priceCents:r.priceCents??null,quantity:r.quantity,status:r.status||'unknown',ebayId:r.ebayId??'',collxId:r.collxId??'',...(r.raw?{raw:checkedRaw(r.raw),physicalLocation:normalizeLocation(r.raw,input.source)}:{})};
  });return {source:input.source,observedAt:input.observedAt,records,atomic:false,provenance:'owner-export'};
 }
 export function applySnapshot(state,snapshot){
@@ -58,14 +60,16 @@ export function applySnapshot(state,snapshot){
  if(prior&&Date.parse(prior.observedAt)>=Date.parse(snapshot.observedAt))fail('This observation is not newer than the saved source.');
  const before=new Map((prior?.records??[]).map(r=>[r.id,r])),seen=new Set(),changes=[];
  const fields=['sku','title','priceCents','quantity','status','variationReview','ebayId','collxId'];
- const records=snapshot.records.map(r=>{seen.add(r.id);const old=before.get(r.id),changed=old?fields.filter(f=>(old[f]??null)!==(r[f]??null)):[];if(old?.notSeenSince)changed.push('reappeared');if(old&&changed.length)changes.push({source:snapshot.source,id:r.id,at:snapshot.observedAt,fields:changed,before:Object.fromEntries(changed.map(f=>[f,old[f]??null])),after:Object.fromEntries(changed.map(f=>[f,r[f]??null]))});if(prior&&!old)changes.push({source:snapshot.source,id:r.id,at:snapshot.observedAt,fields:['new'],before:null,after:null});return {...r};});
+ const records=snapshot.records.map(r=>{seen.add(r.id);const old=before.get(r.id),changed=old?fields.filter(f=>(old[f]??null)!==(r[f]??null)):[];if(old?.notSeenSince)changed.push('reappeared');if(old&&changed.length)changes.push({source:snapshot.source,id:r.id,at:snapshot.observedAt,fields:changed,before:Object.fromEntries(changed.map(f=>[f,old[f]??null])),after:Object.fromEntries(changed.map(f=>[f,r[f]??null]))});if(prior&&!old)changes.push({source:snapshot.source,id:r.id,at:snapshot.observedAt,fields:['new'],before:null,after:null});return {...r,...(locationStatus(r.physicalLocation)==='missing'&&old?.physicalLocation?{physicalLocation:old.physicalLocation,raw:old.raw}:{})};});
  for(const r of before.values())if(!seen.has(r.id)){records.push({...r,notSeenSince:r.notSeenSince??snapshot.observedAt});if(!r.notSeenSince)changes.push({source:snapshot.source,id:r.id,at:snapshot.observedAt,fields:['not_seen'],before:null,after:null});}
  if(records.length>25000)fail('Mirror limit reached; export the history before continuing.');
- // Only observations are updated. Physical stock, listing approvals and target prices are untouched.
+ // Observations remain separate; confirmed linked orders are allocated by the fulfillment ledger below.
  const next=structuredClone(m);next.sources[snapshot.source]={...snapshot,records,fingerprint};
  if(snapshot.source==='ebay'&&prior?.orders){const orders=new Map(prior.orders.records.map(o=>[o.id,o]));for(const o of snapshot.orders.records){const old=orders.get(o.id);if(!old||Date.parse(o.modifiedAt)>=Date.parse(old.modifiedAt)){if(!old)changes.push({source:'ebay-order',id:o.id,at:snapshot.observedAt,fields:['new_order'],before:null,after:{payment:o.payment,fulfillment:o.fulfillment,cancellation:o.cancellation}});if(old&&hash(old)!==hash(o))changes.push({source:'ebay-order',id:o.id,at:snapshot.observedAt,fields:['order_changed'],before:{payment:old.payment,fulfillment:old.fulfillment,cancellation:old.cancellation},after:{payment:o.payment,fulfillment:o.fulfillment,cancellation:o.cancellation}});orders.set(o.id,o);}}if(orders.size>20000)fail('Order mirror limit reached.');next.sources.ebay.orders={...snapshot.orders,records:[...orders.values()]};}
  next.history.push(...changes);next.droppedChanges+=Math.max(0,next.history.length-5000);next.history=next.history.slice(-5000);
  next.runs=[...next.runs,{source:snapshot.source,at:snapshot.observedAt,records:snapshot.records.length,changes:changes.length,fingerprint}].slice(-2000);state.marketplaceMirror=next;
+ reconcileEbayLinks(state);
+ reconcileFulfillment(state);
  return {records:snapshot.records.length,changes:changes.length,replayed:false};
 }
 export function validateMirror(state){
@@ -86,6 +90,6 @@ export function mirrorReport(state,now=Date.now()){
   const issues=[];if(r.notSeenSince)issues.push('Not seen in latest feed — status unresolved');if(r.variationReview)issues.push('Variation mapping required');if(!i)issues.push(matches.length?'Multiple Core records match':'No verified Core listing link');if(!c)issues.push(refs.length?'Multiple CDP records match':'No CDP listing link');if(c&&(c.priceCents===null||c.quantity===null))issues.push('CDP price or quantity unknown');if(cx&&(cx.priceCents===null||cx.quantity===null))issues.push('CollX price or quantity unknown');if(i&&listingPrice(i,'ebay').priceCents===null)issues.push('Core eBay price unknown');if(c?.notSeenSince)issues.push('CDP record not seen in latest export');if(c&&!['active','listed'].includes(c.status.toLowerCase()))issues.push('CDP status differs or needs review');if(cx&&!['active','listed'].includes(cx.status.toLowerCase()))issues.push('CollX status differs or needs review');if(c&&c.priceCents!==null&&c.priceCents!==r.priceCents)issues.push('CDP / eBay price differs');if(c&&c.quantity!==null&&c.quantity!==r.quantity)issues.push('CDP / eBay quantity differs');if(i&&listingPrice(i,'ebay').priceCents!==null&&listingPrice(i,'ebay').priceCents!==r.priceCents)issues.push('Core / eBay price differs');if(i&&remaining(state.inventory,i)!==r.quantity)issues.push('Core / eBay quantity differs');if(!c?.collxId)issues.push('No verified CollX listing link');if(c?.collxId&&!cx)issues.push('CollX listing link unresolved');if(cx?.notSeenSince)issues.push('CollX record not seen in latest export');
   return {...r,core:i?{id:i.id,sku:i.sku,priceCents:listingPrice(i,'ebay').priceCents,quantity:remaining(state.inventory,i),location:i.location}:null,cdp:c??null,collx:cx??null,issues};
  });
- const orders=m.sources.ebay?.orders?.records??[];
+ const orders=fulfillmentReport(state);
  return {sources:Object.fromEntries(Object.entries(m.sources).map(([k,s])=>[k,{observedAt:s.observedAt,records:s.records.filter(r=>!r.notSeenSince).length,stale:now-Date.parse(s.observedAt)>86400000,provenance:s.provenance??'eBay API',orderWindow:s.orders?{startDate:s.orders.startDate,endDate:s.orders.endDate}:null}])),rows,orders,history:m.history.slice(-100).reverse(),runs:m.runs.slice(-50).reverse(),droppedChanges:m.droppedChanges??0,summary:{listings:rows.filter(r=>!r.notSeenSince).length,attention:rows.filter(r=>r.issues.length).length,orders:orders.length,unresolvedOrders:orders.filter(o=>o.fulfillment!=='FULFILLED'||o.payment!=='PAID'||o.cancellation!=='NONE_REQUESTED').length},capabilities:{marketplaceWrites:false,collxApi:false,automaticDelisting:false}};
 }

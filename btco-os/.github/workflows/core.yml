@@ -43,6 +43,7 @@ jobs:
       - run: npm run test:ebay-browser --prefix core
       - run: npm run test:collx-browser --prefix core
       - run: npm run test:mirror-browser --prefix core
+      - run: npm run test:locations-browser --prefix core
       - run: docker build -f core/Dockerfile -t btcore-acceptance .
       - name: Run packaged application without external services
         run: |

@@ -15,14 +15,15 @@ export function cents(value, optional=false) {
   return Number(whole)*100+Number(decimal.padEnd(2,'0'));
 }
 export const emptyState = (mode='work') => ({schemaVersion:VERSION, workspace: mode==='demo'?'btco-demo':'btco-local', mode, revision:0, items:[], sales:[], events:[]});
-export function remaining(state, item) { return item.availability==='review'?0:item.quantity-(item.sourceSoldQuantity??0)-state.sales.filter(s=>s.itemId===item.id&&!s.voidedAt).reduce((n,s)=>n+s.quantity,0); }
+export function marketplaceSold(state,item){return (state.marketplaceAllocations??[]).filter(a=>a.itemId===item.id&&!a.accountedSaleId).reduce((n,a)=>n+a.quantity,0);}
+export function remaining(state, item) { return item.availability==='review'?0:item.quantity-(item.sourceSoldQuantity??0)-marketplaceSold(state,item)-state.sales.filter(s=>s.itemId===item.id&&!s.voidedAt).reduce((n,s)=>n+s.quantity,0); }
 export function status(state,item) { return item.availability==='review'?'review':remaining(state,item)===0?'sold':item.status; }
 export function profit(sale) {
   if(sale.cogsCents==null) return null;
   return sale.revenueCents+sale.shippingCollectedCents-sale.cogsCents-sale.sellingFeeCents-sale.promoFeeCents-sale.postageCents-sale.suppliesCents-sale.refundCents;
 }
 export function remainingCost(state,item) {
-  if(item.costCents==null || item.availability==='review') return null;
+  if(item.costCents==null || item.availability==='review'||marketplaceSold(state,item)>0) return null;
   return item.costCents-state.sales.filter(s=>s.itemId===item.id&&!s.voidedAt).reduce((n,s)=>n+(s.cogsCents??0),0);
 }
 export function summary(state) {
@@ -107,7 +108,7 @@ export function saveItem(state,input) {
   const next=structuredClone(state), item=validateItem(structuredClone(input));
   if(next.items.some(i=>i.id!==item.id&&i.sku.toLowerCase()===item.sku.toLowerCase())) fail('That SKU already exists. Choose a unique SKU.');
   const index=next.items.findIndex(i=>i.id===item.id), old=next.items[index];
-  if(old && (next.sales.some(s=>s.itemId===old.id&&!s.voidedAt)||(old.sourceSoldQuantity??0)>0) && (item.quantity!==old.quantity||item.costCents!==old.costCents)) fail('Quantity and acquisition cost are locked while this item has recorded sales. Imported sales need a financial reconciliation.');
+  if(old && (next.sales.some(s=>s.itemId===old.id&&!s.voidedAt)||(old.sourceSoldQuantity??0)>0||marketplaceSold(next,old)>0) && (item.quantity!==old.quantity||item.costCents!==old.costCents)) fail('Quantity and acquisition cost are locked while this item has recorded sales. Imported sales need a financial reconciliation.');
   if(old?.availability==='review'&&item.availability!=='review'&&item.verification!=='verified') fail('Physically verify this historical item before counting it as available stock.');
   if(old) next.items[index]=item; else next.items.push(item);
   audit(next,old?'item.updated':'item.created',item.id,{before:old??null,after:item});
@@ -126,6 +127,7 @@ export function recordSale(state,input) {
   if(!item) fail('Item not found.');
   if(item.verification==='awaiting') fail('Receive this item before recording a sale.');
   if(!integer(input.quantity,1)||input.quantity>remaining(next,item)) fail('Sale quantity exceeds available stock.');
+  if(marketplaceSold(next,item)>0)fail('Reconcile the marketplace sale allocation before recording financial sales for this item.');
   const sold=item.quantity-remaining(next,item);
   const used=next.sales.filter(s=>s.itemId===item.id&&!s.voidedAt).reduce((n,s)=>n+(s.cogsCents??0),0);
   // Proportional allocation, with all remaining cents assigned to the final sale.
@@ -137,7 +139,7 @@ export function recordSale(state,input) {
 export function voidSale(state,id) {
   const next=structuredClone(state), sale=next.sales.find(s=>s.id===id);
   if(!sale||sale.voidedAt) fail('This sale has already been voided or is missing.');
-  sale.voidedAt=new Date().toISOString(); audit(next,'sale.voided',id,{reason:'Correction: stock and cost restored. No external refund or restock performed.'});
+  sale.voidedAt=new Date().toISOString();for(const a of next.marketplaceAllocations??[])if(a.accountedSaleId===id)delete a.accountedSaleId; audit(next,'sale.voided',id,{reason:'Correction: stock and cost restored. No external refund or restock performed.'});
   return next;
 }
 export function validateState(s) {
@@ -146,6 +148,12 @@ export function validateState(s) {
   if(s.items.length>50000||s.sales.length>100000||s.events.length>200000) fail('Backup exceeds prototype capacity.');
   const ids=new Set(),skus=new Set();
   for(const i of s.items) { validateItem(i); if(ids.has(i.id)||skus.has(i.sku.toLowerCase())) fail('Backup contains duplicate IDs or SKUs.'); ids.add(i.id);skus.add(i.sku.toLowerCase()); }
+  if(s.marketplaceAllocations!==undefined){
+    if(!Array.isArray(s.marketplaceAllocations)||s.marketplaceAllocations.length>100000)fail('Invalid marketplace stock allocations.');
+    const seen=new Set();for(const a of s.marketplaceAllocations){
+      if(!validId(a.id)||seen.has(a.id)||!ids.has(a.itemId)||!integer(a.quantity,1)||!['ebay','collx','hipcomic','mercari'].includes(a.channel)||typeof a.orderId!=='string'||!a.orderId||typeof a.lineId!=='string'||!a.lineId||!Number.isFinite(Date.parse(a.createdAt))||!Number.isFinite(Date.parse(a.allocatedAt))||(a.accountedSaleId!==undefined&&!s.sales.some(x=>x.id===a.accountedSaleId&&x.itemId===a.itemId&&x.quantity===a.quantity&&!x.voidedAt)))fail('Invalid marketplace stock allocation.');seen.add(a.id);
+    }
+  }
   const saleIds=new Set();
   for(const sale of s.sales) {validateSale(sale);if(saleIds.has(sale.id)||!ids.has(sale.itemId)) fail('Duplicate or orphan sale in backup.');saleIds.add(sale.id);}
   for(const item of s.items) {
@@ -153,7 +161,7 @@ export function validateState(s) {
     const live=s.sales.filter(x=>x.itemId===item.id&&!x.voidedAt);
     if(live.some(x=>(item.costCents===null)!==(x.cogsCents===null))) fail('Inconsistent acquisition cost in backup.');
     const used=live.reduce((n,x)=>n+(x.cogsCents??0),0);
-    if(item.costCents!==null&&(used>item.costCents||(item.availability!=='review'&&remaining(s,item)===0&&used!==item.costCents))) fail('Inconsistent cost allocations in backup.');
+    if(item.costCents!==null&&(used>item.costCents||(item.availability!=='review'&&remaining(s,item)===0&&marketplaceSold(s,item)===0&&used!==item.costCents))) fail('Inconsistent cost allocations in backup.');
   }
   if(s.externalSales!==undefined){
     if(!Array.isArray(s.externalSales)||s.externalSales.length>100000) fail('Invalid external sales.');
@@ -187,6 +195,8 @@ export function previewImport(state,incoming) {
 export function mergeImport(state,incoming) {
   const p=previewImport(state,incoming), next=structuredClone(state);
   next.items.push(...structuredClone(p.accepted)); next.sales.push(...structuredClone(p.sales));
+  const acceptedIds=new Set(p.accepted.map(i=>i.id));
+  next.marketplaceAllocations=[...(next.marketplaceAllocations??[]),...structuredClone((incoming.marketplaceAllocations??[]).filter(a=>acceptedIds.has(a.itemId)))];
   if(p.accepted.length)delete next.channelFactsVersion;
   next.externalSales=[...(next.externalSales??[]),...structuredClone(p.externalSales)];
   next.importBatches=[...(next.importBatches??[]),...structuredClone((incoming.importBatches??[]).filter(b=>!(next.importBatches??[]).some(x=>x.id===b.id)))];

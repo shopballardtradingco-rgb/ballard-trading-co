@@ -1,3 +1,9 @@
+# Location migration checkpoint — October 21, 2026
+
+BTCore 0.7.3 source: private implementation PR #8, commit `93a045a8e16bcdaba72b14a0e4289b501c56e70a`. [Release contract](../btco-os/docs/releases/0.7.3.md). The public copy preserves the exact implementation, synthetic tests and field mapping; actual export reconciliation and backup artifacts remain private.
+
+This checkpoint adds CDP inventory migration, linked physical-location lookup and order stock allocation. CDP is a migration source. CollX, HipComic and Mercari automatic sales feeds and cross-market delisting remain incomplete. CI and the live migration are separate acceptance gates; source availability alone does not establish inventory parity.
+
 # System map — October 20, 2026
 
 | Component | Current runtime | Data/state | Independence status |
