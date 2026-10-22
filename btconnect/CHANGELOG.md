@@ -1,3 +1,9 @@
+# Independent publisher execution — 2026-10-22
+
+- Run the existing saved-batch publisher on GitHub Actions without a hosted Core/Connect API or Railway connection. Require exact-source CI and exact listing approval.
+- Restore and synchronously checkpoint the same encrypted publication journal and original objects in a private state branch. Stop the whole runner on unconfirmed persistence; preserve unknown outcomes across runner loss.
+- Add recovery seeding with original-hash verification and an automatic names-only configuration check. No live activation, credentials, state migration or listing approval is included. See `docs/releases/independent-publisher-2026-10-22.md`.
+
 # 0.6.0 — 2026-10-20
 
 Card listing contracts, condition descriptors, existing batch publisher support and exact standalone Core OAuth callback.

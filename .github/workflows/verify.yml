@@ -39,4 +39,4 @@ jobs:
           python-version: '3.12'
       - run: pip install -r requirements.lock.txt
       - run: pip install -e '.[test]'
-      - run: pytest -q
+      - run: python -m pytest -q
