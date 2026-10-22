@@ -15,7 +15,7 @@ data/publisher cutover remain acceptance work, not completed deployment.
 
 [GitHub-only security audit and recovery blockers](docs/SECURITY-RECOVERY-2026-10-21.md). Core runtime packaging now retains the tested Docker image for independent hosting; source/artifact readiness is separate from live deployment.
 
-Publisher recovery: [run the existing eBay publisher independently on GitHub](btconnect/docs/releases/independent-publisher-2026-10-22.md). Source and recovery tests are ready; live activation still requires the private recovered journal and seller authorization.
+Publisher recovery: [run the existing eBay publisher independently on GitHub](btconnect/docs/releases/independent-publisher-2026-10-22.md). The [Core staged-card handoff](btconnect/docs/releases/core-handoff-2026-10-22.md) now transfers verified backup originals through the existing publisher. Source and recovery tests are ready; live activation still requires the private recovered journal and seller authorization.
 
 - [Independence roadmap and acceptance gates](docs/INDEPENDENCE.md)
 - [System map and current state](docs/SYSTEM.md)
