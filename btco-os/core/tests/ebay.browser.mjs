@@ -124,7 +124,7 @@ try{
  await top.getByRole('button',{name:'Get ready to publish (2)',exact:true}).click();await final.getByRole('button',{name:'Publish selected (2)',exact:true}).waitFor();
  const before=published,callsBefore=publishCalls;rejectNext=true;
  page.once('dialog',d=>d.accept());await final.getByRole('button',{name:'Publish selected (2)',exact:true}).click();
- await page.locator('.desk-row-status a').filter({hasText:'View listing'}).first().waitFor();
+ await page.locator('#desk-panel .desk-review-list a[href^="https://www.ebay.com/itm/"]').waitFor();
  await page.waitForFunction(expected=>document.querySelector('#desk-panel')?.textContent.includes(expected),'1 verified live');
  assert.equal(published,before+1);assert.equal(publishCalls,callsBefore+2);
  await page.locator('#desk-panel .batch-error').filter({hasText:'Synthetic eBay rejection: review this card.'}).waitFor();

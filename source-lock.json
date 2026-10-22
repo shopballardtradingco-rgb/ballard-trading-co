@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-21 America/Los_Angeles",
   "source_commits": {
-    "btco-os": "6cc146da7cfc74b011a9afcecd95d9ebb11f5fa9",
+    "btco-os": "d50c8a418df5e5a67fab3e26282484cb300df127",
     "btconnect": "337a5a044152d5a587ccc33587d6f6ee043ff400"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
@@ -405,8 +405,8 @@
     },
     {
       "path": "btco-os/core/tests/ebay.browser.mjs",
-      "upstream_git_blob": "4144a6de845f28403b4cc671e5f5e6949e03d93c",
-      "published_sha256": "c9043e5f4e5957055922ec266fafa1d6bb9fa612da64e2f66aadae050c1ba3fb",
+      "upstream_git_blob": "950af2c6b289b33461cca7af1662813155aa8d27",
+      "published_sha256": "05e83bd86c42a91c378fd035f9a85aabf7eca3919bea2e09ed5ade7083af7490",
       "sanitized": false
     },
     {
