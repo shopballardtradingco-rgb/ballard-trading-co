@@ -1,3 +1,11 @@
+## BTCore 0.7.4 — eBay publication progress repair
+
+- Continue other approved cards when one card fails; use persisted connector outcomes instead of an increase in the verified-listing count to advance the queue.
+- Skip cards requiring owner action and honor connector retry times. Stop unchanged responses instead of repeatedly polling or replaying uncertain writes.
+- Display the connector's per-card errors and retry timing in the existing listing desk.
+- Preserve exact review approval, original photos, SKUs, prices, policies, promotion rates and publication journals. No new features, dependencies or marketplace calls from CI.
+- See docs/releases/0.7.4.md for reproduction, validation and release limits.
+
 ## BTCore 0.7.2 — 2026-10-20
 
 ## BTCore 0.7.3 — inventory locations and fulfillment

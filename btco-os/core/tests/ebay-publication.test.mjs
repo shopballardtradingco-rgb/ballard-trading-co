@@ -115,6 +115,53 @@ test('changed cards prevent final approval, and unapproved preparation can be re
  const b=f.read().publicationBatches[0];f.change(s=>s.drafts[0].title='Changed after review');await assert.rejects(f.service.publish(f.client,f.id,b.bridge.reviewFingerprint,true),/changed/);assert.equal(f.counts.publishes,0);
  const s=f.read();cancelPublicationBatch(s,f.id);assert.equal(s.publicationBatches[0].status,'cancelled');
 });
+
+test('one rejected card does not stop the other approved cards in its remote group',async()=>{
+ const f=fixture();await f.service.configure(f.client,f.id,f.settings);
+ for(let n=0;n<10;n++)if(!(await f.service.prepare(f.client,f.id,'owner')).continuePreparation)break;
+ const original=f.client.call;let review,attempts=0;
+ f.client.call=async(name,args)=>{
+  if(name==='get_listing_batch_review'&&review)return structuredClone(review);
+  if(name==='publish_approved_batch'&&attempts++===0){
+   review=await original('get_listing_batch_review',{batch_id:args.batch_id});
+   review.approval_current=true;review.listings[0].last_attempt={disposition:'owner_action',attempts:1,at:1,errors:[{message:'Synthetic eBay rejection; review this card.'}]};
+   return {...structuredClone(review),processed_item_keys:['first'],continue_automatically:true,next_retry_at:0};
+  }
+  if(name==='publish_approved_batch'){
+   review.listings[1].publication={all_checks_verified:true,item_id:'123456789012',status:'verified'};review.verified_count=1;
+   return {...structuredClone(review),processed_item_keys:['second'],continue_automatically:false,next_retry_at:null};
+  }
+  return original(name,args);
+ };
+ const fingerprint=f.read().publicationBatches[0].bridge.reviewFingerprint;
+ const first=await f.service.publish(f.client,f.id,fingerprint,true);
+ assert.equal(first.verified,0);assert.equal(first.continueAutomatically,true);
+ const second=await f.service.publish(f.client,f.id,fingerprint);
+ assert.equal(second.verified,1);assert.equal(second.complete,false);assert.equal(second.continueAutomatically,false);assert.equal(second.needsAttention,1);
+ await f.service.publish(f.client,f.id,fingerprint);
+ assert.equal(attempts,2,'owner-action cards must not be automatically retried');
+});
+
+test('publication waits for connector retry time and stops on unchanged responses',async()=>{
+ const f=fixture();await f.service.configure(f.client,f.id,f.settings);
+ for(let n=0;n<10;n++)if(!(await f.service.prepare(f.client,f.id,'owner')).continuePreparation)break;
+ const original=f.client.call;let review,calls=0;const due=Math.ceil(Date.now()/1000)+300;
+ f.client.call=async(name,args)=>{
+  if(name==='get_listing_batch_review'&&review)return structuredClone(review);
+  if(name==='publish_approved_batch'){
+   calls++;review=await original('get_listing_batch_review',{batch_id:args.batch_id});review.approval_current=true;
+   for(const l of review.listings)l.last_attempt={disposition:'retry_later',retry_after:due,at:1,attempts:1};
+   return {...structuredClone(review),processed_item_keys:['first'],continue_automatically:true,next_retry_at:due};
+  }return original(name,args);
+ };
+ const fingerprint=f.read().publicationBatches[0].bridge.reviewFingerprint;
+ const first=await f.service.publish(f.client,f.id,fingerprint,true);
+ assert.equal(first.continueAutomatically,false);assert.equal(first.nextRetryAt,due);
+ await f.service.publish(f.client,f.id,fingerprint);assert.equal(calls,1);
+ for(const l of review.listings)delete l.last_attempt;
+ f.client.call=async(name,args)=>name==='publish_approved_batch'?{processed_item_keys:[],verified_count:0}:name==='get_listing_batch_review'?structuredClone(review):original(name,args);
+ const stalled=await f.service.publish(f.client,f.id,fingerprint);assert.equal(stalled.continueAutomatically,false);
+});
 test('publishing connection uses PKCE, browser-bound callback, encrypted HttpOnly credential and server-side token',async()=>{
  const calls=[];const fetcher=async(url,opts)=>{calls.push({url,opts});if(url.endsWith('/register'))return Response.json({client_id:'synthetic-client'});if(url.endsWith('/token'))return Response.json({access_token:'SECRET_ACCESS',refresh_token:'SECRET_REFRESH',expires_in:3600});return Response.json({result:{structuredContent:{seller:'ballardtradingco',connector_listing_scope:true,missing_ebay_scopes:[]}}});};
  const c=createConnector({origin:'https://core.example',connectorOrigin:'https://connect.example',key:'a'.repeat(64),fetcher});const headers={},res={setHeader:(k,v)=>headers[k]=v};
