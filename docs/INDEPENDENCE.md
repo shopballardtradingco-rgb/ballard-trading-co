@@ -1,5 +1,15 @@
 # Independence roadmap
 
+Latest owner direction, October 21, 2026 Pacific: **full operational independence
+as soon as possible**, no new app features, with working eBay publishing first.
+The owner selected an owner-controlled cloud server under the existing $20/month
+total infrastructure target. Railway recovery is not the deployment prerequisite.
+The [portable server package](../deploy/owned-server/README.md) preserves the existing
+applications and direct browser operation. This supersedes the relaxed timing
+for ChatGPT independence below; it does not claim marketplace parity or authorize
+an arbitrary listing. Cloud account access, complete connector state, one active
+writer and live acceptance are still required.
+
 Owner direction, October 20, 2026: the company and app must outlive ChatGPT. Replace CDP first. Reducing ChatGPT/Pro dependence is a long-term objective. Cheaper models must be replaceable tools. Retire CollX Pro when its required workflows and economics justify doing so. Subscription cancellation is a separate owner action, not an automatic side effect of development.
 
 Latest instruction: add no new features in the current pass; improve performance and independence from all paid tools. CDP first, ChatGPT second. Other marketplaces are secondary in delivery order and remain integral to the owner's eventual patent strategy. Retain their contracts, independent prices, identifiers and dated architecture evidence. See [the dependency audit](../btco-os/docs/DEPENDENCY-AUDIT.md) and [0.7.2 maintenance](../btco-os/docs/releases/0.7.2.md). This direction supersedes earlier requirements to develop every channel together; it does not claim patentability or that existing cross-listed stock can be abandoned safely.

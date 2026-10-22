@@ -1,0 +1,37 @@
+name: Owned server acceptance
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  containers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - run: python3 tools/check-public.py && python3 tools/verify-source.py
+      - name: Build existing applications and retain infrastructure images
+        run: |
+          docker build -f btco-os/core/Dockerfile -t btcore-app:verified btco-os
+          docker build -t btcore-connector:verified btconnect
+          docker pull postgres:17-bookworm
+          docker tag postgres:17-bookworm btcore-postgres:verified
+          docker pull caddy:2-alpine
+          docker tag caddy:2-alpine btcore-proxy:verified
+      - name: Offline recovery guards
+        run: docker run --rm --entrypoint python -v "$PWD/deploy/owned-server:/test:ro" btcore-connector:verified /test/test_install.py
+      - name: Isolated full-stack acceptance
+        run: python3 deploy/owned-server/accept-containers.py
+      - name: Package only tested images and public deployment files
+        run: bash deploy/owned-server/package.sh "$RUNNER_TEMP/btcore-owned-server"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: btcore-owned-server-${{ github.sha }}
+          path: ${{ runner.temp }}/btcore-owned-server/*
+          retention-days: 90
+          if-no-files-found: error
