@@ -1,0 +1,7 @@
+# Automatic HTTPS; no access logs containing OAuth callback query strings.
+{$CORE_HOST} {
+    reverse_proxy core:3000
+}
+{$CONNECT_HOST} {
+    reverse_proxy connector:8000
+}
