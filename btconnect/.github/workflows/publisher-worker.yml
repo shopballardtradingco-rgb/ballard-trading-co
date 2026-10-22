@@ -1,0 +1,91 @@
+name: Independent eBay publisher
+on:
+  push:
+    branches: [main]
+    paths: ['btco_ebay/github_worker.py', 'btco_ebay/github_journal.py', '.github/workflows/publisher-worker.yml']
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Review or resume a recovered batch; publishing requires its exact approval
+        type: choice
+        options: [doctor, review, prepare, publish]
+        default: doctor
+        required: true
+      batch_id:
+        description: Saved batch ID from the private recovery journal
+        type: string
+      review_revision:
+        description: Exact SHA-256 from the complete private review artifact
+        type: string
+      owner_approved:
+        description: I reviewed the whole batch and approve publishing this exact revision
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: btco-independent-publisher
+  cancel-in-progress: false
+jobs:
+  installation-check:
+    if: github.repository == 'shopballardtradingco-rgb/btco-ebay-connector' && github.event.repository.private && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: ebay-publisher
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.lock.txt
+      - name: Check independent configuration without contacting eBay
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          BTCO_WORKER_ARCHIVE_KEY: ${{ secrets.BTCO_WORKER_ARCHIVE_KEY }}
+          TOKEN_ENCRYPTION_KEY: ${{ secrets.TOKEN_ENCRYPTION_KEY }}
+          BTCO_WORKER_SELLER_ID: ${{ secrets.BTCO_WORKER_SELLER_ID }}
+          BTCO_WORKER_GRANT_FAMILY: ${{ secrets.BTCO_WORKER_GRANT_FAMILY }}
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          BTCO_WORKER_HANDOFF: ${{ vars.BTCO_WORKER_HANDOFF }}
+        run: python -m btco_ebay.github_worker doctor
+  publisher:
+    if: github.repository == 'shopballardtradingco-rgb/btco-ebay-connector' && github.event.repository.private && github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: ebay-publisher
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.lock.txt
+      - name: Run the existing publisher independently
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          WORKER_OPERATION: ${{ inputs.operation }}
+          BTCO_WORKER_BATCH_ID: ${{ inputs.batch_id }}
+          BTCO_WORKER_REVIEW_REVISION: ${{ inputs.review_revision }}
+          BTCO_WORKER_OWNER_APPROVED: ${{ inputs.owner_approved }}
+          BTCO_WORKER_ARCHIVE_KEY: ${{ secrets.BTCO_WORKER_ARCHIVE_KEY }}
+          TOKEN_ENCRYPTION_KEY: ${{ secrets.TOKEN_ENCRYPTION_KEY }}
+          BTCO_WORKER_SELLER_ID: ${{ secrets.BTCO_WORKER_SELLER_ID }}
+          BTCO_WORKER_GRANT_FAMILY: ${{ secrets.BTCO_WORKER_GRANT_FAMILY }}
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          BTCO_WORKER_HANDOFF: ${{ vars.BTCO_WORKER_HANDOFF }}
+        run: python -m btco_ebay.github_worker "$WORKER_OPERATION"
+      - uses: actions/upload-artifact@v4
+        if: success() && inputs.operation != 'doctor'
+        with:
+          name: private-publisher-review-${{ github.run_id }}
+          path: private-review/review.json
+          retention-days: 7
+          if-no-files-found: error

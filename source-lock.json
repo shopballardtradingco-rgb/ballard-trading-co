@@ -2,7 +2,7 @@
   "as_of": "2026-10-21 America/Los_Angeles",
   "source_commits": {
     "btco-os": "d50c8a418df5e5a67fab3e26282484cb300df127",
-    "btconnect": "337a5a044152d5a587ccc33587d6f6ee043ff400"
+    "btconnect": "1f281158e55f43656980428e2eeccfa6cf94e205"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
   "transformations": "Deployment hostnames, Railway dashboard project URLs and transient build-workspace paths replaced with placeholders. Runtime source and tests otherwise preserved.",
@@ -2528,6 +2528,12 @@
       "sanitized": false
     },
     {
+      "path": "btconnect/.github/workflows/publisher-worker.yml",
+      "upstream_git_blob": "9ca0bbb005703e0a923929145d2c357540d7d8bc",
+      "published_sha256": "e7ae42ba865b6b31a5a9a86dae8a174bed2b96ab995cfd2423669d6df43e13f2",
+      "sanitized": false
+    },
+    {
       "path": "btconnect/.gitignore",
       "upstream_git_blob": "70c3c4210448dc8328c7b4167191565b3ad770e0",
       "published_sha256": "981163e3345a07582d9b37b4e3a0464bf566c7ec911ab3076897039fb5ec61c9",
@@ -2535,8 +2541,8 @@
     },
     {
       "path": "btconnect/CHANGELOG.md",
-      "upstream_git_blob": "53e9c37588d1f5315a35dfc7850d9aa67f63d38f",
-      "published_sha256": "b76fd3d42ac461a38bf9ce59cdb8856a6010fc770418ff817f6e5c4f4c5d3aeb",
+      "upstream_git_blob": "6598128e92ebb7b02ad25dc60bc97460a3928c3c",
+      "published_sha256": "cf5617a576502dda3dec1bd7902738017edb1ba86fa206399edd8f17544d2a39",
       "sanitized": false
     },
     {
@@ -2597,6 +2603,18 @@
       "path": "btconnect/btco_ebay/ebay.py",
       "upstream_git_blob": "74946826745afcd7c53e602459b61e2c22961b1b",
       "published_sha256": "c0fe7e1f53b4790e2b5e28843c4cd31c0ef06923b6bcd978245fe133ce135250",
+      "sanitized": false
+    },
+    {
+      "path": "btconnect/btco_ebay/github_journal.py",
+      "upstream_git_blob": "bc4647869d61e20b503308585b77fcc946f18712",
+      "published_sha256": "5bd979c3044ddbc7f01c2d6c2918f2a45e35177b67c42c5b9a6174502762cc81",
+      "sanitized": false
+    },
+    {
+      "path": "btconnect/btco_ebay/github_worker.py",
+      "upstream_git_blob": "6934d299c68673bb2acfb5907d0cc82ce32fec8f",
+      "published_sha256": "3d52b2720cc8eeb7f1d5c9e6b8504fffee77fd189ef9f5bcd477748bc03a8a7f",
       "sanitized": false
     },
     {
@@ -2966,6 +2984,12 @@
       "sanitized": false
     },
     {
+      "path": "btconnect/docs/releases/independent-publisher-2026-10-22.md",
+      "upstream_git_blob": "8973db63f9c549967bd3a33f98ffd6c76913d9df",
+      "published_sha256": "2e147339bc26635f3d5fa5c8ab8ca79d716a184dda19dc6a880a3232255bab20",
+      "sanitized": false
+    },
+    {
       "path": "btconnect/pyproject.toml",
       "upstream_git_blob": "28219d6809cb41f5ad7a62914aa855301f47bfff",
       "published_sha256": "0a38f276b19a3d0afad5cafbc235c32c2b60ea4bf0468d625cbffe71fa131fad",
@@ -3035,6 +3059,12 @@
       "path": "btconnect/scripts/review_approval.py",
       "upstream_git_blob": "356be7ab72ec69e6b58434f158f57246504575ab",
       "published_sha256": "06f54fc2efe536b5b2d2d392137f66983950a2c636734940c6a9f7ef8b64ebc5",
+      "sanitized": false
+    },
+    {
+      "path": "btconnect/scripts/seed_github_publisher.py",
+      "upstream_git_blob": "b76ae6c0f775db7d1eb7a466d9a964f61805dab7",
+      "published_sha256": "797d774d7cc6837f26d835b29476a05457a1f10686a5b490848baf6ccd3fc4ac",
       "sanitized": false
     },
     {
@@ -3113,6 +3143,12 @@
       "path": "btconnect/tests/test_exterior_listings.py",
       "upstream_git_blob": "66c24a0a66528b84b104c8706c9dc5f22cc4f094",
       "published_sha256": "8d5a532abdaeb8020bf8293b6db90d4aebff5c2f7aa71930ee2155d7e1abcbe1",
+      "sanitized": false
+    },
+    {
+      "path": "btconnect/tests/test_github_worker.py",
+      "upstream_git_blob": "7fb7d79ff844f75df884db13fa11fd6ccf10c93d",
+      "published_sha256": "d81346b861460708c88fcfb6a9f5a5c9930223a3770f4d9743e40c43eb417171",
       "sanitized": false
     },
     {

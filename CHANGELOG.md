@@ -1,3 +1,9 @@
+# 2026-10-21 — GitHub publisher recovery path
+
+- Preserve the same BTConnect publisher as an on-demand GitHub Actions worker with durable encrypted checkpoints and exact approval.
+- Record independent recovery configuration and activation gaps explicitly; Railway reconnection is not the next step.
+- Validate 542 connector tests locally; private CI and workflow installation checks remain separate from live listing acceptance.
+
 ## BTCore 0.7.4 publisher repair checkpoint
 
 - Preserve the upstream queue-continuation fix, failure details and synthetic tests.

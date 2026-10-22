@@ -1,3 +1,9 @@
+# Independent publisher checkpoint — October 21, 2026
+
+The owner requires deployment without Railway. The GitHub Actions publisher reuses the existing BTConnect batch engine, original-photo validation and exact review approval. It runs without a hosted Core/Connect API, checkpoints the encrypted publication journal synchronously in a private GitHub branch, and stops all writes if a checkpoint is unconfirmed. [Setup and limits](../btconnect/docs/releases/independent-publisher-2026-10-22.md).
+
+Source: private connector PR #12, `1f281158e55f43656980428e2eeccfa6cf94e205`. All 542 connector tests passed locally, including independent-runner recovery and lost eBay response tests. Exact-head CI is recorded in the PR. This does not deploy the Core browser or establish live eBay acceptance. Independent recovered connector state, privately configured seller authorization, one active writer and the Core-to-worker input handoff remain required. Railway reconnection is not a prerequisite or the chosen recovery path. No live listings, inventory or secrets are included in this checkpoint.
+
 # Publisher repair checkpoint — October 21, 2026
 
 BTCore 0.7.4 source is preserved at private implementation PR #9, commit `d50c8a418df5e5a67fab3e26282484cb300df127`. [Release contract](../btco-os/docs/releases/0.7.4.md). The publisher now continues eligible approved cards after another card fails, respects retry timing and displays the saved per-card error. No new features or paid dependencies.

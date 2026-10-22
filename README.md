@@ -8,6 +8,8 @@ This is the public source and project handoff hub for **BTCore**, the standalone
 
 ## Start here
 
+Publisher recovery: [run the existing eBay publisher independently on GitHub](btconnect/docs/releases/independent-publisher-2026-10-22.md). Source and recovery tests are ready; live activation still requires the private recovered journal and seller authorization.
+
 - [Independence roadmap and acceptance gates](docs/INDEPENDENCE.md)
 - [System map and current state](docs/SYSTEM.md)
 - [Backup and recovery runbook](docs/RECOVERY.md)
