@@ -38,7 +38,8 @@ independent S3-compatible bucket** in `private/core.env`, using bucket-scoped ke
 Keep all private files mode 600 and their directory 700. Do not print environment
 files or expanded `docker compose config` into shared logs. This installer does
 not overwrite old settings, generate a replacement connector key, or copy secrets
-from Railway.
+from Railway. Each installation gets a distinct Compose project name and database
+volume; preserve its `.env` file so upgrades reuse the intended installation.
 
 ```sh
 bash host.sh up

@@ -1,4 +1,4 @@
-name: btcore
+name: ${COMPOSE_PROJECT_NAME:?Run initialize.py}
 x-app: &app
   restart: unless-stopped
   read_only: true

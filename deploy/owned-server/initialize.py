@@ -21,6 +21,7 @@ if (root / '.env').exists() or private.exists():
 private.mkdir(mode=0o700)
 setup_code = secrets.token_urlsafe(24)
 (root / '.env').write_text(
+    f'COMPOSE_PROJECT_NAME=btcore-{secrets.token_hex(6)}\n'
     f'CORE_HOST={hosts[0]}\nCONNECT_HOST={hosts[1]}\n'
     f'DATABASE_ADMIN_PASSWORD={secrets.token_hex(32)}\n'
     f'DATABASE_APP_PASSWORD={secrets.token_hex(32)}\n')
