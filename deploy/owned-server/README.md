@@ -107,7 +107,8 @@ rollback requires a matching backup; changing image tags alone is not data rollb
 
 The workflow tests real containers, PostgreSQL provisioning and app-role
 permissions, private access, owner setup, restart persistence, proxy routing and
-connector health with synthetic credentials and external application networking
+connector health, and the shipped empty-only backup restore command with synthetic
+credentials and external application networking
 disabled. It does not claim live-host deployment, live eBay authorization,
 production S3 restore, recurring off-site backup delivery or a successful listing.
 

@@ -22,9 +22,14 @@ PY
     ;;
   restore)
     test -f "${2:?Provide a private Core NDJSON backup}"
-    file=$(realpath -- "$2")
+    # Host backups are mode 600. Give the unprivileged container a temporary
+    # read-only copy without changing the owner's original or directory access.
+    file=$(mktemp "$PWD/private/restore-input.XXXXXXXX")
+    trap 'rm -f -- "$file"' EXIT
+    cp -- "${2}" "$file"
+    chmod 644 "$file"
     docker compose stop core
-    trap 'docker compose up -d core >/dev/null' EXIT
+    trap 'rm -f -- "$file"; docker compose up -d --wait core >/dev/null' EXIT
     docker compose run --rm --no-deps -v "$file:/restore/input.ndjson:ro" core \
       node --input-type=module -e '
         import {openStore} from "./core/store.mjs";

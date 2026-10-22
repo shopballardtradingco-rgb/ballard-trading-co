@@ -80,7 +80,26 @@ try:
     run(*compose,'restart','database','core','connector')
     run(*compose,'up','-d','--wait','core')
     assert request('/api/workspace')[1]['state']['inventory']['items'][0]['title']=='Synthetic independent-host item'
-    print('PASS: proxy TLS, private access, owner setup, app-role isolation, saved-state restart, non-root connector and unauthorized MCP rejection.')
+    backup = private/'synthetic-backup.ndjson'
+    backup.write_text(request('/api/backup')[1])
+    backup.chmod(0o600)
+    # Recreate an empty disposable destination and exercise the shipped restore
+    # command with a mode-600 owner backup, then prove overwrite is rejected.
+    run(*compose,'--profile','publisher','down','-v')
+    run(*compose,'up','-d','--wait','database')
+    run(*compose,'run','--rm','provision')
+    run(*compose,'up','-d','--wait','core','edge')
+    cookie=''; csrf=''
+    assert request('/api/setup',{'setupCode':(private/'owner-setup-code.txt').read_text().strip(),
+           'email':'owner@example.test','password':'synthetic-owner-password-123'})[0]==201
+    env={**os.environ,'COMPOSE_FILE':'compose.yaml:compose.test.yaml'}
+    run('bash','host.sh','restore',str(backup),env=env)
+    assert request('/api/workspace')[1]['state']['inventory']['items'][0]['title']=='Synthetic independent-host item'
+    again=subprocess.run(['bash','host.sh','restore',str(backup)],env=env,capture_output=True)
+    assert again.returncode!=0 and b'empty workspace' in again.stderr
+    assert backup.stat().st_mode & 0o777==0o600
+    assert not list(private.glob('restore-input.*'))
+    print('PASS: proxy TLS, private access, owner setup, app-role isolation, saved-state restart, non-root connector, unauthorized MCP rejection and empty-only backup restore.')
 except BaseException:
     # This workflow has disposable synthetic state only; no environment dumps.
     run(*compose,'logs','--no-color','--tail','60','core','connector','edge')
