@@ -27,6 +27,10 @@ export function compileCard(d,settings,photos){
  };
 }
 export async function reviewAll(client,ids){const reviews=[];for(const id of ids){let offset=0,review;do{const page=await client.call('get_listing_batch_review',{batch_id:id,offset,limit:20,...(review?{expected_review_revision:review.review_revision}:{})});if(!review)review={...page,listings:[]};review.listings.push(...page.listings);offset=page.next_offset;}while(offset!==null&&offset!==undefined);reviews.push(review);}return reviews;}
+const canAttempt=(listing,now)=>!listing.publication?.all_checks_verified&&listing.last_attempt?.disposition!=='owner_action'&&Number(listing.last_attempt?.retry_after??0)<=now;
+// Approval revisions intentionally exclude progress. Use journaled outcomes to
+// detect progress, including a failed card that has released the next card.
+const progressFingerprint=reviews=>hash(reviews.map(r=>[r.batch_id,r.listings.map(l=>[l.draft_id,l.publication,l.last_attempt??null])]));
 export function createEbayPublication({store,objectStore,commit}){
  const locks=new Set();
  async function lock(id,fn){if(locks.has(id))fail('This batch is already running. Refresh its status.',409);locks.add(id);try{return await fn();}finally{locks.delete(id);}}
@@ -95,14 +99,21 @@ export function createEbayPublication({store,objectStore,commit}){
    // Persist the exact owner click BEFORE remote approval; a lost response resumes the same revisions.
    await update(id,(b,s)=>{unchanged(s,b);b.status='publishing';b.publicationApproved=true;b.bridge.approvedFingerprint=reviewFingerprint;b.bridge.approvedAt=new Date().toISOString();event(s,'core.ebay-approved',id,{reviewFingerprint});});
   }else if(!b.publicationApproved||b.bridge.approvedFingerprint!==reviewFingerprint)fail('Approve the complete eBay review first.',403);
+  const beforeProgress=progressFingerprint(reviews);
   for(const review of reviews){
    if(!review.listings.length)continue;
+   if(!review.listings.some(l=>canAttempt(l,Date.now()/1000)))continue;
    if(!review.approval_current)await client.call('approve_listing_batch',{batch_id:review.batch_id,review_revision:review.review_revision,owner_approval_evidence:'Owner clicked Approve and publish in BTCore after reviewing the exact complete batch, original photos, listing text, prices, shipping, policies, promotion and no automatic confirmed-rejection retries. Core review '+reviewFingerprint});
-   const remaining=review.listings.filter(l=>!l.publication?.all_checks_verified);
-   if(remaining.length){const result=await client.call('publish_approved_batch',{batch_id:review.batch_id,review_revision:review.review_revision,max_items:1});if(result.verified_count>review.verified_count)break;}
+   const result=await client.call('publish_approved_batch',{batch_id:review.batch_id,review_revision:review.review_revision,max_items:1});
+   if(result.processed_item_keys?.length||result.verified_count>review.verified_count)break;
   }
   const next=await reviewAll(client,b.bridge.groups.map(g=>g.id));const all=next.flatMap(r=>r.listings);const complete=all.length>0&&all.every(l=>l.publication?.all_checks_verified);
-  await update(id,b=>{b.bridge.reviews=next;b.status=complete?'published':'publishing';});return {complete,verified:all.filter(l=>l.publication?.all_checks_verified).length};
+  const now=Date.now()/1000,remaining=all.filter(l=>!l.publication?.all_checks_verified),waiting=remaining.filter(l=>l.last_attempt?.disposition!=='owner_action'&&Number(l.last_attempt?.retry_after)>now);
+  await update(id,b=>{b.bridge.reviews=next;b.status=complete?'published':'publishing';});
+  return {complete,verified:all.filter(l=>l.publication?.all_checks_verified).length,
+   continueAutomatically:progressFingerprint(next)!==beforeProgress&&remaining.some(l=>canAttempt(l,now)),
+   needsAttention:remaining.filter(l=>l.last_attempt?.disposition==='owner_action').length,
+   nextRetryAt:waiting.length?Math.min(...waiting.map(l=>Number(l.last_attempt.retry_after))):null};
  });},
  };
 }

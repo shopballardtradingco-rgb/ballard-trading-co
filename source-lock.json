@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-21 America/Los_Angeles",
   "source_commits": {
-    "btco-os": "93a045a8e16bcdaba72b14a0e4289b501c56e70a",
+    "btco-os": "6cc146da7cfc74b011a9afcecd95d9ebb11f5fa9",
     "btconnect": "337a5a044152d5a587ccc33587d6f6ee043ff400"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
@@ -45,8 +45,8 @@
     },
     {
       "path": "btco-os/CHANGELOG.md",
-      "upstream_git_blob": "a516e3fe03eb60131268d6c6aa424160187d8766",
-      "published_sha256": "603671154e9159e903f8f38a57fbf2158feff8706fb37cc3146350337da41816",
+      "upstream_git_blob": "4762b03f75afeba2eede4ceec869f43b20b31513",
+      "published_sha256": "9cf1898840b8960e189c139192d45afc21072a2f42e39b93faf04b9bf88f9b7d",
       "sanitized": false
     },
     {
@@ -135,8 +135,8 @@
     },
     {
       "path": "btco-os/core/ebay-publication.mjs",
-      "upstream_git_blob": "b65fa2c4bf55dea3505834d193bef21b178a7e01",
-      "published_sha256": "d940186a6bf6587f24b56d4d394ac0f1cc0a48318939ae80783047d4a884dadc",
+      "upstream_git_blob": "60c9949e6660438f15a726bed7bb8474434152b0",
+      "published_sha256": "6b5c3232cec2d229a778e31157e8dee76873cac95a1e71dab02829e25f4c8876",
       "sanitized": false
     },
     {
@@ -195,14 +195,14 @@
     },
     {
       "path": "btco-os/core/package-lock.json",
-      "upstream_git_blob": "389c2ec54824378160354bad54ba615a265d62a4",
-      "published_sha256": "d15e0b3fc3c0312168eae1aebaffae7ee03161dd7ae44995dab054f15868456d",
+      "upstream_git_blob": "78077260f781d8c3e1f221da83499d2a9be3449a",
+      "published_sha256": "cd23727dd85d5733aceeee2e8280d2df6782fd6a348e56b93e5e4a12b1b43098",
       "sanitized": false
     },
     {
       "path": "btco-os/core/package.json",
-      "upstream_git_blob": "ca029f68c2218f25f03cc9368f0ae50a59ac322e",
-      "published_sha256": "df681c522235e75e1af91f16c67e50c2a6f8d717d16aeaff58b57700d541964f",
+      "upstream_git_blob": "b7d2e114b0089c3e6a797ebe43ba21ddd3f68e8d",
+      "published_sha256": "ad7c91bc4e83737c7bec1934dcffa667765344eca34dde67648dd3b8ee0a851c",
       "sanitized": false
     },
     {
@@ -231,8 +231,8 @@
     },
     {
       "path": "btco-os/core/public/app.mjs",
-      "upstream_git_blob": "bb5086ab874a62c6359d9ae8c1e87f7289668179",
-      "published_sha256": "6fd995e0058d5da63567f825327a9350f67610d5e1defd0153ed844c8aa3d659",
+      "upstream_git_blob": "4384ef11db28366a356a9e49e58d1e7d3b8b47bc",
+      "published_sha256": "325166b8f995866686eece6c5ef93e631f303827b69b90728b802ceef622672e",
       "sanitized": false
     },
     {
@@ -339,8 +339,8 @@
     },
     {
       "path": "btco-os/core/server.mjs",
-      "upstream_git_blob": "3dcc4cd734b6a73edea1f8281a3b38bacb803a46",
-      "published_sha256": "1dd17b4f2896a822a9b08ff1bad7d55880baa3245067656f9c057edd5c1d4909",
+      "upstream_git_blob": "f34f4530dd67a9b7d5d000f817748652fa6a87a7",
+      "published_sha256": "6dcb6b0b6c62cc49d9c314aad3880dac497ceca8c53cb0c6b65309e42a9fa63b",
       "sanitized": false
     },
     {
@@ -399,14 +399,14 @@
     },
     {
       "path": "btco-os/core/tests/ebay-publication.test.mjs",
-      "upstream_git_blob": "1248d4a0368e70d43e5d8143cd7e197d8513a90f",
-      "published_sha256": "0ccef14f8f075f37f78ff1475580e7f9732222d70b9c0ab52b3d12fbb70aa254",
+      "upstream_git_blob": "3daaec6f6dcd26dc09b5e0e0646c48c9295d0a59",
+      "published_sha256": "2825d6804da1ea6f60f9bff4a4abf8a7848da70d6f4b2c711b0d8904e67d9693",
       "sanitized": false
     },
     {
       "path": "btco-os/core/tests/ebay.browser.mjs",
-      "upstream_git_blob": "78542d843a98e41ed0d0e286029911f19412feb6",
-      "published_sha256": "b2b9b2d31271f8912084a2a53cc645d11a5c6e25f7195539b083384b28c21834",
+      "upstream_git_blob": "4144a6de845f28403b4cc671e5f5e6949e03d93c",
+      "published_sha256": "c9043e5f4e5957055922ec266fafa1d6bb9fa612da64e2f66aadae050c1ba3fb",
       "sanitized": false
     },
     {
@@ -779,6 +779,12 @@
       "path": "btco-os/docs/releases/0.7.3.md",
       "upstream_git_blob": "e7d81881444b94dc1124d1b95939d51b339f352d",
       "published_sha256": "8e5081af8fc0716b747f223084effbd7292144ce83848bd41e12d5a68509f6a3",
+      "sanitized": false
+    },
+    {
+      "path": "btco-os/docs/releases/0.7.4.md",
+      "upstream_git_blob": "1876e88be8e7bda2bbef4fd182d7acb47b1bfcbe",
+      "published_sha256": "c3fb489058ba8e222c8f3b8a8f0e518fe0dd84e35c8e81f3c9eb7f4b834f361b",
       "sanitized": false
     },
     {

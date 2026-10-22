@@ -1,3 +1,8 @@
+## BTCore 0.7.4 publisher repair checkpoint
+
+- Preserve the upstream queue-continuation fix, failure details and synthetic tests.
+- Keep live deployment and exact owner-approved card publication explicitly pending.
+
 # Public recovery hub changelog
 
 ## 2026-10-20 — BTCore 0.7.2 maintenance

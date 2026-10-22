@@ -10,7 +10,7 @@ import {approveListings} from '../preparation.mjs';
 import {listingContent} from '../public/preparation-policy.mjs';
 import {stagePublicationBatch} from '../publication.mjs';
 import {campaign,policies as policy,envelope,mailer,envelopeParcel,mailerParcel} from './fixtures/ebay-policies.mjs';
-const origin='http://127.0.0.1:3218',store=await openStore({sqlitePath:':memory:',allowSqlite:true}),groups=new Map();let published=0,uploaded=0;
+const origin='http://127.0.0.1:3218',store=await openStore({sqlitePath:':memory:',allowSqlite:true}),groups=new Map();let published=0,uploaded=0,publishCalls=0,rejectNext=false;
 // Match the real account's response shape, with synthetic IDs and immediate first.
 const cardPolicies={...policy,locations:{locations:[{merchantLocationKey:'postal-only',merchantLocationStatus:'ENABLED'},...policy.locations.locations]},payment_policy:{total:2,paymentPolicies:[true,false].map(immediatePay=>({paymentPolicyId:immediatePay?'23':'22',name:'eBay Managed Payments',marketplaceId:'EBAY_US',categoryTypes:[{name:'ALL_EXCLUDING_MOTORS_VEHICLES',default:false}],paymentMethods:[],immediatePay}))}};
 const client={seller:'ballardtradingco',upload:async(bytes,p)=>{assert.equal(hash(bytes),p.sha256);uploaded++;return {object_key:'photos/'+'a'.repeat(64)+'/'+p.sha256+'.jpeg',sha256_hex:p.sha256,role:p.role};},call:async(name,args)=>{
@@ -22,7 +22,7 @@ const client={seller:'ballardtradingco',upload:async(bytes,p)=>{assert.equal(has
  const r=groups.get(args.batch_id);assert.ok(r,name);
  if(['get_listing_batch','get_listing_batch_review'].includes(name))return structuredClone(r);
  if(name==='approve_listing_batch'){r.approval_current=true;return {};}
- if(name==='publish_approved_batch'){assert.ok(r.approval_current);const l=r.listings.find(l=>!l.publication.all_checks_verified);if(l){published++;l.publication={all_checks_verified:true,status:'verified',item_id:'12345678912'+published};r.verified_count++;}return structuredClone(r);}
+ if(name==='publish_approved_batch'){assert.ok(r.approval_current);publishCalls++;const l=r.listings.find(l=>!l.publication.all_checks_verified&&l.last_attempt?.disposition!=='owner_action');if(l){if(rejectNext){rejectNext=false;l.last_attempt={disposition:'owner_action',attempts:1,at:1,errors:[{message:'Synthetic eBay rejection: review this card.'}]};return {...structuredClone(r),processed_item_keys:[l.draft_id]};}published++;l.publication={all_checks_verified:true,status:'verified',item_id:'12345678912'+published};r.verified_count++;}return {...structuredClone(r),processed_item_keys:l?[l.draft_id]:[]};}
  throw Error(name);
 }};
 let connected=true;
@@ -111,5 +111,25 @@ try{
  const defaulted=(await store.workspace()).drafts.slice(-3);assert.deepEqual(defaulted.map(d=>d.year),['2001','2024','1990']);assert.deepEqual(defaulted.map(d=>d.condition),['Very good','Near mint or better','Near mint or better']);assert.equal(published,2);
  if(await page.locator('#desk-other-cards').count())await page.locator('#desk-other-cards').evaluate(el=>el.open=true);
  const old=defaulted[0],defaultRow=page.locator('[data-quick-edit="'+old.id+'"]');await defaultRow.getByLabel('Condition',{exact:true}).selectOption('Poor');await defaultRow.getByRole('button',{name:'Save row',exact:true}).click();await page.locator('#main:not([inert])').waitFor();await page.reload();await page.getByRole('heading',{name:'Manage listings',exact:true}).waitFor();assert.equal((await store.workspace()).drafts.find(d=>d.id===old.id).condition,'Poor');assert.equal(published,2);
+ // A failed first card must not stop the second card, and its actual error stays visible.
+ const failureState=await store.workspace(),failureIds=[];
+ for(let i=0;i<2;i++){
+  const d=draftInput({kind:'card',title:'Synthetic publishing recovery '+i,subject:'Synthetic recovery '+i,setName:'Test Set',year:'2024',sport:'Baseball',location:'RECOVERY',condition:'Very good',description:'Synthetic front-only test. Reverse unassessed.',conditionNotes:'Synthetic test only.',askCents:800});
+  const bytes=await sharp({create:{width:600,height:800,channels:3,background:i?'#99aabb':'#88aabb'}}).jpeg().toBuffer(),p=await inspectPhoto(bytes,{role:'front',filename:'recovery-'+i+'.jpg'});await storePhoto(store.query,owner.id,d.id,p,bytes);const {preview,...ref}=p;d.photos=[ref];failureState.drafts.push(d);failureIds.push(d.id);
+ }
+ await store.query('UPDATE core_workspace SET body=? WHERE id=1',[JSON.stringify(failureState)]);await page.reload();await page.getByRole('heading',{name:'Manage listings',exact:true}).waitFor();
+ await page.locator('#quick-save-bar').getByRole('button',{name:'Clear',exact:true}).click();
+ if(await page.locator('#desk-other-cards').count())await page.locator('#desk-other-cards').evaluate(el=>el.open=true);
+ for(const id of failureIds)await page.locator('[data-edit-select="'+id+'"]').check();
+ await top.getByRole('button',{name:'Get ready to publish (2)',exact:true}).click();await final.getByRole('button',{name:'Publish selected (2)',exact:true}).waitFor();
+ const before=published,callsBefore=publishCalls;rejectNext=true;
+ page.once('dialog',d=>d.accept());await final.getByRole('button',{name:'Publish selected (2)',exact:true}).click();
+ await page.locator('.desk-row-status a').filter({hasText:'View listing'}).first().waitFor();
+ await page.waitForFunction(expected=>document.querySelector('#desk-panel')?.textContent.includes(expected),'1 verified live');
+ assert.equal(published,before+1);assert.equal(publishCalls,callsBefore+2);
+ await page.locator('#desk-panel .batch-error').filter({hasText:'Synthetic eBay rejection: review this card.'}).waitFor();
+ await page.reload();await page.getByRole('heading',{name:'Publication progress',exact:true}).waitFor();
+ await final.getByRole('button',{name:'Resume / verify publication',exact:true}).click();await page.locator('#main:not([inert])').waitFor();
+ assert.equal(publishCalls,callsBefore+2);assert.equal(published,before+1);
  assert.deepEqual(errors,[]);console.log('Same-page mobile eBay: bulk edits, selected-only saves, excluded rows, saved batches, shipping reuse, exact review, simulated bulk publication and reload passed.');
 }finally{await browser.close();await app.preparation.stop();await app.mirror.stop();await new Promise(r=>app.server.close(r));await store.close();}

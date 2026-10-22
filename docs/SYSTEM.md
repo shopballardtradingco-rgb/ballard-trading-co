@@ -1,3 +1,9 @@
+# Publisher repair checkpoint — October 21, 2026
+
+BTCore 0.7.4 source is preserved at private implementation PR #9, commit `6cc146da7cfc74b011a9afcecd95d9ebb11f5fa9`. [Release contract](../btco-os/docs/releases/0.7.4.md). The publisher now continues eligible approved cards after another card fails, respects retry timing and displays the saved per-card error. No new features or paid dependencies.
+
+Unit and PostgreSQL checks passed; browser and packaged runtime gates are recorded in the implementation PR. This snapshot does not establish deployment or live card publication. The live check still reported Core 0.7.2 and BTConnect 0.6.0. Current staged batches had not completed shipping configuration; the exact cause remains unproven. Railway control-plane access is unavailable. Do not add features ahead of the remaining publisher acceptance.
+
 # Location migration checkpoint — October 21, 2026
 
 BTCore 0.7.3 source: private implementation PR #8, commit `93a045a8e16bcdaba72b14a0e4289b501c56e70a`. [Release contract](../btco-os/docs/releases/0.7.3.md). The public copy preserves the exact implementation, synthetic tests and field mapping; actual export reconciliation and backup artifacts remain private.
