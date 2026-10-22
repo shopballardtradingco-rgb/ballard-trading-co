@@ -1,3 +1,11 @@
+# Core staged-card handoff — October 22, 2026
+
+The independent publisher now has an offline input path for Core-only staged cards. The public `tools/export-publisher-input.mjs` uses Core's actual backup parser and card compiler; the canonical connector importer restores the existing private journal, stores originals and submits unchanged batch identities. No second inventory database or hosting service is added. [Commands and limits](../btconnect/docs/releases/core-handoff-2026-10-22.md).
+
+Private connector PR #14, reviewed source `4a5a0e7204cbced213449ec178741afb465fe894`. Local validation passed all 562 connector tests, including actual Core-export-to-connector preparation, plus three exporter tests. Lost-checkpoint recovery and re-import after a verified synthetic publication preserve the original job/receipt without a second create or publish. Public CI runs the cross-repository contract explicitly.
+
+This closes the source-level input gap. The existing private recovery record still does not establish a recovered connector database/originals/key or independently configured seller authorization. Those inputs, actual selected shipping/condition settings, a real single writer and separately approved live-card acceptance remain required. No live eBay listing or inventory changed; no Railway service was contacted.
+
 # GitHub-only recovery maintenance — October 21, 2026 Pacific
 
 Connector PR #13 closes credential-diagnostic and rerun-approval gaps. Core PR #10 exports the tested standalone Docker image with a source/image manifest, browser hash and checksums for independent hosting. Actions are pinned and checkouts no longer retain tokens. No runtime feature, live listing or credential rotation was performed. See [the scoped security audit](SECURITY-RECOVERY-2026-10-21.md) for findings, sequencing and acceptance blockers.

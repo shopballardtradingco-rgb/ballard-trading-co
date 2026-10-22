@@ -1,3 +1,9 @@
+# Core staged-card handoff — 2026-10-22
+
+- Import verified Core-only staged cards and original photos into the recovered GitHub publication journal using the existing batch engine.
+- Preserve exact physical identities, master SKUs and saved publication history across imports/restarts; reject conflicting snapshots and never infer approval.
+- See docs/releases/core-handoff-2026-10-22.md for the paired Core exporter and operational prerequisites. No live listing or inventory mutation is claimed.
+
 # Recovery security maintenance — 2026-10-21 Pacific
 
 - Redact eBay developer and store encryption secrets from settings diagnostics.

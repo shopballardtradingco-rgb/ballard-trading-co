@@ -8,7 +8,7 @@ This change adds an on-demand GitHub Actions execution path for the **existing**
 
 The `Independent eBay publisher` workflow becomes available in the existing private connector repository. Its automatic installation check reports missing configuration **names only**, without making any eBay call. A failed installation check is an explicit incomplete setup, not successful publication. Manual operations are `doctor`, `review`, `prepare` and `publish`.
 
-`prepare` resumes a saved connector batch. This does **not** turn Core-only staged cards into complete connector drafts, recreate missing policies, or infer listing approval. The Core browser remains on its existing host. A repaired Core release and this independent execution path are separate milestones.
+`prepare` resumes a saved connector batch. Core-only staged cards can now use the [verified input handoff](core-handoff-2026-10-22.md) first. Neither step recreates missing policies or infers listing approval. The Core browser remains on its existing host. A repaired Core release and this independent execution path are separate milestones.
 
 ## Durable execution
 
@@ -51,4 +51,4 @@ The worker processes bounded one-item publication calls, continues other eligibl
 
 ## Acceptance
 
-Synthetic tests exercise private/encrypted recovery, checkpoint rejection, lost checkpoint responses, concurrent stale workers, unsafe paths, exact approval, front-only cards, failed-first-card continuation, runner loss and no duplicate offer/publication after a lost eBay success response. The existing connector suite remains required. Real credentials, independently recovered state, the Core-to-worker input handoff, and a separately approved live card are still operational acceptance gates. No live publisher availability is claimed by these tests.
+Synthetic tests exercise private/encrypted recovery, checkpoint rejection, lost checkpoint responses, concurrent stale workers, unsafe paths, exact approval, front-only cards, failed-first-card continuation, runner loss and no duplicate offer/publication after a lost eBay success response. The existing connector suite remains required. Real credentials, independently recovered state, execution of the verified Core input handoff with actual reviewed settings, and a separately approved live card are still operational acceptance gates. No live publisher availability is claimed by these tests.
