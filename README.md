@@ -8,6 +8,8 @@ This is the public source and project handoff hub for **BTCore**, the standalone
 
 ## Start here
 
+[GitHub-only security audit and recovery blockers](docs/SECURITY-RECOVERY-2026-10-21.md). Core runtime packaging now retains the tested Docker image for independent hosting; source/artifact readiness is separate from live deployment.
+
 Publisher recovery: [run the existing eBay publisher independently on GitHub](btconnect/docs/releases/independent-publisher-2026-10-22.md). Source and recovery tests are ready; live activation still requires the private recovered journal and seller authorization.
 
 - [Independence roadmap and acceptance gates](docs/INDEPENDENCE.md)

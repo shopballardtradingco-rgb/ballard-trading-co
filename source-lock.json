@@ -1,12 +1,18 @@
 {
   "as_of": "2026-10-21 America/Los_Angeles",
   "source_commits": {
-    "btco-os": "d50c8a418df5e5a67fab3e26282484cb300df127",
-    "btconnect": "1f281158e55f43656980428e2eeccfa6cf94e205"
+    "btco-os": "3313cf3a424eaaee8fb91bb2f789075f72f9e23b",
+    "btconnect": "bf37a3a701d1e063994d586670c63f0e286c4dfd"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
   "transformations": "Deployment hostnames, Railway dashboard project URLs and transient build-workspace paths replaced with placeholders. Runtime source and tests otherwise preserved.",
   "files": [
+    {
+      "path": "btco-os/.github/scripts/package-core.sh",
+      "upstream_git_blob": "72d7f91cca2c23e66cc05d3459d3b753b1c8467c",
+      "published_sha256": "d1a99ec6e87fb3accf498eba3237c4726bbae1b2a3af5aefc47f7ec8ddb887c4",
+      "sanitized": false
+    },
     {
       "path": "btco-os/.github/scripts/promote-core.mjs",
       "upstream_git_blob": "aa1439cde78a3ae057f25ef3666d55cdf286b4ad",
@@ -21,14 +27,14 @@
     },
     {
       "path": "btco-os/.github/workflows/ci.yml",
-      "upstream_git_blob": "1726ccd6d10da7538d9fb9f6a80fe74a550c0ee4",
-      "published_sha256": "83cc4965220ccb690f841e2cd333323942226d4acfbd220b60fd1d00a98f3a18",
+      "upstream_git_blob": "ec0544073f9d833973d4474787db22271727ac23",
+      "published_sha256": "d9d3ddbe26639913068ae449e3b7cc2746927adeab83b206ea9ef6b11b0a2c63",
       "sanitized": false
     },
     {
       "path": "btco-os/.github/workflows/core.yml",
-      "upstream_git_blob": "2c5fc26769ffcb722fa09d71a2886705d0320a79",
-      "published_sha256": "79fbd9adcb07cd6043afcae30ce989445389314982d00fe0f4ea1b126bd56376",
+      "upstream_git_blob": "e0f0fd9850d263ac35f3ebd8a5fd100c9430ae41",
+      "published_sha256": "a04a175effa7373e3409424dda4552d4cf8f38c124c47d0fcfd27e9f56d88e28",
       "sanitized": false
     },
     {
@@ -45,8 +51,8 @@
     },
     {
       "path": "btco-os/CHANGELOG.md",
-      "upstream_git_blob": "4762b03f75afeba2eede4ceec869f43b20b31513",
-      "published_sha256": "9cf1898840b8960e189c139192d45afc21072a2f42e39b93faf04b9bf88f9b7d",
+      "upstream_git_blob": "53500beb72351cdff487499175175b0b47314dc3",
+      "published_sha256": "b8af24a9c5a1a4af78864bdd73aff07b2f563b2afbb7434fa0e0e9ff2a21502f",
       "sanitized": false
     },
     {
@@ -654,6 +660,12 @@
       "upstream_git_blob": "2c18bab8d142b8814f3d9ddc53cf8a18ad93ba71",
       "published_sha256": "49cc0641b991f698f52a4f348ebeb7aaac78a96363ef781ff9c9571eba7b20fd",
       "sanitized": true
+    },
+    {
+      "path": "btco-os/docs/deployment/INDEPENDENT-RUNTIME.md",
+      "upstream_git_blob": "770d09b8a0f6c3d108014f2ce46d79222c07b2dc",
+      "published_sha256": "b56a278f334a99c8f46eed875714b75cfe63af98715cb2e10db3b2b460ed1ab3",
+      "sanitized": false
     },
     {
       "path": "btco-os/docs/recovered-source.json",
@@ -2523,14 +2535,14 @@
     },
     {
       "path": "btconnect/.github/workflows/ci.yml",
-      "upstream_git_blob": "9dfd4248372769daa25f7b6a0ed54f807ab7435b",
-      "published_sha256": "96d19075fd632b21f2fd9fca52f8d6638ae0c63dde88df7016b20e9c2af6aa58",
+      "upstream_git_blob": "5e1403f3020ca082a2f06f90ba95b20c44f03446",
+      "published_sha256": "e910652cb105c1806bf27dbbe62a9fd7179484e2c8656974112238079a9ad0a5",
       "sanitized": false
     },
     {
       "path": "btconnect/.github/workflows/publisher-worker.yml",
-      "upstream_git_blob": "9ca0bbb005703e0a923929145d2c357540d7d8bc",
-      "published_sha256": "e7ae42ba865b6b31a5a9a86dae8a174bed2b96ab995cfd2423669d6df43e13f2",
+      "upstream_git_blob": "ddd958c6b66e79e0f02fd3e4d112498b29c01b1d",
+      "published_sha256": "31a7a287429cb7a03ff93c129fe8facb5638125d26df49d4fd4cc4f19a1c24bc",
       "sanitized": false
     },
     {
@@ -2541,8 +2553,8 @@
     },
     {
       "path": "btconnect/CHANGELOG.md",
-      "upstream_git_blob": "6598128e92ebb7b02ad25dc60bc97460a3928c3c",
-      "published_sha256": "cf5617a576502dda3dec1bd7902738017edb1ba86fa206399edd8f17544d2a39",
+      "upstream_git_blob": "7e95ab59530b79a22132b8501991ea93c97e71c2",
+      "published_sha256": "758c487be712d710422aed72e797c3e5e12ac4d1938f38a65af14b85a0d59e54",
       "sanitized": false
     },
     {
@@ -2595,8 +2607,8 @@
     },
     {
       "path": "btconnect/btco_ebay/config.py",
-      "upstream_git_blob": "3b6f7dd1daa7a91000e31d05c02b2f01bd78951c",
-      "published_sha256": "1652fd0e2975e932e26f51b536f8ea39c128a4e3493cc136d8e6b773c1e68cd9",
+      "upstream_git_blob": "a0dfa1717ff19ef20c09fc34c56264edf762e92c",
+      "published_sha256": "fa9e81ed93e9f0817cfe4ec6a2ed3973d0e842f3b28b44220216e2bf59a30125",
       "sanitized": false
     },
     {
@@ -2613,8 +2625,8 @@
     },
     {
       "path": "btconnect/btco_ebay/github_worker.py",
-      "upstream_git_blob": "6934d299c68673bb2acfb5907d0cc82ce32fec8f",
-      "published_sha256": "3d52b2720cc8eeb7f1d5c9e6b8504fffee77fd189ef9f5bcd477748bc03a8a7f",
+      "upstream_git_blob": "09ddf06702ca2c7f2b707693950425b43cb254f6",
+      "published_sha256": "5ef99bef77e90f37034fc7a4c3f7fa78c6c14612e299c8fc9c93cb46a99fa465",
       "sanitized": false
     },
     {
@@ -2990,6 +3002,12 @@
       "sanitized": false
     },
     {
+      "path": "btconnect/docs/releases/recovery-security-2026-10-21.md",
+      "upstream_git_blob": "a6d0926d4d4a7716575c61dd65ea39dbe28f1772",
+      "published_sha256": "4c57c17b110dcbabef574a1de387c700902e651008e72ba9dba441277d6c21c5",
+      "sanitized": false
+    },
+    {
       "path": "btconnect/pyproject.toml",
       "upstream_git_blob": "28219d6809cb41f5ad7a62914aa855301f47bfff",
       "published_sha256": "0a38f276b19a3d0afad5cafbc235c32c2b60ea4bf0468d625cbffe71fa131fad",
@@ -3263,6 +3281,12 @@
       "path": "btconnect/tests/test_receipts.py",
       "upstream_git_blob": "1f7d9525be6e8f49cb6b74736a39723817949a84",
       "published_sha256": "7e7204fa871897fb84cfd2cdde2e41c9ed997fe3fbe51d928ad24c64598b3067",
+      "sanitized": false
+    },
+    {
+      "path": "btconnect/tests/test_recovery_security.py",
+      "upstream_git_blob": "c11fe90149797fd4e4b9865ac4be49827d2200f2",
+      "published_sha256": "52343462d68c8a6c8d55427e1ef1c5c3596f60bcf9d283b527534d3ac0d1984c",
       "sanitized": false
     },
     {

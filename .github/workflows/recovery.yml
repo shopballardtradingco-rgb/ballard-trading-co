@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -20,7 +20,7 @@ jobs:
       - run: python3 tools/verify-source.py
       - name: Build source archive and complete public Git bundle
         run: bash tools/archive-source.sh "$RUNNER_TEMP/ballard-source-backup"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: ballard-source-${{ github.sha }}-${{ github.run_id }}
           path: ${{ runner.temp }}/ballard-source-backup/*

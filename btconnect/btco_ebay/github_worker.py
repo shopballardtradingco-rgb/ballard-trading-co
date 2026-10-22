@@ -40,6 +40,16 @@ def progress(review):
                        for x in review["listings"]], sort_keys=True)
 
 
+def require_fresh_owner_approval(env):
+    # A rerun retains GITHUB_ACTOR from the original run. It is not a new
+    # owner decision, even when another collaborator presses the rerun button.
+    if (env.get("GITHUB_ACTOR") != "shopballardtradingco-rgb"
+            or env.get("GITHUB_TRIGGERING_ACTOR") != "shopballardtradingco-rgb"
+            or env.get("GITHUB_RUN_ATTEMPT") != "1"
+            or env.get("GITHUB_EVENT_NAME") != "workflow_dispatch"):
+        raise ValueError("New listing approval requires a fresh owner workflow dispatch")
+
+
 def require_verified_source(api, sha):
     if not re.fullmatch(r"[0-9a-f]{40}", sha):
         raise ValueError("Exact tested worker commit is required")
@@ -91,8 +101,8 @@ async def execute(env, operation, batch_id, revision, approve, output):
     missing = preflight(env, operation)
     if missing:
         raise ValueError("Missing independent worker configuration: " + ", ".join(missing))
-    if approve and env.get("GITHUB_ACTOR") != "shopballardtradingco-rgb":
-        raise ValueError("Only the repository owner may grant new listing approval")
+    if approve:
+        require_fresh_owner_approval(env)
     api = GitHubAPI(env["GITHUB_REPOSITORY"], env["GITHUB_TOKEN"])
     try:
         if operation in ("prepare", "publish"):
