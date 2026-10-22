@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import socket
 import ssl
 import subprocess
 import time
@@ -26,13 +27,21 @@ run('sudo','chown','10001:10001',str(private/'connector-data'))
 original_caddy = (root/'Caddyfile').read_text()
 (root/'Caddyfile').write_text('core.example.test {\n tls internal\n reverse_proxy core:3000\n}\n'
                             'connect.example.test {\n tls internal\n reverse_proxy connector:8000\n}\n')
-(root/'compose.test.yaml').write_text('networks:\n  default:\n    internal: true\n')
+(root/'compose.test.yaml').write_text(
+    'services:\n  edge:\n    networks: [default, ingress]\n'
+    'networks:\n  default:\n    internal: true\n  ingress: {}\n')
 compose = ['docker','compose','-f','compose.yaml','-f','compose.test.yaml']
 cookie = ''
 csrf = ''
+class LocalTLS(http.client.HTTPSConnection):
+    def connect(self):
+        # Keep SNI/Host realistic while routing only to the disposable local proxy.
+        raw = socket.create_connection(('127.0.0.1',443), self.timeout)
+        self.sock = self._context.wrap_socket(raw, server_hostname=self.host)
+
 def request(path, data=None, *, host='core.example.test', auth=True):
     global cookie, csrf
-    conn = http.client.HTTPSConnection('127.0.0.1',443,context=ssl._create_unverified_context(),timeout=15)
+    conn = LocalTLS(host,443,context=ssl._create_unverified_context(),timeout=15)
     headers={'Host':host,'Origin':'https://'+host}
     if auth: headers.update({'Cookie':cookie,'X-CSRF-Token':csrf})
     if data is not None: headers['Content-Type']='application/json'
@@ -72,6 +81,10 @@ try:
     run(*compose,'up','-d','--wait','core')
     assert request('/api/workspace')[1]['state']['inventory']['items'][0]['title']=='Synthetic independent-host item'
     print('PASS: proxy TLS, private access, owner setup, app-role isolation, saved-state restart, non-root connector and unauthorized MCP rejection.')
+except BaseException:
+    # This workflow has disposable synthetic state only; no environment dumps.
+    run(*compose,'logs','--no-color','--tail','60','core','connector','edge')
+    raise
 finally:
     run(*compose,'--profile','publisher','down','-v','--remove-orphans')
     (root/'Caddyfile').write_text(original_caddy)
