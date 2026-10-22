@@ -14,7 +14,8 @@ import uuid
 root = Path(__file__).resolve().parent
 os.chdir(root)
 def run(*args, **kwargs):
-    return subprocess.run(args, check=True, text=True, **kwargs)
+    print('Container acceptance:', ' '.join(args[:8]), flush=True)
+    return subprocess.run(args, check=True, text=True, timeout=120, **kwargs)
 run('python3','initialize.py','core.example.test','connect.example.test')
 private = root/'private'
 # All secrets here are newly generated, disposable synthetic test values.
@@ -96,7 +97,7 @@ try:
     env={**os.environ,'COMPOSE_FILE':'compose.yaml:compose.test.yaml'}
     run('bash','host.sh','restore',str(backup),env=env)
     assert request('/api/workspace')[1]['state']['inventory']['items'][0]['title']=='Synthetic independent-host item'
-    again=subprocess.run(['bash','host.sh','restore',str(backup)],env=env,capture_output=True)
+    again=subprocess.run(['bash','host.sh','restore',str(backup)],env=env,capture_output=True,timeout=120)
     assert again.returncode!=0 and b'empty workspace' in again.stderr
     assert backup.stat().st_mode & 0o777==0o600
     assert not list(private.glob('restore-input.*'))
