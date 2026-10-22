@@ -39,4 +39,15 @@ jobs:
           python-version: '3.12'
       - run: pip install -r requirements.lock.txt
       - run: pip install -e '.[test]'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --prefix btco-os/core --ignore-scripts --no-audit --no-fund
+        working-directory: .
+      - run: node --test tools/tests/publisher-handoff.test.mjs
+        working-directory: .
+        env:
+          BTCO_CORE_HANDOFF_FILE: ${{ runner.temp }}/synthetic-core-handoff.json
       - run: python -m pytest -q
+        env:
+          BTCO_CORE_HANDOFF_FILE: ${{ runner.temp }}/synthetic-core-handoff.json
