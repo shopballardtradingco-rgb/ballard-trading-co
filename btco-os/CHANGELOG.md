@@ -1,3 +1,9 @@
+## Recovery maintenance — 2026-10-21 Pacific
+
+- Export the tested Core Docker image, source/image identifiers, browser hash and checksums from GitHub Actions for Railway-independent deployment.
+- Pin workflow actions and disable persisted checkout credentials; retain existing publication and validation gates. No runtime feature, schema, data or credential change.
+- See docs/deployment/INDEPENDENT-RUNTIME.md. A release artifact does not establish a live host or recover missing connector state.
+
 ## BTCore 0.7.4 — eBay publication progress repair
 
 - Continue other approved cards when one card fails; use persisted connector outcomes instead of an increase in the verified-listing count to advance the queue.

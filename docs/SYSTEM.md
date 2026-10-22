@@ -1,3 +1,7 @@
+# GitHub-only recovery maintenance — October 21, 2026 Pacific
+
+Connector PR #13 closes credential-diagnostic and rerun-approval gaps. Core PR #10 exports the tested standalone Docker image with a source/image manifest, browser hash and checksums for independent hosting. Actions are pinned and checkouts no longer retain tokens. No runtime feature, live listing or credential rotation was performed. See [the scoped security audit](SECURITY-RECOVERY-2026-10-21.md) for findings, sequencing and acceptance blockers.
+
 # Independent publisher checkpoint — October 21, 2026
 
 The owner requires deployment without Railway. The GitHub Actions publisher reuses the existing BTConnect batch engine, original-photo validation and exact review approval. It runs without a hosted Core/Connect API, checkpoints the encrypted publication journal synchronously in a private GitHub branch, and stops all writes if a checkpoint is unconfirmed. [Setup and limits](../btconnect/docs/releases/independent-publisher-2026-10-22.md).

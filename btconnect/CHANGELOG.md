@@ -1,3 +1,10 @@
+# Recovery security maintenance — 2026-10-21 Pacific
+
+- Redact eBay developer and store encryption secrets from settings diagnostics.
+- Reject new listing approvals on reruns or when the triggering actor differs from the owner.
+- Pin workflow actions and stop retaining checkout credentials. Preserve the existing publisher, exact approval and journal recovery.
+- See docs/releases/recovery-security-2026-10-21.md; no live activation or listing change is claimed.
+
 # Independent publisher execution — 2026-10-22
 
 - Run the existing saved-batch publisher on GitHub Actions without a hosted Core/Connect API or Railway connection. Require exact-source CI and exact listing approval.

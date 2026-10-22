@@ -23,9 +23,9 @@ EBAY_SCOPES = [TRADING_SCOPE, *LEGACY_EBAY_SCOPES]
 class Settings:
     public_url: str
     client_id: str
-    client_secret: str
+    client_secret: str = field(repr=False)
     runame: str
-    encryption_key: str
+    encryption_key: str = field(repr=False)
     db_path: str = "/data/btco.sqlite3"
     allowed_seller: str = "ballardtradingco"
     port: int = 8000
