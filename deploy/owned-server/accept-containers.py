@@ -72,9 +72,10 @@ try:
     assert request('/api/workspace')[1]['state']['revision']==1
     # Runtime role must not own schema/migration permissions.
     run(*compose,'exec','-T','core','node','--input-type=module','-e',
-        'import pg from "pg"; const c=new pg.Client({connectionString:process.env.BTCORE_APP_DATABASE_URL});'
-        'await c.connect();let denied=false;try{await c.query("CREATE TABLE should_fail(id int)")}'
-        'catch(e){denied=e.code==="42501"}finally{await c.end()}if(!denied)process.exit(1);')
+        'import {openStore} from "./core/store.mjs";'
+        'const c=await openStore({databaseUrl:process.env.BTCORE_APP_DATABASE_URL,migrate:false});'
+        'let denied=false;try{await c.query("CREATE TABLE should_fail(id int)")}'
+        'catch(e){denied=e.code==="42501"}finally{await c.close()}if(!denied)process.exit(1);')
     assert request('/health',host='connect.example.test',auth=False)[0]==200
     assert request('/mcp',{'jsonrpc':'2.0','id':1,'method':'tools/list'},host='connect.example.test',auth=False)[0]==401
     run(*compose,'restart','database','core','connector')
