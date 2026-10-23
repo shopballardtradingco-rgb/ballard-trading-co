@@ -21,6 +21,7 @@ from .blocking import BlockingWork
 
 MAX_PHOTO_BYTES = 12_000_000
 DEFAULT_QUOTA = 300_000_000
+FREE_DISK_RESERVE_BYTES = 50_000_000
 
 
 class PhotoStore:
@@ -35,6 +36,38 @@ class PhotoStore:
     @staticmethod
     def owner_key(seller):
         return hashlib.sha256(seller.encode()).hexdigest()
+
+    def encrypted_usage(self):
+        return sum(p.stat().st_size for p in self.root.rglob("*") if p.is_file())
+
+    def capacity(self):
+        """Read upload headroom using the same limits as put; reserve no bytes.
+
+        Other writes can change this snapshot. Count stored ciphertext, including
+        unindexed files, rather than estimating space from the photo catalog.
+        """
+        try:
+            used = self.encrypted_usage()
+            free = shutil.disk_usage(self.root).free
+        except OSError:
+            # Filesystem diagnostics can contain private paths. No missing
+            # measurement may be interpreted as an empty store or free capacity.
+            return {"status": "unavailable", "quota_bytes": self.quota,
+                    "free_disk_reserve_bytes": FREE_DISK_RESERVE_BYTES,
+                    "available_encrypted_bytes": None,
+                    "reason": "Storage capacity could not be measured; retry the readiness check."}
+        quota_remaining = max(0, self.quota - used)
+        disk_remaining = max(0, free - FREE_DISK_RESERVE_BYTES)
+        available = min(quota_remaining, disk_remaining)
+        return {"status": "available" if available else "full",
+                "quota_bytes": self.quota, "encrypted_bytes_used": used,
+                "quota_remaining_bytes": quota_remaining, "disk_free_bytes": free,
+                "free_disk_reserve_bytes": FREE_DISK_RESERVE_BYTES,
+                "disk_upload_headroom_bytes": disk_remaining,
+                "available_encrypted_bytes": available,
+                "limiting_factor": "photo_quota" if quota_remaining <= disk_remaining else "disk_reserve",
+                "snapshot_only": True,
+                "meaning": "Encrypted-byte headroom, not original-file bytes. Uploads recheck limits; this read reserves no capacity."}
 
     def put(self, seller, data, expected_sha256, role, *, file_name=None, file_id=None, grant_family=None):
         if not 0 < len(data) <= MAX_PHOTO_BYTES:
@@ -87,10 +120,10 @@ class PhotoStore:
                     raise ValueError("Stored original failed integrity verification")
                 self.catalog(seller, photo, len(data), file_name, file_id, db)
                 return photo
-            used = sum(p.stat().st_size for p in self.root.rglob("*") if p.is_file())
+            used = self.encrypted_usage()
             if (
                 used + len(encrypted) > self.quota
-                or shutil.disk_usage(self.root).free < len(encrypted) + 50_000_000
+                or shutil.disk_usage(self.root).free < len(encrypted) + FREE_DISK_RESERVE_BYTES
             ):
                 raise ValueError(
                     "Photo storage capacity reached; approve additional storage before ingesting more"

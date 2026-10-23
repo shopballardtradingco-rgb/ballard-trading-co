@@ -1,4 +1,4 @@
-> Latest: 0.6.0 — Card listing contracts, condition descriptors, existing batch publisher support and exact standalone Core OAuth callback. See docs/releases/0.6.0.md for rollout and limits.
+> Latest: 0.6.1 — Read actual encrypted-photo usage and disk headroom before bulk intake. Existing automatic 5% promotion and card contracts are accurately described. See docs/releases/0.6.1.md for verification and rollout limits.
 
 # BTConnect · 0.5.2 performance candidate
 

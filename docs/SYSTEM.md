@@ -1,3 +1,9 @@
+# Connector listing readiness — October 22, 2026 Pacific
+
+BTConnect 0.6.1 reports measured encrypted-photo and free-disk headroom through its existing authenticated readiness tool. The quota and disk reserve remain unchanged. It also corrects stale automatic-promotion and card-contract descriptions and preserves the next-session runbook. [Canonical PR #15](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/15) is merged at `71167314af41b9326c77dca8b0bef8dd9e72137b`; its tree matches tested head `b63f1332c7eade4de8ceff6cae5accd0ae9e1771`.
+
+Validation: 566 connector tests passed with the cross-repository case deferred; all 12 handoff cases then passed with the real Core exporter fixture, plus three exporter tests. Compilation, wheel build and both exact-head GitHub CI runs passed. Source readiness does not prove runtime deployment, expanded storage or new-photo/live-listing acceptance. No marketplace writes or AI requests were made. [Runbook](../btconnect/docs/NEXT-COMIC-BATCH.md).
+
 # Core staged-card handoff — October 22, 2026
 
 The independent publisher now has an offline input path for Core-only staged cards. The public `tools/export-publisher-input.mjs` uses Core's actual backup parser and card compiler; the canonical connector importer restores the existing private journal, stores originals and submits unchanged batch identities. No second inventory database or hosting service is added. [Commands and limits](../btconnect/docs/releases/core-handoff-2026-10-22.md).

@@ -161,6 +161,7 @@ def register_listing_tools(mcp, provider, settings, store, ebay):
             ],
             "photo_storage": "private encrypted persistent volume",
             "photo_quota_bytes": photos.quota,
+            "photo_capacity": await photos.work.run(photos.capacity),
             "photo_transfer": {"native_file_tool": "ingest_original_photo",
                                "batch_file_tool": "ingest_original_photos",
                                "max_batch_files": MAX_PHOTO_BATCH,
@@ -178,7 +179,7 @@ def register_listing_tools(mcp, provider, settings, store, ebay):
                 "duplicate checks",
                 "live item read-back",
             ],
-            "promotion": "Fixed 5% in an existing reviewed CPS campaign; record unsupported eligibility explicitly",
+            "promotion": "Fixed 5% in an existing reviewed manual CPS campaign or existing automatic 5% campaign; automatic inclusion is read back without campaign/ad writes",
             "batch_workflow": {
                 "research_originals": "research_comic_photos",
                 "saved_research": "get_comic_research",
@@ -484,7 +485,7 @@ def register_listing_tools(mcp, provider, settings, store, ebay):
                 "research": "Evidence is saved for owner review, not independently verified by this service.",
                 "owner_corrections": "Correct saved research in prepare_researched_comic_intake; no re-upload, paid retry or full-draft retyping required.",
                 "work_independence": "Native attachments, stored evidence, draft assembly, review, approval, publication and local receipts execute on this service; hosted AI is optional.",
-                "cards": "Card photo storage works; card draft/publication contracts are not implemented.",
+                "cards": "Use get_card_listing_options for card-specific contracts; this intake schema is for comics. Cards use the existing draft/batch publisher.",
                 "approval": "Use existing complete batch review and explicit exact-revision approval."}
 
     @mcp.tool(annotations=write, meta=write_meta)

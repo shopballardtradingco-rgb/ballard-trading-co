@@ -1,3 +1,9 @@
+# Connector listing readiness — October 22, 2026 Pacific
+
+BTConnect 0.6.1 reports measured encrypted-photo and free-disk headroom through its existing authenticated readiness tool. The quota and disk reserve remain unchanged. It also corrects stale automatic-promotion and card-contract descriptions and preserves the next-session runbook. [Canonical PR #15](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/15) is merged at `71167314af41b9326c77dca8b0bef8dd9e72137b`; its tree matches tested head `b63f1332c7eade4de8ceff6cae5accd0ae9e1771`.
+
+Validation: 566 connector tests passed with the cross-repository case deferred; all 12 handoff cases then passed with the real Core exporter fixture, plus three exporter tests. Compilation, wheel build and both exact-head GitHub CI runs passed. Source readiness does not prove runtime deployment, expanded storage or new-photo/live-listing acceptance. No marketplace writes or AI requests were made. [Runbook](btconnect/docs/NEXT-COMIC-BATCH.md).
+
 # 2026-10-21 — GitHub publisher recovery path
 
 - Preserve the same BTConnect publisher as an on-demand GitHub Actions worker with durable encrypted checkpoints and exact approval.
