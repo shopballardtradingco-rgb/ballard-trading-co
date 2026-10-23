@@ -6,6 +6,24 @@ on:
 permissions:
   contents: read
 jobs:
+  render-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - run: docker build -f deploy/render/Dockerfile -t btcore-render:check .
+      - name: Verify recovery image and fail-closed startup
+        run: |
+          test "$(docker image inspect btcore-render:check --format '{{.Config.User}}')" = node
+          docker run --rm --entrypoint node btcore-render:check --check ops/render-runtime.mjs
+          set +e
+          docker run --rm btcore-render:check > "$RUNNER_TEMP/recovery-start.log" 2>&1
+          result=$?
+          set -e
+          test "$result" -eq 1
+          test "$(cat "$RUNNER_TEMP/recovery-start.log")" = 'Core recovery configuration is incomplete or invalid. Check the deployment runbook.'
   core:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -19,6 +37,7 @@ jobs:
           cache: npm
           cache-dependency-path: btco-os/core/package-lock.json
       - run: npm ci --prefix btco-os/core --ignore-scripts --no-audit --no-fund
+      - run: node --test tools/tests/render-runtime.test.mjs
       - run: npm run check --prefix btco-os/core
       - run: npm test --prefix btco-os/core
       - run: python3 -m unittest discover -s btco-os/tests -v
