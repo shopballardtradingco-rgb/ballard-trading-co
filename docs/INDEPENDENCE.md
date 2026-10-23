@@ -10,7 +10,7 @@ Latest instruction: add no new features in the current pass; improve performance
 - [x] Verify current source snapshots against upstream blob hashes.
 - [x] Obtain a complete Core export and prove an isolated offline restore with original-photo hashes.
 - [ ] Verify recurring off-site backup delivery, retention and restore checks.
-- [ ] Back up connector SQLite, its original photo bucket and required encryption keys independently.
+- [ ] Back up connector SQLite, its encrypted listing-objects directory and required encryption keys independently; preserve any separately maintained R2 copies too.
 - [ ] Export/reconcile the older Sites/D1 workspace and preserve needed originals before retiring it.
 - [ ] Preserve complete private Git histories and GitHub issue/PR metadata on another provider.
 - [ ] Automate reviewed public-source refreshes or migrate deployment to this repository after validation.

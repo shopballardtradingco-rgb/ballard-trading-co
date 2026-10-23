@@ -1,0 +1,54 @@
+# Isolated recovery destination. See docs/RENDER-RECOVERY.md before applying.
+# No live marketplace or AI credentials belong in this Blueprint.
+services:
+  - type: web
+    name: btcore-recovery
+    runtime: docker
+    region: oregon
+    plan: 0.5c-512mb
+    numInstances: 1
+    dockerfilePath: ./deploy/render/Dockerfile
+    dockerContext: .
+    preDeployCommand: node core/provision.mjs
+    healthCheckPath: /healthz
+    autoDeployTrigger: 'off'
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BTCORE_ACCESS_MODE
+        value: private
+      - key: DATABASE_URL
+        fromDatabase:
+          name: btcore-recovery-db
+          property: connectionString
+      - key: BTCORE_APP_DB_PASSWORD
+        generateValue: true
+      - key: BTCORE_RECOVERY_SETUP_CODE
+        generateValue: true
+      - key: BTCORE_ORIGIN
+        fromService:
+          type: web
+          name: btcore-recovery
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: BTCORE_S3_ENDPOINT
+        sync: false
+      - key: BTCORE_S3_BUCKET
+        sync: false
+      - key: BTCORE_S3_REGION
+        sync: false
+      - key: BTCORE_S3_ACCESS_KEY_ID
+        sync: false
+      - key: BTCORE_S3_SECRET_ACCESS_KEY
+        sync: false
+      - key: BTCORE_S3_PATH_STYLE
+        value: '1'
+databases:
+  - name: btcore-recovery-db
+    databaseName: btcore_recovery_dev
+    user: btcore_migration
+    region: oregon
+    postgresMajorVersion: '17'
+    plan: 0.1c-256mb
+    diskSizeGB: 1
+    storageAutoscalingEnabled: false
+    ipAllowList: []

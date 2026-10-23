@@ -1,3 +1,7 @@
+# Render recovery configuration — October 22, 2026 Pacific
+
+Add a reproducible isolated Core 0.7.4 deployment on Render: private login, PostgreSQL 17, explicit 1 GB database storage, existing provisioning and original-photo storage checks, and automatic deploys disabled. The launcher passes restricted app credentials and a setup digest to unchanged Core source while keeping marketplace and AI credentials absent. Five adapter tests include real child-process restart checks. Deployment, private bucket credentials, total-budget verification and live restore remain open; no paid resource or listing was created.
+
 # Existing photo headroom — October 22, 2026 Pacific
 
 BTConnect 0.6.2 raises the encrypted-photo ceiling to 400 MB on the existing volume while retaining the independent 50 MB free-disk reserve. Readiness reports the smaller disk/quota allowance. The next batch must be sized from actual originals. No paid service, volume resize, migration or marketplace change. Canonical [PR #16](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/16), merged source `661959afd6c1b9297395b19816ee8f81af12f3b6`; all 568 connector tests and both exact-head CI runs passed, including the Core exporter integration locally. Live authenticated checks now confirm version 0.6.2 and the 400 MB quota with the 50 MB reserve enforced in readiness. New-photo intake and owner-approved live publication remain the next-session acceptance tests.

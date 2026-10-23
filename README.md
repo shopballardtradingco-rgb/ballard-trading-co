@@ -8,6 +8,8 @@ This is the public source and project handoff hub for **BTCore**, the standalone
 
 ## Start here
 
+[Render recovery configuration](docs/RENDER-RECOVERY.md): a private Core/PostgreSQL Blueprint with independent photo-storage inputs. Configuration and tests are separate from live deployment; storage credentials and the complete cloud cost still need verification before Apply.
+
 [GitHub-only security audit and recovery blockers](docs/SECURITY-RECOVERY-2026-10-21.md). Core runtime packaging now retains the tested Docker image for independent hosting; source/artifact readiness is separate from live deployment.
 
 Publisher recovery: [run the existing eBay publisher independently on GitHub](btconnect/docs/releases/independent-publisher-2026-10-22.md). The [Core staged-card handoff](btconnect/docs/releases/core-handoff-2026-10-22.md) now transfers verified backup originals through the existing publisher. Source and recovery tests are ready; live activation still requires the private recovered journal and seller authorization.
