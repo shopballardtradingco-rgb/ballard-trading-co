@@ -148,7 +148,7 @@ def build_app(settings, transport=None):
                             key=lambda t: t["name"])
         manifest_hash = hashlib.sha256(json.dumps(advertised, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         return {"seller": grant["username"], "seller_id": grant["user_id"], "mode": "approval_gated" if listing_ready else "read_only",
-                "version": "0.6.1",
+                "version": "0.6.2",
                 "server_tool_manifest": {"sha256": manifest_hash, "count": len(advertised),
                     "names": [t["name"] for t in advertised], "host_callability_verified": False,
                     "meaning": "Server advertisement only. Compare with the tools actually callable in this Chat.",
@@ -220,7 +220,7 @@ def build_app(settings, transport=None):
 
     @mcp.custom_route("/health", methods=["GET"])
     async def health(request):
-        return JSONResponse({"service": "btco-ebay", "version": "0.6.1", "status": "ready", "publication_enabled": settings.publication_enabled})
+        return JSONResponse({"service": "btco-ebay", "version": "0.6.2", "status": "ready", "publication_enabled": settings.publication_enabled})
 
     @mcp.custom_route("/", methods=["GET"])
     async def home(request):

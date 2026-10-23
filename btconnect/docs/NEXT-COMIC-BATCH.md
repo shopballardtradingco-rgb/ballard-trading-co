@@ -9,7 +9,7 @@ unchanged until the next exact review approval.
 - Read connection status and readiness. Confirm actual host-callable comic
   tools, seller scopes, publication gate and measured photo_capacity.
 - Check capacity for the actual incoming original file sizes, accounting for
-  encryption and the disk reserve. The existing quota is 300 MB; a volume
+  encryption and the disk reserve. The existing quota is 400 MB; a volume
   increase alone does not change that code limit. Size any expansion and quota
   change together within the owner's total cloud budget. Do not delete saved
   originals to free space or treat catalog estimates as measured free disk.

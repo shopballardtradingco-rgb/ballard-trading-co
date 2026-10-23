@@ -1,6 +1,7 @@
 """Capacity checks use synthetic originals and never contact a marketplace."""
 from hashlib import sha256
 from types import SimpleNamespace
+import pytest
 
 from btco_ebay.photos import PhotoStore, FREE_DISK_RESERVE_BYTES
 from test_connector import env as env, connect, tool
@@ -71,3 +72,23 @@ def test_authenticated_readiness_exposes_capacity_without_marketplace_writes(env
     assert result["photo_capacity"]["available_encrypted_bytes"] >= 0
     assert str(provider.store.path) not in str(result)
     assert all(r.method == "GET" or "oauth2/token" in str(r.url) for r in state["requests"])
+
+
+def test_expanded_ceiling_still_enforces_disk_reserve_on_real_ingestion(env, monkeypatch):
+    _, provider, _, _ = env
+    old = PhotoStore(provider.store, quota=300_000_000)
+    current = PhotoStore(provider.store)
+    monkeypatch.setattr(PhotoStore, "encrypted_usage", lambda _: 301_000_000)
+    monkeypatch.setattr("btco_ebay.photos.shutil.disk_usage",
+                        lambda _: SimpleNamespace(free=100_000_000))
+    raw = original("red")
+    with pytest.raises(ValueError, match="capacity reached"):
+        old.put("seller-123", raw, sha256(raw).hexdigest(), "front")
+    photo = current.put("seller-123", raw, sha256(raw).hexdigest(), "front")
+    assert current.get("seller-123", photo) == raw
+    monkeypatch.setattr("btco_ebay.photos.shutil.disk_usage",
+                        lambda _: SimpleNamespace(free=FREE_DISK_RESERVE_BYTES))
+    other = original("blue")
+    with pytest.raises(ValueError, match="capacity reached"):
+        current.put("seller-123", other, sha256(other).hexdigest(), "back")
+    assert len(list(current.root.rglob("*.jpeg"))) == 1

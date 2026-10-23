@@ -1,7 +1,7 @@
 """Private encrypted object storage on the existing persistent volume.
 
 Original bytes are never resized, re-encoded, publicly served, or placed in source.
-Content-addressed objects are immutable and seller-bound. The owner-approved 300 MB encrypted-photo quota leaves room for the OAuth
+Content-addressed objects are immutable and seller-bound. The 400 MB encrypted-photo quota uses existing capacity while reserving room for the OAuth
 and listing databases on the existing 500 MB volume. The independent 50 MB
 free-space reserve still applies. See docs/STORAGE-BUDGET-2026-10-17.md.
 """
@@ -20,7 +20,7 @@ from .listing_drafts import Photo
 from .blocking import BlockingWork
 
 MAX_PHOTO_BYTES = 12_000_000
-DEFAULT_QUOTA = 300_000_000
+DEFAULT_QUOTA = 400_000_000
 FREE_DISK_RESERVE_BYTES = 50_000_000
 
 

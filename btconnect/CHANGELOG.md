@@ -1,3 +1,9 @@
+# 0.6.2 — 2026-10-22 Pacific
+
+- Raise the encrypted-photo ceiling from 300 MB to 400 MB on the existing volume. Preserve the independent 50 MB disk reserve, original integrity, duplicate behavior and all approvals.
+- Readiness still reports the smaller of quota and disk headroom. No volume resize, subscription, storage migration or listing change.
+- See docs/releases/0.6.2.md for capacity sizing and acceptance.
+
 # 0.6.1 — 2026-10-22 Pacific
 
 - Report measured encrypted-photo usage, remaining quota, free disk and upload headroom through existing authenticated readiness. Measure off the event loop; retain the 300 MB quota and 50 MB disk reserve.

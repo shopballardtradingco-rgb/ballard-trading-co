@@ -1,4 +1,4 @@
-> Latest: 0.6.1 — Read actual encrypted-photo usage and disk headroom before bulk intake. Existing automatic 5% promotion and card contracts are accurately described. See docs/releases/0.6.1.md for verification and rollout limits.
+> Latest: 0.6.2 — Use the existing volume with a 400 MB photo quota and unchanged 50 MB free-disk reserve. Read actual headroom before each batch. See docs/releases/0.6.2.md; 0.6.1 added the measured readiness response.
 
 # BTConnect · 0.5.2 performance candidate
 

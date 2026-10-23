@@ -1,3 +1,7 @@
+# Existing photo headroom — October 22, 2026 Pacific
+
+BTConnect 0.6.2 raises the encrypted-photo ceiling to 400 MB on the existing volume while retaining the independent 50 MB free-disk reserve. Readiness reports the smaller disk/quota allowance. The next batch must be sized from actual originals. No paid service, volume resize, migration or marketplace change. Canonical [PR #16](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/16), merged source `661959afd6c1b9297395b19816ee8f81af12f3b6`; all 568 connector tests and both exact-head CI runs passed, including the Core exporter integration locally. Live authenticated checks now confirm version 0.6.2 and the 400 MB quota with the 50 MB reserve enforced in readiness. New-photo intake and owner-approved live publication remain the next-session acceptance tests.
+
 # Connector listing readiness — October 22, 2026 Pacific
 
 BTConnect 0.6.1 reports measured encrypted-photo and free-disk headroom through its existing authenticated readiness tool. The quota and disk reserve remain unchanged. It also corrects stale automatic-promotion and card-contract descriptions and preserves the next-session runbook. [Canonical PR #15](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/15) is merged at `71167314af41b9326c77dca8b0bef8dd9e72137b`; its tree matches tested head `b63f1332c7eade4de8ceff6cae5accd0ae9e1771`.
@@ -39,7 +43,7 @@ This checkpoint adds CDP inventory migration, linked physical-location lookup an
 | Component | Current runtime | Data/state | Independence status |
 | --- | --- | --- | --- |
 | BTCore 0.7.2 | Node application on Railway, development environment | PostgreSQL metadata; private S3-compatible original/photo bucket | Standalone browser UI; daily operation does not require a ChatGPT conversation |
-| BTConnect 0.6.0 | Python service on Railway | SQLite volume with encrypted authorization/listing records; separate private Cloudflare R2 originals | Shared marketplace backend; preserve OAuth, approval and publication journals |
+| BTConnect 0.6.2 | Python service on Railway | SQLite volume with encrypted authorization/listing records and local encrypted listing-objects originals; separately maintained R2 copies are not this PhotoStore backend | Shared marketplace backend; preserve OAuth, approval and publication journals |
 | Legacy BTCo OS | Earlier Sites deployment and D1 | Separate inventory/database | Not automatically synchronized or migrated into standalone Core; retirement requires export and reconciliation |
 | Python inventory utility | Local command line | Separate SQLite file | Not a second writer to Core or D1 |
 | eBay | External marketplace | Authoritative listing/order identifiers | Card publishing via Core → BTConnect exists; read-only mirror is distinct from applying sales to stock |

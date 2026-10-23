@@ -2,7 +2,7 @@
   "as_of": "2026-10-22 America/Los_Angeles",
   "source_commits": {
     "btco-os": "3313cf3a424eaaee8fb91bb2f789075f72f9e23b",
-    "btconnect": "71167314af41b9326c77dca8b0bef8dd9e72137b"
+    "btconnect": "661959afd6c1b9297395b19816ee8f81af12f3b6"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
   "transformations": "Deployment hostnames, Railway dashboard project URLs and transient build-workspace paths replaced with placeholders. Runtime source and tests otherwise preserved.",
@@ -2553,8 +2553,8 @@
     },
     {
       "path": "btconnect/CHANGELOG.md",
-      "upstream_git_blob": "e47d8e101255a504afcf2f0839429ba0a2cd6f4b",
-      "published_sha256": "3367acbebfff3cf7f1276f9ca38b7aaeeb39721b9e0c54903b450b9f6c12d4db",
+      "upstream_git_blob": "56a7a00304bef99f49260f11f7bc076f30d9c0e2",
+      "published_sha256": "69e6b61469ac569f486a21c9710c9c73ab5415c03da62371a812e76bca8d11d2",
       "sanitized": false
     },
     {
@@ -2565,8 +2565,8 @@
     },
     {
       "path": "btconnect/README.md",
-      "upstream_git_blob": "041668f5f933345481a0f379078c90449ec0c5f7",
-      "published_sha256": "c392ea923f21012599b0b7e11703dce633ba2d75903d0b12ad3ed5c160b71c83",
+      "upstream_git_blob": "d7068d7e1fa01726cc699a790dac95ebb28df01d",
+      "published_sha256": "21acf0dad0e69c18f967ab5b37fff2d06a7b31bd899c69fdfb16a0403091cfe4",
       "sanitized": false
     },
     {
@@ -2685,8 +2685,8 @@
     },
     {
       "path": "btconnect/btco_ebay/photos.py",
-      "upstream_git_blob": "1e605d0eee13b57360d2eb88f1e8fe6db9fb2101",
-      "published_sha256": "398af16004c8513d86bdb47d363765ca7b01118bc93da5392da4a2e4f701e2db",
+      "upstream_git_blob": "9b9f1bc87f1e9b6c033a58c794f8b3e96f54303b",
+      "published_sha256": "8f3093e5cdbb422c50edd121c88f68eb5d5f3f3649e00aa5afd2da15a926dd4a",
       "sanitized": false
     },
     {
@@ -2709,8 +2709,8 @@
     },
     {
       "path": "btconnect/btco_ebay/server.py",
-      "upstream_git_blob": "8c96cc1c9d99588835fbd2021b8e1c7c02f3b61f",
-      "published_sha256": "a72d42ccce8650279f250d6aae1acd4b616851b11910a26498b1584f2fdbd34a",
+      "upstream_git_blob": "2e7c03599b57f38a9bb88aca05d354010957aa79",
+      "published_sha256": "b45a9250c9326daa12bb6eddf71ab50942d49f922aefff23f643c54184856d83",
       "sanitized": false
     },
     {
@@ -2751,8 +2751,8 @@
     },
     {
       "path": "btconnect/docs/NEXT-COMIC-BATCH.md",
-      "upstream_git_blob": "cae284256140818e1809f6f554f33491f3235a51",
-      "published_sha256": "b95c607d0660eb529903d007250aab44d101c8b3aed13fcc70ca10d7243e49b8",
+      "upstream_git_blob": "a051400586adf3e7a6c38133b1611949d1e6d226",
+      "published_sha256": "927eea8248925c6ea93eb79cb9bee7b11976f5302f3bb63f05a95a322b11ca35",
       "sanitized": false
     },
     {
@@ -3014,6 +3014,12 @@
       "sanitized": false
     },
     {
+      "path": "btconnect/docs/releases/0.6.2.md",
+      "upstream_git_blob": "554d52d2973ae4d93bcb01de6953eb12e82892ac",
+      "published_sha256": "08be839091d849a70d14e99805f0b05f8b02e3d0f3e14b6a37d825857054c13b",
+      "sanitized": false
+    },
+    {
       "path": "btconnect/docs/releases/core-handoff-2026-10-22.md",
       "upstream_git_blob": "bb91a89418cc72b686ba3d64742f7a278b80748c",
       "published_sha256": "ad5b5669209c0ed42fd34a2bdef3c2cd5050f463f70826ec5f6005f8f2bd347c",
@@ -3033,8 +3039,8 @@
     },
     {
       "path": "btconnect/pyproject.toml",
-      "upstream_git_blob": "8c662dea6a2c209f85938c50ba52a2134d7eee12",
-      "published_sha256": "cf1cf6fbf4c4f9c8f56e26cec0772dedc51822c9bb7ad866136fe69811555346",
+      "upstream_git_blob": "260eda9c9e507479e5b52f3848293da339395917",
+      "published_sha256": "997c1d1250db156a930a7f768c1a2b27c7617ce24f9c33c15c31b9ad947456d1",
       "sanitized": false
     },
     {
@@ -3261,8 +3267,8 @@
     },
     {
       "path": "btconnect/tests/test_photo_capacity.py",
-      "upstream_git_blob": "a27b59a28d5b875368d03bf2d2f3bcdab47df14b",
-      "published_sha256": "01b3d9fb21690097a06c25250443d2c18f8da169b72945e2a2f5af4a73c993d0",
+      "upstream_git_blob": "a70cdcacdc6f7f687d39ff7adc9280c0ee3fe705",
+      "published_sha256": "cfac1d55a40e4b8613f6b1341090466eab8bed5ba7c6028ae07af6ba811cb1af",
       "sanitized": false
     },
     {
