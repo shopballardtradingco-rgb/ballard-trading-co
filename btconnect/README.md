@@ -1,4 +1,4 @@
-> Latest: 0.6.0 — Card listing contracts, condition descriptors, existing batch publisher support and exact standalone Core OAuth callback. See docs/releases/0.6.0.md for rollout and limits.
+> Latest: 0.6.2 — Use the existing volume with a 400 MB photo quota and unchanged 50 MB free-disk reserve. Read actual headroom before each batch. See docs/releases/0.6.2.md; 0.6.1 added the measured readiness response.
 
 # BTConnect · 0.5.2 performance candidate
 

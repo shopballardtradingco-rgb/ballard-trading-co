@@ -58,7 +58,7 @@ With a downloaded bundle, run `git bundle verify FILE.bundle`, then `git clone F
 
 ## Connector and legacy recovery still required
 
-- Save the connector's consistent SQLite backup, its original R2 objects/checksums, TOKEN_ENCRYPTION_KEY and any publication/receipt-signing keys through a private recovery process. Runtime environment values must never enter public artifacts. Preserve write-ahead state, approvals and uncertain publication outcomes.
+- Save the connector's consistent SQLite backup, its local encrypted listing-objects directory/checksums (plus any separately maintained R2 copies), TOKEN_ENCRYPTION_KEY and any publication/receipt-signing keys through a private recovery process. Runtime environment values must never enter public artifacts. Preserve write-ahead state, approvals and uncertain publication outcomes.
 - Back up eBay application configuration and redirect setup instructions, then verify restoration/reconnection without duplicating published offers. A logical Core export alone cannot restore BTConnect.
 - Export the legacy Sites/D1 database and original objects separately. Reconcile exact master SKU mappings before treating Core as its replacement.
 - Back up repository history and issue/PR metadata to another provider. Export account recovery instructions, billing ownership, DNS/domain renewal information and secret-store recovery to a private owner-held record.
