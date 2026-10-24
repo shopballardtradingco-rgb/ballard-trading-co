@@ -1,3 +1,9 @@
+# Confirmed offer creation recovery — October 23, 2026 Pacific
+
+BTConnect 0.6.7 preserves typed createOffer failures and adds explicit single-use recovery for a confirmed HTTP 400/25702 rejection. Authorization performs no marketplace writes and checks the unchanged approved revision, originals, inventory, policies, full active feed and two empty offer lookups after a settling period. Execution checks again and consumes authorization before the request. Unknown outcomes remain read-back-only; legacy import requires an auditable original-response attestation. The existing batch retry policy is unchanged.
+
+Canonical PR #21 merged as `5478127e33263c1d398d53128ea8b2b25b47c90c`, preserving tested tree `a44543416ff3eeb3292d9c0a68ad61fb1cff6791` from head `7ca2f44bd2c6128848147d2389167a79c647fced`. Both exact-head CI runs `40060193200` and `40060191112` passed. All 611 tests passed across the full local run and two corrected-launcher reruns. No schema or dependency migration. Live deployment and approved recovery acceptance are tracked in issue #9.
+
 # Envelope read-back normalization — October 23, 2026 Pacific
 
 Owner-approved Core publication produced verified live eBay listings. Envelope entries exposed a read-back discrepancy: approved width 4.125 INCH returned as 4.13. BTConnect 0.6.6 recognizes exact half-up rounding to two decimal places for same-unit INCH length/width only, preserving approved drafts and requiring exact weight and thickness. All 582 local connector tests passed, including recovery of a saved inventory-only job without duplicate writes, offers or publication. Canonical PR #20 merged as f579b1edf4c6cbefd3f58024a0abeee0d39bad93 with tested tree d83ea2585b07d413b07eee1e3315d80f89ffcf46. Both exact-head CI runs 40055627523 and 40055625602 passed. Issue #9 tracks final live resume.

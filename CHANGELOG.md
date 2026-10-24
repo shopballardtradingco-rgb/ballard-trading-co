@@ -1,3 +1,7 @@
+## Confirmed offer creation recovery — 2026-10-23 Pacific
+
+- Mirror BTConnect 0.6.7 from canonical PR #21 with typed rejection history and an explicit single-use recovery path. Exact-head CI passed; see docs/SYSTEM.md for evidence and issue #9 for live acceptance.
+
 # Render recovery configuration — October 22, 2026 Pacific
 
 Add a reproducible isolated Core 0.7.4 deployment on Render: private login, PostgreSQL 17, explicit 1 GB database storage, existing provisioning and original-photo storage checks, and automatic deploys disabled. The launcher passes restricted app credentials and a setup digest to unchanged Core source while keeping marketplace and AI credentials absent. Five adapter tests include real child-process restart checks. Deployment, private bucket credentials, total-budget verification and live restore remain open; no paid resource or listing was created.

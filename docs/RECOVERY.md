@@ -1,3 +1,9 @@
+# Confirmed offer creation recovery — October 23, 2026 Pacific
+
+BTConnect 0.6.7 preserves typed createOffer failures and adds explicit single-use recovery for a confirmed HTTP 400/25702 rejection. Authorization performs no marketplace writes and checks the unchanged approved revision, originals, inventory, policies, full active feed and two empty offer lookups after a settling period. Execution checks again and consumes authorization before the request. Unknown outcomes remain read-back-only; legacy import requires an auditable original-response attestation. The existing batch retry policy is unchanged.
+
+Canonical PR #21 merged as `5478127e33263c1d398d53128ea8b2b25b47c90c`, preserving tested tree `a44543416ff3eeb3292d9c0a68ad61fb1cff6791` from head `7ca2f44bd2c6128848147d2389167a79c647fced`. Both exact-head CI runs `40060193200` and `40060191112` passed. All 611 tests passed across the full local run and two corrected-launcher reruns. No schema or dependency migration. Live deployment and approved recovery acceptance are tracked in issue #9.
+
 # Backup and recovery runbook
 
 Updated October 20, 2026 (Pacific). Recovery is a release requirement. This document distinguishes delivered evidence from unconfigured work.

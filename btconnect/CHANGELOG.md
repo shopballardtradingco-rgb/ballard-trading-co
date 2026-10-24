@@ -1,3 +1,9 @@
+## 0.6.7 — Confirmed offer creation recovery
+
+- Preserve typed createOffer rejection evidence separately from later guard errors.
+- Record one explicitly authorized retry for a confirmed HTTP 400/25702 rejection after fresh inventory, original-photo, policy and duplicate checks.
+- Keep new uncertain outcomes read-back-only; legacy error import requires an auditable original-response attestation. See docs/releases/0.6.7.md.
+
 ## 0.6.6 — eBay envelope dimension read-back
 
 - Recognize observed two-decimal, half-up INCH length/width read-back (4.125 → 4.13). Preserve the exact owner-approved parcel and revision.
