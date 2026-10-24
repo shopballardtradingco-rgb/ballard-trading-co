@@ -8,7 +8,7 @@ This is the public source and project handoff hub for **BTCore**, the standalone
 
 ## Start here
 
-BTConnect 0.6.8 adds [offline connector recovery](btconnect/docs/CONNECTOR-RECOVERY.md). The tested operator command preserves publication history, originals and receipt identity; live capture still requires host/volume access.
+BTConnect 0.6.8 adds [offline connector recovery](btconnect/docs/CONNECTOR-RECOVERY.md). Production capture and an offline restore outside Railway have passed, preserving originals, database bytes and receipt identity. Durable private-provider delivery still awaits explicit upload approval; see the [recovery acceptance record](docs/RECOVERY.md).
 
 Core 0.7.6 adds a direct **Check eBay status** control for publication completed through another client. The [current deployment record](docs/SYSTEM.md) records deployment and live acceptance separately. Owner-approved card publication and 5% promotion verification are complete; remaining recovery work is tracked explicitly.
 
