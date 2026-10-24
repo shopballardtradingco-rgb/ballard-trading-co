@@ -39,6 +39,19 @@ CONSENT_HEADERS = {
 }
 
 
+def consent_headers(settings, method):
+    """Keep the configured Core return hop in the browser's OAuth form policy."""
+    headers = dict(CONSENT_HEADERS)
+    if settings.core_callback_url:
+        callback = urlsplit(settings.core_callback_url)
+        origin = f"{callback.scheme}://{callback.netloc}"
+        headers["Content-Security-Policy"] = headers["Content-Security-Policy"].replace(
+            "; frame-ancestors", f" {origin}; frame-ancestors")
+    if method != "GET":
+        headers["Referrer-Policy"] = "no-referrer"
+    return headers
+
+
 class RequestGuards:
     """Bound bodies, bind the OAuth resource and set response headers without logging URLs."""
     def __init__(self, app, settings):
@@ -78,7 +91,7 @@ class RequestGuards:
             return await receive()
         async def secure_send(msg):
             if msg["type"] == "http.response.start":
-                policy = CONSENT_HEADERS if scope["path"] == "/consent" and scope["method"] == "GET" else SECURE_HEADERS
+                policy = consent_headers(self.settings, scope["method"]) if scope["path"] == "/consent" else SECURE_HEADERS
                 extra = [(k.lower().encode(), v.encode()) for k,v in policy.items()]
                 msg["headers"] = [(k,v) for k,v in msg.get("headers",[]) if k not in {x[0] for x in extra}] + extra
             await send(msg)
@@ -148,7 +161,7 @@ def build_app(settings, transport=None):
                             key=lambda t: t["name"])
         manifest_hash = hashlib.sha256(json.dumps(advertised, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
         return {"seller": grant["username"], "seller_id": grant["user_id"], "mode": "approval_gated" if listing_ready else "read_only",
-                "version": "0.6.2",
+                "version": "0.6.4",
                 "server_tool_manifest": {"sha256": manifest_hash, "count": len(advertised),
                     "names": [t["name"] for t in advertised], "host_callability_verified": False,
                     "meaning": "Server advertisement only. Compare with the tools actually callable in this Chat.",
@@ -220,7 +233,7 @@ def build_app(settings, transport=None):
 
     @mcp.custom_route("/health", methods=["GET"])
     async def health(request):
-        return JSONResponse({"service": "btco-ebay", "version": "0.6.2", "status": "ready", "publication_enabled": settings.publication_enabled})
+        return JSONResponse({"service": "btco-ebay", "version": "0.6.4", "status": "ready", "publication_enabled": settings.publication_enabled})
 
     @mcp.custom_route("/", methods=["GET"])
     async def home(request):
@@ -237,10 +250,11 @@ def build_app(settings, transport=None):
                 flow = request.query_params.get("flow", "")
                 nonce = provider.start_browser(flow)
                 flow_data = store.get("flow", flow)
+                client_name = "BTCore" if settings.core_callback_url and flow_data["params"].get("redirect_uri") == settings.core_callback_url else "ChatGPT"
                 listing_access = WRITE_SCOPE in flow_data["params"].get("scopes", [])
                 listing_notice = ("<p><strong>Listing permission requested:</strong> securely store original photos and drafts, record your approval, upload photos to eBay and publish only the exact approved listings. Read existing shipping/payment/return policies and use a reviewed existing campaign at a fixed 5% promotion rate. No campaigns or budgets are created. This connection does not approve any listing.</p>" if listing_access else "")
-                page = ("<h1>Connect BTCo eBay to ChatGPT</h1>"
-                    "<p>Allow this ChatGPT connection to read your active eBay listings, orders, fees and payouts for BTCo inventory tracking.</p>"
+                page = (f"<h1>Connect BTCo eBay to {client_name}</h1>"
+                    f"<p>Allow this {client_name} connection to read your active eBay listings, orders, fees and payouts for BTCo inventory tracking.</p>"
                     "<p>Base access reads listings, orders and finances. No refunds, purchases or messages are supported.</p>"
                     + listing_notice +
                     f"<p>Sign in as <strong>{html.escape(settings.allowed_seller)}</strong> on eBay.</p>"
@@ -256,7 +270,16 @@ def build_app(settings, transport=None):
             nonce = request.cookies.get(COOKIE, "")
             if not nonce or not hmac.compare_digest(str(form.get("csrf", "")), nonce):
                 return HTMLResponse("Connection request could not be verified.", status_code=400)
-            return RedirectResponse(provider.accept_browser(str(form.get("flow", "")), nonce), status_code=303)
+            target = provider.accept_browser(str(form.get("flow", "")), nonce)
+            if "text/html" in request.headers.get("accept", ""):
+                # A native link starts a fresh navigation, outside a form's
+                # redirect chain. Keep it visible instead of silently stranding
+                # the browser on an already-consumed consent submission.
+                return HTMLResponse("<h1>Sign in to eBay</h1>"
+                    f"<p>Continue as <strong>{html.escape(settings.allowed_seller)}</strong>. Your saved work is retained.</p>"
+                    f"<p><a href='{html.escape(target, quote=True)}' rel='noreferrer'>Open eBay sign-in</a></p>"
+                    "<p>This connects your account. It does not publish any listings.</p>")
+            return RedirectResponse(target, status_code=303)
         except ValueError as exc:
             return HTMLResponse(html.escape(str(exc)), status_code=400)
 

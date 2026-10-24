@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-10-22 America/Los_Angeles",
+  "as_of": "2026-10-23 America/Los_Angeles",
   "source_commits": {
-    "btco-os": "3313cf3a424eaaee8fb91bb2f789075f72f9e23b",
-    "btconnect": "661959afd6c1b9297395b19816ee8f81af12f3b6"
+    "btco-os": "732bde37fc77d8c2585433b7ed72183082ad878c",
+    "btconnect": "c7129765b98a0451ec97e626380e875e541763e2"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
   "transformations": "Deployment hostnames, Railway dashboard project URLs and transient build-workspace paths replaced with placeholders. Runtime source and tests otherwise preserved.",
@@ -2553,8 +2553,8 @@
     },
     {
       "path": "btconnect/CHANGELOG.md",
-      "upstream_git_blob": "56a7a00304bef99f49260f11f7bc076f30d9c0e2",
-      "published_sha256": "69e6b61469ac569f486a21c9710c9c73ab5415c03da62371a812e76bca8d11d2",
+      "upstream_git_blob": "1dc1c4322e25fd4e94c55f66f6f44692982f95c4",
+      "published_sha256": "f8d30495d8d5e180593576c770cf4e98dcfaef0b1c9e1b7a9d8ce94af5153dc3",
       "sanitized": false
     },
     {
@@ -2709,8 +2709,8 @@
     },
     {
       "path": "btconnect/btco_ebay/server.py",
-      "upstream_git_blob": "2e7c03599b57f38a9bb88aca05d354010957aa79",
-      "published_sha256": "b45a9250c9326daa12bb6eddf71ab50942d49f922aefff23f643c54184856d83",
+      "upstream_git_blob": "1e12f07eab45ae12a39efb692a0a85fa08021984",
+      "published_sha256": "1295779ab5d2ba339f3c41da284208dfff8ef1f3ca94024396333284b4b194f6",
       "sanitized": false
     },
     {
@@ -3020,6 +3020,18 @@
       "sanitized": false
     },
     {
+      "path": "btconnect/docs/releases/0.6.3.md",
+      "upstream_git_blob": "c77c229f20112a84a920271edfa09d151f6d1310",
+      "published_sha256": "7a2a0058b66e40db47a6d0afaf8294efa9299433335a3abe8688d3728b40637f",
+      "sanitized": false
+    },
+    {
+      "path": "btconnect/docs/releases/0.6.4.md",
+      "upstream_git_blob": "92966e3ed8b247db88241cc9482dbb79f0966216",
+      "published_sha256": "aeb0c47b75ac168a756c9ec194df7de211929f60f016c8dc7f452e25122a6326",
+      "sanitized": false
+    },
+    {
       "path": "btconnect/docs/releases/core-handoff-2026-10-22.md",
       "upstream_git_blob": "bb91a89418cc72b686ba3d64742f7a278b80748c",
       "published_sha256": "ad5b5669209c0ed42fd34a2bdef3c2cd5050f463f70826ec5f6005f8f2bd347c",
@@ -3039,8 +3051,8 @@
     },
     {
       "path": "btconnect/pyproject.toml",
-      "upstream_git_blob": "260eda9c9e507479e5b52f3848293da339395917",
-      "published_sha256": "997c1d1250db156a930a7f768c1a2b27c7617ce24f9c33c15c31b9ad947456d1",
+      "upstream_git_blob": "5a8e3a497d4d003625d7d377e55875c648c69833",
+      "published_sha256": "3c70d2c38909a2172bb9c91a3eefe1af3869c26fe45dae7a0ee70af260605319",
       "sanitized": false
     },
     {
@@ -3191,6 +3203,12 @@
       "path": "btconnect/tests/test_connector.py",
       "upstream_git_blob": "ff88ae046388a3eee57f3bf81dbcc25d418c681b",
       "published_sha256": "8adbd81f41c9f77189ec54552f681f52ce30b2cfab674fbf3cfbdc89beca233a",
+      "sanitized": false
+    },
+    {
+      "path": "btconnect/tests/test_core_consent_headers.py",
+      "upstream_git_blob": "f5a96099b54bba30c14f1b03de5e46f8d4a00b7c",
+      "published_sha256": "c758a48b124a6db49fc360a7c6a9a0467aeec12dbd0b48c45e82c58aeeb0ea0c",
       "sanitized": false
     },
     {

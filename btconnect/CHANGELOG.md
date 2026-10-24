@@ -1,3 +1,13 @@
+# 0.6.4 — 2026-10-23 Pacific
+
+- Give browser consent a visible eBay sign-in link so an external form redirect cannot strand the saved selection. Preserve non-browser redirects and all existing authorization checks.
+- Name BTCore correctly on its consent page. See docs/releases/0.6.4.md.
+
+# 0.6.3 — 2026-10-23 Pacific
+
+- Keep the configured Core callback origin in the consent GET/POST redirect policy. Retain exact callback checks and existing listing approval.
+- See docs/releases/0.6.3.md for the connection repair and remaining live acceptance.
+
 # 0.6.2 — 2026-10-22 Pacific
 
 - Raise the encrypted-photo ceiling from 300 MB to 400 MB on the existing volume. Preserve the independent 50 MB disk reserve, original integrity, duplicate behavior and all approvals.
