@@ -1,3 +1,10 @@
+## BTCore 0.7.6 — Check existing eBay publication from Core
+
+- Add a separate Check eBay status action to the saved listing review, available without ChatGPT.
+- Reconcile completed external publication into Core using read-only connector reviews; keep exact listing identities, approvals, originals, stock and shipping unchanged.
+- Require complete group coverage and verified item IDs before marking publication complete; retain incomplete work and reject mismatched reviews.
+- Add service and mobile browser coverage proving the status action never calls approval, preparation or publication.
+
 ## BTCore 0.7.5 — Retry saved photo preparation failures
 
 - Restart failed preparation explicitly from the listing desk, retaining settings, originals and completed transfers.

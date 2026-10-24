@@ -533,9 +533,11 @@ function publicationError(listing){
  const due=Number(listing.last_attempt?.retry_after??0);
  return error+(listing.last_attempt?.disposition==='retry_later'&&due>Date.now()/1000?' Retry available after '+new Date(due*1000).toLocaleTimeString()+'.':'');
 }
+function deskStatusButton(b){return '<button class="btn" data-action="desk-refresh" data-batch-id="'+esc(b.id)+'" '+(deskWorking?'disabled':'')+'>Check eBay status</button>';}
 function deskPublishButton(){
  const b=deskBatch(),matching=sameSelection(b,bulkSelection),pending=[...bulkSelection].some(id=>quickEdits.has(id)),listings=b?.bridge?.reviews?.flatMap(r=>r.listings)??[];
  if(deskWorking)return '<button class="btn primary" disabled>'+esc(deskProgress||'Working…')+'</button>';
+ if(b?.status==='published'&&!bulkSelection.size)return '<button class="btn" disabled>Published on eBay</button>';
  if(b?.status==='publishing')return '<button class="btn primary" data-action="desk-publish" data-batch-id="'+esc(b.id)+'" data-review-fingerprint="'+esc(b.bridge.reviewFingerprint)+'">Resume / verify publication</button>';
  if(matching&&!pending&&b?.status==='ready'&&listings.length)return '<button class="btn primary" data-action="desk-publish" data-batch-id="'+esc(b.id)+'" data-review-fingerprint="'+esc(b.bridge.reviewFingerprint)+'">Publish selected ('+listings.length+')</button>';
  return '<button class="btn primary" data-action="desk-prepare" '+(bulkSelection.size?'':'disabled')+'>Get ready to publish ('+bulkSelection.size+')</button>';
@@ -552,6 +554,7 @@ function deskReview(b){
  const listings=b.bridge.reviews?.flatMap(r=>r.listings)??[],errors=[...b.bridge.entries.filter(e=>e.error).map(e=>({title:e.title,error:e.error})),...(b.bridge.reviews??[]).flatMap(r=>r.exceptions??[]).map(e=>({title:e.label,error:e.error??e.reason??e.errors?.map(x=>x.message).filter(Boolean).join(' ')??'eBay could not prepare this card'}))];
  const verified=listings.filter(l=>l.publication?.all_checks_verified).length;
  return '<h2>'+(b.status==='published'?'Published on eBay':b.status==='publishing'?'Publication progress':listings.length+' ready to publish')+'</h2><p>'+verified+' verified live'+(errors.length?' · '+errors.length+' need attention':'')+'</p>'+errors.map(e=>'<p class="batch-error">'+esc(e.title)+': '+esc(e.error)+'</p>').join('')+
+ '<div class="actions">'+deskStatusButton(b)+'</div><p>Check existing listings and update this page.'+(b.bridge.lastCheckedAt?' Last checked: '+esc(new Date(b.bridge.lastCheckedAt).toLocaleString())+'.':'')+'</p>'+
  '<p id="desk-selection-note"></p><p>Publish selected sends the '+listings.length+' listings below at these prices, with the shown shipping and 5% promotion. Offers are off at $5 or less; otherwise the minimum offer is $2 below the price.</p>'+
  '<details class="desk-policy-summary"><summary>Shipping, payment, returns and promotion</summary>'+batchPolicySummary(b.bridge)+'</details>'+
  '<div class="desk-review-list">'+listings.map(l=>{const e=b.entries.find(e=>'btco-card-'+e.draftId===l.draft_id),d=l.draft,choice=b.bridge.settings.cards[e.draftId];return '<details class="desk-review-card"><summary><strong>'+esc(d.title)+'</strong><span>$'+esc(d.price_usd)+' · '+esc((choice.labels??[]).join(' · '))+'</span></summary><p>'+esc(d.master_sku)+' · '+esc(e.location)+'</p>'+e.photos.map(p=>'<a href="/api/photos/'+esc(p.id)+'/original" target="_blank" rel="noopener"><img class="review-card-image" src="/api/photos/'+esc(p.id)+'/preview" alt="'+esc(p.role)+' original of '+esc(d.title)+'"></a>').join('')+'<p>'+esc(d.description)+'</p><p>'+esc(d.condition_description)+'</p>'+parcelSummary(d.packed_parcel)+readableFields(d.item_specifics)+'</details>'+(l.publication?.all_checks_verified?'<p><a href="https://www.ebay.com/itm/'+encodeURIComponent(l.publication.item_id)+'" target="_blank" rel="noopener">View listing</a></p>':publicationError(l)?'<p class="batch-error">'+esc(publicationError(l))+'</p>':'');}).join('')+'</div>'+
@@ -609,6 +612,18 @@ async function deskAction(action,button){
   if([...bulkSelection].some(id=>quickEdits.has(id)))throw Error('Save the card edits and get the selection ready again.');
   captureDeskInputs();const settings=collectEbaySettings();deskWorking=true;deskProgress='Checking eBay settings…';
   try{await api('/ebay/configure',{method:'POST',data:{id:deskBatchId,settings}});await load();await runEbayPreparation(deskBatchId,true);}finally{deskWorking=false;deskProgress='';render();}
+  return;
+ }
+ if(action==='desk-refresh'){
+  if(quickEdits.size||finishDirty)throw Error('Save or discard unsaved edits before checking eBay status.');
+  const id=button.dataset.batchId;
+  if(!id||id!==deskBatch()?.id)throw Error('Open the saved batch before checking its status.');
+  deskWorking=true;deskProgress='Checking existing eBay listings…';render();
+  try{
+   const result=await api('/ebay/refresh',{method:'POST',data:{id}});await load();
+   if(result.complete){for(const e of deskBatch()?.entries??[])bulkSelection.delete(e.draftId);if(sessionStorage.getItem(pendingListingKey)===id)sessionStorage.removeItem(pendingListingKey);}
+   toast(result.verified+' of '+result.total+' listings verified live on eBay.');
+  }finally{deskWorking=false;deskProgress='';render();}
   return;
  }
  if(action==='desk-publish'){

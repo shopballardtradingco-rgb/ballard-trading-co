@@ -95,7 +95,33 @@ export function createEbayPublication({store,objectStore,commit}){
   }
   const reviews=await reviewAll(client,b.bridge.groups.map(g=>g.id));await update(id,(b,s)=>{unchanged(s,b);b.status='ready';b.bridge.reviews=reviews;b.bridge.reviewFingerprint=hash(reviews.map(r=>[r.batch_id,r.review_revision]));});return {continuePreparation:false};
  });},
- async refresh(client,id){return lock(id,async()=>{const b=batchFor(await store.workspace(),id);if(!b.bridge||b.bridge.seller!==client.seller)fail('Connect the matching eBay seller.',403);const reviews=await reviewAll(client,b.bridge.groups.filter(g=>g.submitted).map(g=>g.id));await update(id,b=>{b.bridge.reviews=reviews;b.bridge.reviewFingerprint=hash(reviews.map(r=>[r.batch_id,r.review_revision]));});return {refreshed:true};});},
+ async refresh(client,id){return lock(id,async()=>{
+  const b=batchFor(await store.workspace(),id);
+  if(!b.bridge||b.bridge.seller!==client.seller)fail('Connect the matching eBay seller.',403);
+  const groups=b.bridge.groups.filter(g=>g.submitted),reviews=await reviewAll(client,groups.map(g=>g.id));
+  // Observe existing jobs only. Never approve, prepare, retry or publish here.
+  for(const [i,r] of reviews.entries()){
+   const group=groups[i],expected=new Set(group.ids.map(id=>'btco-card-'+id)),seen=new Set();
+   if(r.batch_id!==group.id)fail('The returned eBay batch does not match this saved group.',409);
+   const previous=b.bridge.reviews?.find(old=>old.batch_id===r.batch_id);
+   if(previous&&previous.review_revision!==r.review_revision)fail('The saved eBay review changed. Review the batch before continuing.',409);
+   for(const l of r.listings){
+    if(!expected.has(l.draft_id)||seen.has(l.draft_id))fail('The returned eBay listings do not match this saved group.',409);
+    seen.add(l.draft_id);
+   }
+  }
+  const all=reviews.flatMap(r=>r.listings),total=b.bridge.groups.reduce((n,g)=>n+g.ids.length,0),verified=all.filter(l=>l.publication?.all_checks_verified&&l.publication?.item_id).length;
+  const complete=groups.length>0&&groups.length===b.bridge.groups.length&&b.bridge.entries.every(e=>e.status==='exception'||groups.some(g=>g.ids.includes(e.draftId)))&&reviews.every((r,i)=>
+   !r.continue_preparation&&!r.exceptions?.length&&r.listings.length===groups[i].ids.length)&&all.length>0&&verified===all.length;
+  const checkedAt=new Date().toISOString();
+  await update(id,(current,state)=>{
+   if(hash(current.bridge)!==hash(b.bridge))fail('This batch changed while checking eBay. Check its status again.',409);
+   current.bridge.reviews=reviews;current.bridge.reviewFingerprint=hash(reviews.map(r=>[r.batch_id,r.review_revision]));current.bridge.lastCheckedAt=checkedAt;
+   if(complete)current.status='published';
+   event(state,'core.ebay-status-checked',id,{verified,total,complete});
+  });
+  return {refreshed:true,complete,verified,total,checkedAt};
+ });},
  async publish(client,id,reviewFingerprint,approve=false){return lock(id,async()=>{
   const state=await store.workspace(),b=batchFor(state,id);if(!b.bridge||b.bridge.seller!==client.seller)fail('Connect the matching eBay seller.',403);
   if(approve){unchanged(state,b);if(b.status!=='ready')fail('Finish preparing the batch first.');}

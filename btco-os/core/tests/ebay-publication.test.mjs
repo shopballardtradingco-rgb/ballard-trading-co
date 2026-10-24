@@ -212,3 +212,53 @@ test('explicit preparation retry preserves submitted groups and photo references
  f.change(s=>{s.publicationBatches[0].publicationApproved=true;});
  await assert.rejects(f.service.prepare(f.client,f.id,'owner',true),/already been approved/);
 });
+
+async function statusFixture(){
+ const f=fixture();await f.service.configure(f.client,f.id,f.settings);
+ for(let n=0;n<10;n++)if(!(await f.service.prepare(f.client,f.id,'owner')).continuePreparation)break;
+ const b=f.read().publicationBatches[0],reviews=structuredClone(b.bridge.reviews),calls=[];
+ for(const r of reviews)for(const [i,l] of r.listings.entries())l.publication={all_checks_verified:true,item_id:'12345678901'+i,status:'verified'};
+ f.client.call=async(name,args)=>{calls.push(name);assert.equal(name,'get_listing_batch_review','status must only read existing reviews');return structuredClone(reviews.find(r=>r.batch_id===args.batch_id));};
+ return {...f,reviews,calls};
+}
+test('status check reconciles publication completed outside Core without approval or marketplace writes',async()=>{
+ const f=await statusFixture(),before=f.read(),first=await f.service.refresh(f.client,f.id);
+ assert.equal(first.complete,true);assert.equal(first.verified,2);assert.equal(first.total,2);
+ let after=f.read(),b=after.publicationBatches[0];assert.equal(b.status,'published');assert.equal(b.publicationApproved,false);assert.equal(b.bridge.approvedAt,undefined);assert.equal(b.bridge.lastCheckedAt,first.checkedAt);
+ assert.deepEqual(after.drafts,before.drafts);assert.deepEqual(after.inventory.items,before.inventory.items);assert.deepEqual(b.bridge.settings,before.publicationBatches[0].bridge.settings);
+ assert.equal(f.counts.approvals,0);assert.equal(f.counts.publishes,0);
+ assert.equal((await f.service.refresh(f.client,f.id)).complete,true);assert.deepEqual(f.calls,['get_listing_batch_review','get_listing_batch_review']);
+ assert.throws(()=>cancelPublicationBatch(f.read(),f.id),/cannot/);
+});
+test('status check retains incomplete, missing, unprepared and unverified work',async()=>{
+ for(const mutate of [
+  f=>{f.reviews[0].listings[1].publication.all_checks_verified=false;},
+  f=>{delete f.reviews[0].listings[1].publication.item_id;},
+  f=>{f.reviews[0].listings.pop();},
+  f=>{f.reviews[0].exceptions=[{reason:'Synthetic held entry'}];},
+  f=>{f.reviews[0].continue_preparation=true;},
+  f=>{f.change(s=>s.publicationBatches[0].bridge.groups.push({id:'not-submitted',ids:['pending'],submitted:false}));},
+  f=>{f.change(s=>s.publicationBatches[0].bridge.entries[2].status='pending');},
+  f=>{f.change(s=>s.publicationBatches[0].bridge.groups=[]);},
+ ]){
+  const f=await statusFixture();mutate(f);const result=await f.service.refresh(f.client,f.id);
+  assert.equal(result.complete,false);assert.equal(f.read().publicationBatches[0].status,'ready');assert.equal(f.counts.approvals,0);assert.equal(f.counts.publishes,0);
+ }
+});
+test('status check rejects mismatched identities or revisions without changing the saved state',async()=>{
+ for(const mutate of [
+  f=>{f.reviews[0].batch_id='wrong';f.client.call=async()=>structuredClone(f.reviews[0]);},
+  f=>{f.reviews[0].review_revision='different';},
+  f=>{f.reviews[0].listings[1].draft_id=f.reviews[0].listings[0].draft_id;},
+  f=>{f.reviews[0].listings[1].draft_id='unrelated';},
+  f=>{f.client.seller='other';},
+ ]){
+  const f=await statusFixture();mutate(f);const before=f.read();await assert.rejects(f.service.refresh(f.client,f.id),/match|changed/);assert.deepEqual(f.read(),before);
+ }
+});
+test('status read failure preserves the previous verified progress and can be retried',async()=>{
+ const f=await statusFixture(),before=f.read(),call=f.client.call;
+ f.client.call=async()=>{throw Error('Synthetic connection unavailable');};
+ await assert.rejects(f.service.refresh(f.client,f.id),/unavailable/);assert.deepEqual(f.read(),before);
+ f.client.call=call;assert.equal((await f.service.refresh(f.client,f.id)).complete,true);
+});

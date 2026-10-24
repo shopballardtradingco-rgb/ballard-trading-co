@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-23 America/Los_Angeles",
   "source_commits": {
-    "btco-os": "9f3edfe0456ee5a8c2546f24cdf7908f7e7373e5",
+    "btco-os": "221fb0230b6448c29227e77fe2db09b81208e71b",
     "btconnect": "5478127e33263c1d398d53128ea8b2b25b47c90c"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
@@ -51,8 +51,8 @@
     },
     {
       "path": "btco-os/CHANGELOG.md",
-      "upstream_git_blob": "a615f7b0a307d211dcbfc0637f5e764939384895",
-      "published_sha256": "c065f9a71d81b7fb42aa637759795b1c9be213877421bea0ec0dc66cb46b6fe9",
+      "upstream_git_blob": "dd43882e670dbefe56d8799fc49318536a59d930",
+      "published_sha256": "4c108f67db084145e1a5a9a8b0a34f0b4f5d7327310176aa16a90cd1ae0e3839",
       "sanitized": false
     },
     {
@@ -93,8 +93,8 @@
     },
     {
       "path": "btco-os/core/README.md",
-      "upstream_git_blob": "7d8e31858e7a4fa99c7881f3ef7f4f5732b85972",
-      "published_sha256": "da8817fcef315e5ce84f5505210ead10270a9f0e84924376976535cb4f6fb326",
+      "upstream_git_blob": "14c36a7575b15752b9d165723b0ae8b1bb716c22",
+      "published_sha256": "1a742f4540c40f299a7fc060f1c564400511f69c49be4d876094e2f97a3292f7",
       "sanitized": false
     },
     {
@@ -141,8 +141,8 @@
     },
     {
       "path": "btco-os/core/ebay-publication.mjs",
-      "upstream_git_blob": "97fdc403cec7bc40c1e4c3de4761a3ef1bc040fc",
-      "published_sha256": "98e8673ec16b5cdafed1ccde83ba594e0310b3d4283894479fe912fc6e2743d0",
+      "upstream_git_blob": "e5d722bd91ae3336023867f9db16520b5291eebd",
+      "published_sha256": "d24b85ba3b2f523d60d5b41b78c108801b6bb02243ee2efe93da10d9ef024dea",
       "sanitized": false
     },
     {
@@ -201,14 +201,14 @@
     },
     {
       "path": "btco-os/core/package-lock.json",
-      "upstream_git_blob": "9fb020d7f40d077462a4195f1a8a3a06a00b8af2",
-      "published_sha256": "d02ae1179fc5268395a71248f9c3032284d468d1301f4b9fd2c0dff9f7e3b2d7",
+      "upstream_git_blob": "e955a3fe3de154c17007547cd965845d3f0be412",
+      "published_sha256": "b558a1d44921cbfb49fb7c3d7139166541a0357645f299277863bd1e790f7283",
       "sanitized": false
     },
     {
       "path": "btco-os/core/package.json",
-      "upstream_git_blob": "d5ac07b68eb906b9bd8a7b7d1ecddae5d259137c",
-      "published_sha256": "a534a981f017f175b0e6d16deed4fa3570117b653390d98b99a47af13d8bd644",
+      "upstream_git_blob": "13a3addfb488f6e48d358952c0a79b97ebfbfa94",
+      "published_sha256": "61b31968d661356cb2075fa0d00b02c68e9020b424db8d6bfc0f04ec139c100e",
       "sanitized": false
     },
     {
@@ -237,8 +237,8 @@
     },
     {
       "path": "btco-os/core/public/app.mjs",
-      "upstream_git_blob": "265ad093ca5d165d30db5e65651ad712bb503ff6",
-      "published_sha256": "4642d51dd1d37fda986145dbc95699883ffc4469a5b2c91b8f31f3389f131c19",
+      "upstream_git_blob": "1c122252e7edbdb272a852eea50bc1c713e6f3aa",
+      "published_sha256": "61fa4eba3ef74622597aecbe575cc0279216d88f94c8ce899695ed5f9e769ca3",
       "sanitized": false
     },
     {
@@ -345,8 +345,8 @@
     },
     {
       "path": "btco-os/core/server.mjs",
-      "upstream_git_blob": "02ad6c37f65115b4fb4e98397f99060077b4afe2",
-      "published_sha256": "e1117a6cce0691cf90a392dd1f16a49f35f0611d7f33925bf3668c46b069122e",
+      "upstream_git_blob": "6b3104528ce3c018e6598d346c97d24b40b0baf5",
+      "published_sha256": "0b343661aa75a2e36e583a386633c28948f7da729a42396d215bbbf8deca9a78",
       "sanitized": false
     },
     {
@@ -405,14 +405,14 @@
     },
     {
       "path": "btco-os/core/tests/ebay-publication.test.mjs",
-      "upstream_git_blob": "9a96c5797e0b21886619669aa0562e7ced24b0cd",
-      "published_sha256": "e4979d279ea17c8ed8d5b1b62474551514beaeb7f394544cd4851c84ff846327",
+      "upstream_git_blob": "f3a09ad17c92b13f357a77d09164ee5cb7a360c7",
+      "published_sha256": "57333ac1cadd5ebec356db25f62a3fa090fb864c3fcd0e026854a7c671604f2e",
       "sanitized": false
     },
     {
       "path": "btco-os/core/tests/ebay.browser.mjs",
-      "upstream_git_blob": "24ee5fd52544018775c21d2d222b44989fc67bfa",
-      "published_sha256": "123a88a9b06277f6332999d3540857d6fb0cb6d9d97cc01675e790792a74f3a2",
+      "upstream_git_blob": "18763d0121b1a757b2bef445c2040fde91331921",
+      "published_sha256": "d690864a33edb1d8c2101255c1cba5c02cc217f03a859b75ec0d601e403aa5c8",
       "sanitized": false
     },
     {
@@ -803,6 +803,12 @@
       "path": "btco-os/docs/releases/0.7.5.md",
       "upstream_git_blob": "1ab86bdbaa4f0735f7399601a1cb6334ec7904e0",
       "published_sha256": "09a9b2a1800d4231c48fadcb2847f2249167c5dfba20f0f7545e620f40a27252",
+      "sanitized": false
+    },
+    {
+      "path": "btco-os/docs/releases/0.7.6.md",
+      "upstream_git_blob": "f41840990bf527909d845c870ff212bae1170f13",
+      "published_sha256": "8717f2b890fa05b10cff96598a259fee9acc51ad3b6d99201e4492f3bf3b12f6",
       "sanitized": false
     },
     {

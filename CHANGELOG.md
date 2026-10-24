@@ -1,3 +1,9 @@
+## Core 0.7.6 — Direct publication status and resilience priorities
+
+- Check existing eBay outcomes directly in Core, without invoking approval or publication.
+- Preserve the canonical release, regression tests and portable runtime packaging in the public source checkpoint.
+- Update the independence roadmap: recurring off-site runtime backups, a tested alternate host, source continuity and measured provider replacement.
+
 ## Confirmed offer creation recovery — 2026-10-23 Pacific
 
 - Mirror BTConnect 0.6.7 from canonical PR #21 with typed rejection history and an explicit single-use recovery path. Exact-head CI passed; see docs/SYSTEM.md for evidence and issue #9 for live acceptance.

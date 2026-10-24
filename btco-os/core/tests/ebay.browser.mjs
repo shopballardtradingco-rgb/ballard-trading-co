@@ -138,5 +138,16 @@ try{
  await page.reload();await page.getByRole('heading',{name:'Publication progress',exact:true}).waitFor();
  await final.getByRole('button',{name:'Resume / verify publication',exact:true}).click();await page.locator('#main:not([inert])').waitFor();
  assert.equal(publishCalls,callsBefore+2);assert.equal(published,before+1);
+ // Simulate the held card finishing through another client, then reconcile via Core only.
+ const current=(await store.workspace()).publicationBatches.find(b=>b.id===failedBatch.id),beforeStatusCalls=publishCalls,beforeStatusPublished=published;
+ for(const g of current.bridge.groups){const review=groups.get(g.id);for(const l of review.listings)if(!l.publication.all_checks_verified)l.publication={all_checks_verified:true,status:'verified',item_id:'123456789999'};}
+ const statusRequests=[];page.on('request',r=>{if(r.url().includes('/api/ebay/'))statusRequests.push(new URL(r.url()).pathname);});
+ let statusDialogs=0;page.on('dialog',d=>{statusDialogs++;return d.dismiss();});
+ await page.getByRole('button',{name:'Check eBay status',exact:true}).click();
+ await page.getByRole('heading',{name:'Published on eBay',exact:true}).waitFor();
+ assert.equal(publishCalls,beforeStatusCalls);assert.equal(published,beforeStatusPublished);assert.equal(statusDialogs,0);
+ assert.ok(statusRequests.includes('/api/ebay/refresh'));assert.equal(statusRequests.some(p=>/\/(approve|publish|prepare|configure)$/.test(p)),false);
+ await page.reload();await page.locator('#main:not([inert])').waitFor();
+ assert.equal((await store.workspace()).publicationBatches.find(b=>b.id===failedBatch.id).status,'published');assert.equal(publishCalls,beforeStatusCalls);
  assert.deepEqual(errors,[]);console.log('Same-page mobile eBay: bulk edits, selected-only saves, excluded rows, saved batches, shipping reuse, exact review, simulated bulk publication and reload passed.');
 }finally{await browser.close();await app.preparation.stop();await app.mirror.stop();await new Promise(r=>app.server.close(r));await store.close();}
