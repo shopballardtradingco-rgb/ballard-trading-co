@@ -1,3 +1,8 @@
+# 0.6.5 — 2026-10-23 Pacific
+
+- Accept original JPEG/MPF photos with one auxiliary image, validating both pictures without modifying original bytes or hashes. Retain single-frame PNG and resource limits.
+- Fix the reproduced Core photo-transfer rejection; see docs/releases/0.6.5.md.
+
 # 0.6.4 — 2026-10-23 Pacific
 
 - Give browser consent a visible eBay sign-in link so an external form redirect cannot strand the saved selection. Preserve non-browser redirects and all existing authorization checks.

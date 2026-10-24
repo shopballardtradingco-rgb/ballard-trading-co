@@ -80,8 +80,9 @@ class PhotoStore:
                 warnings.simplefilter("error", Image.DecompressionBombWarning)
                 with closing(Image.open(io.BytesIO(data))) as im:
                     if (
-                        im.format not in ("JPEG", "PNG")
-                        or getattr(im, "n_frames", 1) != 1
+                        im.format not in ("JPEG", "PNG", "MPO")
+                        or (im.format != "MPO" and getattr(im, "n_frames", 1) != 1)
+                        or (im.format == "MPO" and not 1 <= im.n_frames <= 2)
                     ):
                         raise ValueError("Use an original JPEG or single-frame PNG")
                     if (
@@ -92,16 +93,25 @@ class PhotoStore:
                         raise ValueError(
                             "Photo dimensions are outside the supported range"
                         )
-                    extension = "jpeg" if im.format == "JPEG" else "png"
+                    extension = "jpeg" if im.format in ("JPEG", "MPO") else "png"
                     im.verify()
                 # Pillow's normal context manager closes the file, not decoded
                 # pixels. Release that buffer before encryption/storage, even if
                 # load fails, while preserving the untouched original bytes.
                 with closing(Image.open(io.BytesIO(data))) as im:
-                    im.load()  # Reject truncated/corrupt pixel data without changing the bytes.
+                    # Phone JPEGs may contain a second MPF image. Validate both
+                    # pictures while retaining the complete original byte stream.
+                    pixels = 0
+                    for index in range(getattr(im, "n_frames", 1)):
+                        im.seek(index)
+                        pixels += im.width * im.height
+                        if sum(im.size) > 15000 or pixels > 40_000_000:
+                            raise ValueError("Photo dimensions are outside the supported range")
+                        im.load()
         except (
             OSError,
             SyntaxError,
+            EOFError,
             Image.DecompressionBombError,
             Image.DecompressionBombWarning,
         ):

@@ -1,3 +1,20 @@
+# Original-photo transfer repair — October 23, 2026 Pacific
+
+Core browser authorization now succeeds and the owner-supplied card packaging
+settings reach preparation. The next live failure was a connector rejection of
+an intact JPEG containing two MPF pictures: Pillow reported MPO, outside the
+old JPEG/PNG allowlist. BTConnect 0.6.5 preserves the complete original bytes
+while validating both pictures. [Canonical PR #19](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/19).
+
+Canonical merge `8078585034ca7a2ed12c27636f530d4b2028f1d1` preserves tested tree `35a517efb684ec33c074e3774e6df6a2d26f7f7e`. Exact-head CI runs 40051741255 and 40051738917 both passed. All 575 connector tests passed locally with the Core exporter fixture. The
+actual failing original passed isolated storage and byte-for-byte readback.
+Synthetic coverage includes the actual upload route, duplicate reuse, corrupt
+auxiliary data, animated PNG and unsupported extra pictures. Source readiness
+is distinct from deployed batch preparation and owner-approved publication;
+[issue #9](https://github.com/shopballardtradingco-rgb/ballard-trading-co/issues/9)
+records the continuing live acceptance. Original photos and runtime addresses
+remain private. No marketplace listing was published by this source change.
+
 # Publisher deployment — October 23, 2026 Pacific
 
 Core 0.7.4 is now live on the existing host. A same-tree release commit
