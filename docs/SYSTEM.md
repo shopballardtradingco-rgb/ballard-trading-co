@@ -1,3 +1,9 @@
+# Saved preparation retry — October 23, 2026 Pacific
+
+Core 0.7.5 repairs the listing desk button that did not restart a completed preparation containing photo errors. An explicit retry retains the same Core batch, saved policies and original references, leaves submitted connector groups intact and adds only newly recovered entries to new groups. Normal preparation continuation stays bounded, and approved publication cannot enter this retry path. Canonical PR #11 contains service and browser regression coverage. The browser regression reproduces total upload failure, a reload, and recovery through the same button; it is isolated from the existing unsaved shipping-edit scenario. A separate pre-existing limitation in carrying non-PWE parcel form values across reload plus price editing is recorded in issue #9; unchanged-batch retry retains its durable settings.
+
+Local service suite: 118 passed, one PostgreSQL test skipped locally. Release CI and live deployment results are recorded in issue #9. Original listing approval and live item verification remain separate acceptance gates.
+
 # Original-photo transfer repair — October 23, 2026 Pacific
 
 Core browser authorization now succeeds and the owner-supplied card packaging

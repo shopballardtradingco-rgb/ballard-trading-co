@@ -1,3 +1,9 @@
+## BTCore 0.7.5 — Retry saved photo preparation failures
+
+- Restart failed preparation explicitly from the listing desk, retaining settings, originals and completed transfers.
+- Append newly prepared cards without changing existing connector groups; never retry approved publication through preparation.
+- Add service and browser regression coverage for failed uploads followed by a same-batch retry.
+
 ## Recovery maintenance — 2026-10-21 Pacific
 
 - Export the tested Core Docker image, source/image identifiers, browser hash and checksums from GitHub Actions for Railway-independent deployment.

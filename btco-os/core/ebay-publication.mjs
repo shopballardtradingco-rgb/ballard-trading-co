@@ -60,8 +60,13 @@ export function createEbayPublication({store,objectStore,commit}){
   const entries=batch.entries.map(e=>{const d=state.drafts.find(d=>d.id===e.draftId);let error=null;try{compileCard(d,settings,[]);}catch(e){error=e.message;}return {draftId:e.draftId,sku:e.sku,title:e.title,location:e.location,photos:[],error,status:error?'exception':'pending'};});
   await update(id,(b,current)=>{unchanged(current,b);if(hash(b.entries)!==hash(batch.entries))fail('Card edits changed this batch while shipping was loading. Reopen shipping to review the saved changes.',409);if(b.bridge)fail('Batch settings changed.',409);b.status='preparing';b.bridge={seller:client.seller,settings,policySnapshot:firstShipping.snapshot,campaignSnapshot:campaign.campaign,entries,groups:[],createdAt:new Date().toISOString()};current.ebayListingDefaults={seller:client.seller,paymentPolicyId:input.paymentPolicyId,returnPolicyId:input.returnPolicyId,locationKey:input.locationKey,campaignId:input.campaignId,pwe:shippingGroups.raw&&isEnvelope(shippingGroups.raw.snapshot.fulfillment_policy)?{fulfillmentPolicyId:shippingGroups.raw.policies.fulfillment_policy_id,parcel:shippingGroups.raw.parcel}:current.ebayListingDefaults?.seller===client.seller?current.ebayListingDefaults.pwe:null};event(current,'core.ebay-preparing',id);});return {configured:true};
  });},
- async prepare(client,id,ownerId){return lock(id,async()=>{
+ async prepare(client,id,ownerId,retryExceptions=false){return lock(id,async()=>{
   let state=await store.workspace(),b=batchFor(state,id);unchanged(state,b);if(!b.bridge)fail('Choose eBay settings first.');if(b.bridge.seller!==client.seller)fail('Seller connection changed.',403);
+  if(retryExceptions){
+   if(b.publicationApproved)fail('This batch has already been approved. Refresh its publication status.',409);
+   await update(id,b=>{const grouped=new Set(b.bridge.groups.flatMap(g=>g.ids));for(const e of b.bridge.entries)if(e.status==='exception'&&!grouped.has(e.draftId)){e.status='pending';e.error=null;}b.status='preparing';delete b.bridge.reviewFingerprint;delete b.bridge.reviews;});
+   state=await store.workspace();b=batchFor(state,id);
+  }
   const pending=b.bridge.entries.find(e=>e.status==='pending');
   if(pending){
    const d=state.drafts.find(d=>d.id===pending.draftId);const refs=[...pending.photos];
@@ -78,9 +83,10 @@ export function createEbayPublication({store,objectStore,commit}){
    }catch(e){await update(id,b=>Object.assign(b.bridge.entries.find(e=>e.draftId===d.id),{status:'exception',error:e.message}));}
    return {continuePreparation:true};
   }
-  if(!b.bridge.groups.length){
-   const groups=[];for(const entry of b.bridge.entries.filter(e=>e.status==='transferred')){let group=groups.find(g=>g.location===entry.location&&g.ids.length<10&&g.bytes+JSON.stringify(entry.draft).length<190000);if(!group){group={id:'btco-batch-'+id+'-'+groups.length,location:entry.location,ids:[],submitted:false,bytes:0};groups.push(group);}group.ids.push(entry.draftId);group.bytes+=JSON.stringify(entry.draft).length;}
-   await update(id,b=>{b.bridge.groups=groups;});state=await store.workspace();b=batchFor(state,id);
+  const grouped=new Set(b.bridge.groups.flatMap(g=>g.ids));
+  if(b.bridge.entries.some(e=>e.status==='transferred'&&!grouped.has(e.draftId))){
+   const groups=[],offset=b.bridge.groups.length;for(const entry of b.bridge.entries.filter(e=>e.status==='transferred'&&!grouped.has(e.draftId))){let group=groups.find(g=>g.location===entry.location&&g.ids.length<10&&g.bytes+JSON.stringify(entry.draft).length<190000);if(!group){group={id:'btco-batch-'+id+'-'+(offset+groups.length),location:entry.location,ids:[],submitted:false,bytes:0};groups.push(group);}group.ids.push(entry.draftId);group.bytes+=JSON.stringify(entry.draft).length;}
+   await update(id,b=>{b.bridge.groups.push(...groups);});state=await store.workspace();b=batchFor(state,id);
   }
   for(const group of b.bridge.groups){
    if(!group.submitted){const items=group.ids.map(id=>{const e=b.bridge.entries.find(e=>e.draftId===id);return {item_key:id,label:e.title,draft:e.draft,...(e.expectedRevision?{expected_draft_revision:e.expectedRevision}:{})};});

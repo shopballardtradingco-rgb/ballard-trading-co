@@ -88,16 +88,16 @@ export async function createApp({store,origin,setupTokenHash,allowLocal=false,ac
     if(req.headers.origin!==origin)fail('Open BTCore directly to make this change.',403);
     if(req.headers['sec-fetch-site']&&req.headers['sec-fetch-site']!=='same-origin'&&req.headers['sec-fetch-site']!=='none')fail('Cross-site changes are not allowed.',403);
    }
-   if(path==='/healthz'&&req.method==='GET'){await store.query('SELECT revision FROM core_workspace WHERE id=1');return reply(res,200,{status:'ready',product:'BTCore',version:'0.7.4'});}
+   if(path==='/healthz'&&req.method==='GET'){await store.query('SELECT revision FROM core_workspace WHERE id=1');return reply(res,200,{status:'ready',product:'BTCore',version:'0.7.5'});}
    if(['GET','HEAD'].includes(req.method)&&assets.has(path)){
     const [name,type]=assets.get(path);return await serveAsset(req,res,name,type,safeHeaders);
    }
    if(path==='/api/session'&&req.method==='GET'){
     if(openAccess){
      const current=openAccess.sessionFor(req),issued=current?null:openAccess.issue(),session=current??issued.session;
-     return reply(res,200,{authenticated:true,loginRequired:false,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.4'},issued?{'Set-Cookie':issued.cookie}:{});
+     return reply(res,200,{authenticated:true,loginRequired:false,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.5'},issued?{'Set-Cookie':issued.cookie}:{});
     }
-    const session=await sessionFor(store,req);if(session)return reply(res,200,{authenticated:true,email:session.email,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.4'});
+    const session=await sessionFor(store,req);if(session)return reply(res,200,{authenticated:true,email:session.email,csrf:session.csrf,storage:store.kind,environment:'development',version:'0.7.5'});
     const owners=await store.query('SELECT id,password_hash FROM core_owner');return reply(res,200,{authenticated:false,setupRequired:!owners.length||owners[0].password_hash===OPEN_OWNER_PASSWORD,setupEnabled:Boolean(setupTokenHash)});
    }
    if(openAccess&&['/api/setup','/api/login','/api/logout','/api/password'].includes(path))fail('Sign-in is turned off for this workspace.',409);
@@ -194,7 +194,7 @@ export async function createApp({store,origin,setupTokenHash,allowLocal=false,ac
     const client=await connector.client(req,res),input=await body(req),data=input.data??input;
     const action=ebayAction[1];let result;
     if(action==='configure')result=await ebayPublication.configure(client,data.id,data.settings);
-    if(action==='prepare')result=await ebayPublication.prepare(client,data.id,session.owner_id);
+    if(action==='prepare')result=await ebayPublication.prepare(client,data.id,session.owner_id,data.retryExceptions===true);
     if(action==='refresh')result=await ebayPublication.refresh(client,data.id);
     if(action==='approve'||action==='publish')result=await ebayPublication.publish(client,data.id,data.reviewFingerprint,action==='approve');
     return reply(res,200,result);
@@ -326,7 +326,7 @@ if(process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1]){
  const connector=createConnector({origin,connectorOrigin:process.env.BTCONNECT_ORIGIN,key:process.env.BTCORE_CONNECTOR_KEY});
  const assessor=createCardAssessor({apiKey:apiKeyFromEnv()});
  const {server,preparation,mirror}=await createApp({store,origin,objectStore,assessor,connector,setupTokenHash:process.env.BTCORE_SETUP_TOKEN_HASH,allowLocal,accessMode:process.env.BTCORE_ACCESS_MODE??'private'});
- const port=Number(process.env.PORT??3000);server.listen(port,allowLocal?'127.0.0.1':'0.0.0.0',()=>console.log(`BTCore 0.7.4 listening on port ${port}; storage=${store.kind}`));
+ const port=Number(process.env.PORT??3000);server.listen(port,allowLocal?'127.0.0.1':'0.0.0.0',()=>console.log(`BTCore 0.7.5 listening on port ${port}; storage=${store.kind}`));
  const close=()=>server.close(async()=>{await preparation.stop();await mirror.stop();await store.close();process.exit(0);});process.on('SIGTERM',close);process.on('SIGINT',close);
 }
 

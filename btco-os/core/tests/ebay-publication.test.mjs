@@ -194,3 +194,21 @@ test('concurrent quick edit prevents stale shipping configuration from binding t
  await assert.rejects(f.service.configure(f.client,f.id,f.settings),/changed this batch/);
  assert.equal(f.read().publicationBatches[0].bridge,undefined);assert.equal(f.read().drafts[0].askCents,900);assert.equal(f.counts.publishes,0);
 });
+
+test('explicit preparation retry preserves submitted groups and photo references without publishing',async()=>{
+ const f=fixture(),upload=f.client.upload;let failFirst=true;
+ f.client.upload=async(...args)=>{if(failFirst){failFirst=false;throw Error('Photo transfer failed');}return upload(...args);};
+ await f.service.configure(f.client,f.id,f.settings);
+ for(let n=0;n<12;n++)if(!(await f.service.prepare(f.client,f.id,'owner')).continuePreparation)break;
+ const before=f.read().publicationBatches[0],group=structuredClone(before.bridge.groups[0]),settings=structuredClone(before.bridge.settings);
+ assert.equal(before.bridge.reviews.flatMap(r=>r.listings).length,1);
+ // Ordinary continuation must not loop failed entries forever.
+ await f.service.prepare(f.client,f.id,'owner');assert.equal(f.counts.uploads,1);
+ await f.service.prepare(f.client,f.id,'owner',true);
+ for(let n=0;n<12;n++)if(!(await f.service.prepare(f.client,f.id,'owner')).continuePreparation)break;
+ const after=f.read().publicationBatches[0];assert.equal(after.id,before.id);assert.deepEqual(after.bridge.settings,settings);assert.deepEqual(after.bridge.groups[0],group);
+ assert.equal(after.bridge.groups.length,2);assert.equal(new Set(after.bridge.groups.flatMap(g=>g.ids)).size,2);
+ assert.equal(after.bridge.reviews.flatMap(r=>r.listings).length,2);assert.equal(f.counts.uploads,3);assert.equal(f.counts.publishes,0);assert.equal(f.counts.approvals,0);
+ f.change(s=>{s.publicationBatches[0].publicationApproved=true;});
+ await assert.rejects(f.service.prepare(f.client,f.id,'owner',true),/already been approved/);
+});
