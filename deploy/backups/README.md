@@ -8,7 +8,7 @@ This runner captures a current Core v2 logical export, restores it into an empty
 
 - Synthetic tests use the actual Core restore implementation, including an original and a retired original. They exercise truncated input, failed upload/download, corrupted remote bytes/receipt, failed remote restore, stale results, overlapping runs and preservation of the previous success record.
 - CI requires a real rclone round trip through its local backend plus refusal to overwrite a changed destination. This proves the transport command, not any live provider authorization.
-- Existing public source release archives have been independently copied to the private recovery provider and downloaded for checksum verification. The new Core export passed an isolated local restore; its off-site upload is pending explicit owner approval after automatic review rejected that transfer.
+- Existing public source release archives have been independently copied to the private recovery provider and downloaded for checksum verification. The October 23 Core export was separately owner-approved, uploaded to the private recovery destination, downloaded again with a matching SHA-256, and restored into an empty offline workspace with all original hashes verified. The archive and verification receipt are held together privately. This completed manual backup does not activate a recurring schedule or prove unattended provider authorization.
 - **No production timer or unattended storage authorization is active as a result of this source change.** Installing unit files alone would not complete this acceptance.
 
 ## Run on an independently controlled machine
