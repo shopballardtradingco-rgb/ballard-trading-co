@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "state_dir": "/var/lib/btco-backup",
+  "remote": "btco-recovery:BTCo Recovery",
+  "rclone_config": "/etc/btco-backup/rclone.conf",
+  "source": {
+    "mode": "unconfigured",
+    "origin": "https://core.example.invalid"
+  }
+}

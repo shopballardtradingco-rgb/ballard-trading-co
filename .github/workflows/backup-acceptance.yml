@@ -1,0 +1,31 @@
+name: Portable backup acceptance
+on:
+  pull_request:
+    paths: ['tools/runtime_backup.py', 'tools/restore-drill.mjs', 'tools/tests/*backup*', 'deploy/backups/**', '.github/workflows/backup-acceptance.yml']
+  push:
+    branches: [main]
+    paths: ['tools/runtime_backup.py', 'tools/restore-drill.mjs', 'tools/tests/*backup*', 'deploy/backups/**', '.github/workflows/backup-acceptance.yml']
+permissions:
+  contents: read
+jobs:
+  isolated-backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --prefix btco-os/core --ignore-scripts --no-audit --no-fund
+      - run: sudo apt-get update && sudo apt-get install -y rclone
+      - run: python3 -m unittest discover -s tools/tests -p 'test_runtime_backup.py' -v
+        env:
+          BTCO_REQUIRE_RCLONE_TEST: '1'
+      - run: python3 tools/verify-source.py
+      - run: python3 tools/check-public.py
+      - name: Validate the nightly and hourly timer expressions
+        run: |
+          systemd-analyze calendar '*-*-* 03:00:00 America/Los_Angeles'
+          systemd-analyze calendar hourly

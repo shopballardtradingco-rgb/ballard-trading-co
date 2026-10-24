@@ -1,0 +1,13 @@
+[Unit]
+Description=Check for stale or failed BTCo Core backups
+
+[Service]
+Type=oneshot
+User=btco-backup
+Group=btco-backup
+WorkingDirectory=/opt/ballard-trading-co
+ExecStart=/usr/bin/python3 /opt/ballard-trading-co/tools/runtime_backup.py check --config /etc/btco-backup/config.json
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true

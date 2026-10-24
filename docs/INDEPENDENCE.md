@@ -55,3 +55,7 @@ Use GitHub Issues with checkboxes and concrete acceptance evidence. Link each im
 5. **Replace dependencies individually.** Preserve the CDP cutover gates; then measure alternative AI providers against fixed identification tests and retain manual entry/review when AI is unavailable. No tool or subscription is retired until its replacement is proven.
 
 This pass does not buy hosting, cancel subscriptions, move the only live database, or grant fresh listing approval. Infrastructure activation and marketplace publication each retain their existing acceptance requirements.
+
+### Backup implementation checkpoint
+
+The portable Core-only backup runner and timer templates are implemented under `tools/runtime_backup.py` and `deploy/backups/`. Real-provider authorization and timer installation are still required. Keep issue #2 open until remote checksum, restore, scheduled execution and notification delivery are independently verified. Current Core backup upload requires the owner's explicit destination approval after automatic review blocked it; public source archiving is separate.

@@ -1,0 +1,18 @@
+[Unit]
+Description=BTCo verified Core backup to independent storage
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=btco-backup
+Group=btco-backup
+WorkingDirectory=/opt/ballard-trading-co
+ExecStart=/usr/bin/python3 /opt/ballard-trading-co/tools/runtime_backup.py run --config /etc/btco-backup/config.json
+TimeoutStartSec=50min
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/btco-backup /etc/btco-backup
