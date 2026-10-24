@@ -19,6 +19,7 @@ Publisher recovery: [run the existing eBay publisher independently on GitHub](bt
 - [Independence roadmap and acceptance gates](docs/INDEPENDENCE.md)
 - [System map and current state](docs/SYSTEM.md)
 - [Backup and recovery runbook](docs/RECOVERY.md)
+- [Portable verified Core backup runner and activation gates](deploy/backups/README.md)
 - [Business and product rules](docs/OPERATING-RULES.md)
 - [Open work](https://github.com/shopballardtradingco-rgb/ballard-trading-co/issues)
 - [Exact source inventory](source-lock.json)

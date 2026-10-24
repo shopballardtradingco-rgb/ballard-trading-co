@@ -1,3 +1,9 @@
+# Portable Core backup implementation — October 23, 2026 Pacific
+
+The [standalone runner](../deploy/backups/README.md) now implements current Core capture, isolated restore, dated off-site transfer, complete read-back, SHA-256 verification, a second restore and verified receipts. Nightly and hourly timer templates run outside ChatGPT. The existing accepted runtime source archive was copied independently and read back with matching archive checksums. A current Core export passed a clean local restore, but automatic approval review blocked its private off-site upload pending explicit owner authorization.
+
+Production scheduling, unattended storage authorization, notification delivery, measured retention and connector/legacy recovery remain open in issue #2. Neither the tested runner nor a prepared timer is counted as an active recurring backup.
+
 # Direct Core status reconciliation — October 23, 2026 Pacific
 
 BTCore 0.7.6 provides **Check eBay status** on the saved listing review. It reads existing connector outcomes and persists completion after verifying saved identities, unchanged review revisions, complete submitted-group coverage and verified item IDs. It never approves, prepares, retries or publishes listings. Original photos, stock, shipping and original approvals remain unchanged. Core can now reconcile work completed through another client without requiring ChatGPT.

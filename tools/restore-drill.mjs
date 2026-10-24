@@ -1,5 +1,5 @@
 // Offline recovery exercise only. No production URLs, credentials or marketplace calls.
-import {mkdtemp, mkdir, readFile, writeFile} from 'node:fs/promises';
+import {mkdtemp, mkdir, readFile, writeFile, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join, dirname, resolve, sep} from 'node:path';
 import {createReadStream} from 'node:fs';
@@ -52,5 +52,5 @@ try {
   console.log(JSON.stringify({restored: result.restored, items: state.inventory.items.length,
     drafts: state.drafts.length, sales: state.inventory.sales.length, photos: rows.length,
     originalHashesVerified: true, nonEmptyRestoreRejected: true, offlineOnly: true,
-    privateRecoveryDirectory: directory}, null, 2));
-} finally {await store.close();}
+    ...(process.argv.includes('--cleanup')?{}:{privateRecoveryDirectory: directory})}, null, 2));
+} finally {await store.close();if(process.argv.includes('--cleanup'))await rm(directory,{recursive:true,force:true});}

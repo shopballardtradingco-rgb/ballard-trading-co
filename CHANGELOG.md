@@ -1,3 +1,9 @@
+## Portable Core backup runner — October 23, 2026 Pacific
+
+- Add a standalone Core export/upload/download/restore command, with dated immutable copies, SHA-256 verification, checked remote receipts and last-good preservation.
+- Add nightly and hourly systemd timer templates outside ChatGPT; production activation and notification delivery remain explicit acceptance gates.
+- Test real Core restore, corruption/failure handling and an actual rclone round trip in CI. No marketplace writes, runtime schema changes or new hosting resources.
+
 ## Core 0.7.6 — Direct publication status and resilience priorities
 
 - Check existing eBay outcomes directly in Core, without invoking approval or publication.
