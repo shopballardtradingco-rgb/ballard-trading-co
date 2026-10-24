@@ -723,6 +723,12 @@ def register_listing_tools(mcp, provider, settings, store, ebay):
         For a failed saved offer, explicit owner recovery approval may authorize one
         same-offer retry after fresh unpublished-offer, content and duplicate checks.
         Uncertain new publication failures remain read-back-only.
+        A confirmed createOffer HTTP 400/25702 rejection supports one explicitly
+        approved creation retry after five minutes and fresh inventory/duplicate checks.
+        Pre-journal legacy failures require owner_approval_evidence as JSON with action
+        "retry_rejected_offer_creation_once", owner_approval (owner words/reference),
+        and rejection {http_status: 400, codes: ["25702"], source: original response reference}.
+        Never attest a timeout or unknown response as a rejection. Approval performs no eBay writes.
         """
         seller, family = owner(True)
         row = repo.get(seller, draft_id)

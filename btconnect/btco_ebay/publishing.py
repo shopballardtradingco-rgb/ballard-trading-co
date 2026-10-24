@@ -3,6 +3,7 @@
 from datetime import datetime, timezone
 from decimal import Decimal, ROUND_HALF_UP
 import asyncio
+import json
 import re
 import time
 from .inventory import PAGE_SIZE, active_listings
@@ -184,6 +185,10 @@ def publication_outcome(row, error=None):
         "receipt_available": verified, "vault_reconciliation": "pending",
         "error": error or job.get("last_error"),
         "publish_failure": job.get("publish_failure"),
+        "offer_create_failure": job.get("offer_create_failure"),
+        "offer_creation_recovery_authorized": bool(job.get("offer_create_recovery") and
+            not job["offer_create_recovery"].get("consumed") and
+            job["offer_create_recovery"].get("expires_at", 0) > time.time()),
         "recovery_authorized": bool(job.get("publish_recovery") and
                                     not job["publish_recovery"].get("consumed") and
                                     job["publish_recovery"].get("expires_at", 0) > time.time()),
@@ -201,6 +206,91 @@ class Publisher:
             collector,
         )
 
+    async def approve_offer_creation_recovery(self, seller, family, draft_id, revision, evidence):
+        """Record one explicitly approved retry of a confirmed SKU-not-ready rejection.
+
+        Older journals did not retain typed createOffer errors. Only those journals
+        may import an operator's original HTTP 400/25702 response attestation;
+        new unknown outcomes can never be converted into confirmed rejections.
+        No marketplace write occurs during authorization.
+        """
+        if not isinstance(evidence, str) or not 10 <= len(evidence) <= 4000:
+            raise ValueError("Record explicit owner approval for this exact recovery")
+        if self.selling.require(family)["user_id"] != seller:
+            raise ValueError("Seller identity mismatch")
+        with self.repo.lock(seller):
+            row = self.repo.get(seller, draft_id)
+            draft = self.repo.approved(row, seller)
+            job = row["job"]
+            if revision != row["revision"] or revision != draft.revision():
+                raise ValueError("Recovery approval revision is stale")
+            if (row["state"] != "approved" or row.get("receipt") or
+                    job.get("phase") != "offer" or not job.get("inventory_done") or
+                    not job.get("offer_attempted") or any(job.get(k) for k in
+                    ("offer_id", "publish_attempted", "listing_id"))):
+                raise ValueError("Only a rejected offer creation can receive this recovery")
+            if job.get("offer_create_recovery", {}).get("consumed"):
+                raise ValueError("The one offer creation recovery has already been consumed")
+            failure = job.get("offer_create_failure")
+            legacy = "offer_create_requested_at" not in job
+            if legacy:
+                try:
+                    attestation = json.loads(evidence)
+                except (ValueError, TypeError):
+                    raise ValueError("Legacy recovery needs the original confirmed rejection attestation") from None
+                if (not isinstance(attestation, dict) or
+                        set(attestation) != {"action", "owner_approval", "rejection"} or
+                        attestation["action"] != "retry_rejected_offer_creation_once" or
+                        not isinstance(attestation["owner_approval"], str) or
+                        len(attestation["owner_approval"]) < 10):
+                    raise ValueError("Legacy recovery needs explicit approval and rejection evidence")
+                reported = attestation["rejection"]
+                if (not isinstance(reported, dict) or
+                        set(reported) != {"http_status", "codes", "source"} or
+                        type(reported["http_status"]) is not int or reported["http_status"] != 400 or
+                        reported["codes"] != ["25702"] or
+                        not isinstance(reported["source"], str) or len(reported["source"]) < 20):
+                    raise ValueError("Only an attested original HTTP 400/25702 rejection is recoverable")
+                failure = {"http_status": 400, "codes": ["25702"], "uncertain": False,
+                           "revision": revision, "source": "operator_attestation",
+                           "evidence": reported["source"]}
+            if (not failure or failure.get("http_status") != 400 or
+                    failure.get("codes") != ["25702"] or failure.get("uncertain") is not False or
+                    failure.get("revision") != revision):
+                raise ValueError("Uncertain offer creation remains read-back-only")
+            last = job.get("offer_create_requested_at", row["updated_at"])
+            if not isinstance(last, (int, float)) or time.time() - last < 300:
+                raise ValueError("Wait five minutes after the last attempt before recovery approval")
+            if len(job.get("images", [])) != len(draft.photos):
+                raise ValueError("Original image upload is incomplete")
+            for photo, image in zip(draft.photos, job["images"]):
+                self.repo.photos.get(seller, photo)
+                if image.get("sha256") != photo.sha256_hex:
+                    raise ValueError("Hosted image checksum binding differs from approval")
+            expected = draft.inventory_payload([i["image_url"] for i in job["images"]])
+            await self.selling.validate_policies(family, draft)
+            await self.selling.validate_promotion(family, draft)
+            if await self.selling.offers(family, draft.listing_sku):
+                raise ValueError("An existing offer must be reconciled, not recreated")
+            if not inventory_matches(await self.selling.get_item(family, draft.listing_sku), expected):
+                raise ValueError("Recovery inventory differs from the approved listing")
+            active = await self.active(family)
+            if any(item.get("sku") == draft.listing_sku or
+                   item["title"].strip().casefold() == draft.title.strip().casefold() for item in active):
+                raise ValueError("Possible active duplicate; recovery approval refused")
+            if await self.selling.offers(family, draft.listing_sku):
+                raise ValueError("An offer appeared during recovery checks; reconcile it")
+            now = time.time()
+            recovery = {"seller": seller, "revision": revision, "sku": draft.listing_sku,
+                        "evidence": evidence, "authorized_at": now, "expires_at": now + 900,
+                        "consumed": False, "prior_failure": deepcopy(failure),
+                        "legacy_failure_attestation": legacy}
+            job.setdefault("offer_create_recovery_history", []).append(deepcopy(recovery))
+            job["offer_create_recovery"] = recovery
+            row["updated_at"] = now
+            self.repo.write(seller, row)
+            return row
+
     async def approve_recovery(self, seller, family, draft_id, revision, evidence):
         """Authorize one same-offer retry after fresh, fail-closed reconciliation.
 
@@ -209,6 +299,9 @@ class Publisher:
         authoritative UNPUBLISHED reads is required; ordinary run stays blocked.
         New uncertain failures cannot be rearmed through this path.
         """
+        row = self.repo.get(seller, draft_id)
+        if row["job"].get("phase") == "offer" and not row["job"].get("offer_id"):
+            return await self.approve_offer_creation_recovery(seller, family, draft_id, revision, evidence)
         if not isinstance(evidence, str) or not 10 <= len(evidence) <= 4000:
             raise ValueError("Record explicit owner approval for this exact recovery")
         if self.selling.require(family)["user_id"] != seller:
@@ -498,11 +591,30 @@ class Publisher:
                     save(inventory_done=True)
                 if not job.get("offer_id"):
                     if job.get("offer_attempted"):
-                        raise ValueError(
-                            "Offer creation outcome is unknown; do not create another offer"
-                        )
-                    save(offer_attempted=True, phase="offer")
-                    result = await self.selling.create_offer(family, draft)
+                        recovery = job.get("offer_create_recovery", {})
+                        if (recovery.get("consumed") is not False or
+                                recovery.get("seller") != seller or recovery.get("revision") != revision or
+                                recovery.get("sku") != draft.listing_sku or
+                                recovery.get("expires_at", 0) <= time.time()):
+                            raise ValueError("Offer creation outcome is unknown; do not create another offer")
+                        # A second fresh lookup immediately before the one retry.
+                        if await self.selling.offers(family, draft.listing_sku):
+                            raise ValueError("An offer appeared before recovery; resume read-back")
+                        if not inventory_matches(await self.selling.get_item(family, draft.listing_sku), expected):
+                            raise ValueError("Recovery inventory changed; no offer was created")
+                        recovery["consumed"] = True
+                        recovery["consumed_at"] = time.time()
+                        save(offer_create_recovery=recovery)
+                    requested_at = time.time()
+                    save(offer_attempted=True, phase="offer", offer_create_requested_at=requested_at,
+                         offer_create_failure=None)
+                    try:
+                        result = await self.selling.create_offer(family, draft)
+                    except SellingError as exc:
+                        failure = {**exc.diagnostic(), "revision": revision, "at": requested_at}
+                        save(offer_create_failure=failure,
+                             offer_create_failures=[*job.get("offer_create_failures", []), failure])
+                        raise
                     if not re.fullmatch(r"[0-9]{1,30}", str(result.get("offerId", ""))):
                         raise ValueError(
                             "Offer response lacks an ID; reconcile before retrying"

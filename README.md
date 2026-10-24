@@ -8,7 +8,7 @@ This is the public source and project handoff hub for **BTCore**, the standalone
 
 ## Start here
 
-Core 0.7.4 is now deployed and its browser asset is verified. The [current deployment record](docs/SYSTEM.md) separates that result from the remaining live eBay publishing acceptance.
+Core 0.7.5 is now deployed and its browser asset is verified. The [current deployment record](docs/SYSTEM.md) separates that result from the remaining live eBay publishing acceptance.
 
 [Render recovery configuration](docs/RENDER-RECOVERY.md): a private Core/PostgreSQL Blueprint with independent photo-storage inputs. Configuration and tests are separate from live deployment; storage credentials and the complete cloud cost still need verification before Apply.
 
@@ -27,10 +27,10 @@ Publisher recovery: [run the existing eBay publisher independently on GitHub](bt
 
 | Directory | Contents | Snapshot |
 | --- | --- | --- |
-| `btco-os/core/` | Standalone Node application, photo intake, review, inventory, eBay publication, export/restore and tests | BTCore 0.7.4 |
+| `btco-os/core/` | Standalone Node application, photo intake, review, inventory, eBay publication, export/restore and tests | BTCore 0.7.5 |
 | `btco-os/web/` | Earlier web app, domain modules used by Core, migrations, native Vision source and archives | Full upstream snapshot |
 | `btco-os/btco_os/` | Python inventory import utility | Full upstream snapshot |
-| `btconnect/` | Python eBay integration, OAuth, original storage, listing approval/recovery, tests and Docker deployment | BTConnect 0.6.5 |
+| `btconnect/` | Python eBay integration, OAuth, original storage, listing approval/recovery, tests and Docker deployment | BTConnect 0.6.7 |
 | `tools/` | Portable source archive, integrity check and offline restore drill | Recovery foundation |
 
 The original 530 upstream files were recovered and checked against their Git blob hashes before export. The 0.7.3 location checkpoint includes 540 source files. Deployment hostnames and transient local build paths are replaced with placeholders; `source-lock.json` lists each transformation and current upstream commit. No runtime database, customer export, original inventory photo, credential or old Git history is included.
