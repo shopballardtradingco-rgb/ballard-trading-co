@@ -1,3 +1,21 @@
+# Publisher deployment — October 23, 2026 Pacific
+
+Core 0.7.4 is now live on the existing host. A same-tree release commit
+`732bde37fc77d8c2585433b7ed72183082ad878c` triggered deployment through the
+private repository's existing GitHub integration. Live health reported 0.7.4,
+and the served browser module matched the repaired source byte for byte.
+Core standalone [CI run 40046878539](https://github.com/shopballardtradingco-rgb/btco-os/actions/runs/40046878539)
+passed unit, PostgreSQL, all nine browser suites, Docker smoke and packaging;
+Verify run 40046878451 also passed. Saved drafts and original-photo references
+were retained. The existing marketplace mirror continued its normal updates.
+
+BTConnect 0.6.3 ([PR #17](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/17)) added the configured Core origin to the consent redirect policy and passed both exact-head CI runs. Authenticated live checks verified that release and existing seller permissions. A live Core browser test still stalled after the consent POST despite a correct server-side eBay redirect. The follow-up 0.6.4 ([PR #18](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/18)) supplies a visible sign-in link for HTML browsers and correctly names Core on its consent page. All 571 connector tests passed locally, including the actual Core export handoff; three exporter cases also passed. The first PR CI attempt hit the pre-existing 100 ms partial-progress timeout test on a slower runner; the exact-head push suite and local full suite passed. The targeted test also passed locally. The failed job passed on retry (CI run 40048220484, attempt 2); exact-head push CI 40048194551 also passed. PR #18 merged as `c7129765b98a0451ec97e626380e875e541763e2`, with the same tested source tree. Browser login and live-listing acceptance remain unverified at this source checkpoint; issue #9 carries the continuing live acceptance record.
+
+This restores deployment of the publisher repair; it is not an independent
+host migration or proof of live eBay publication. The next acceptance steps are
+Core browser authorization, saved-batch shipping configuration, exact owner
+review and one verified eBay item ID. Runtime URLs and inventory stay private.
+
 # Render recovery configuration — October 22, 2026 Pacific
 
 The owner selected the connected Render workspace; read-only discovery found no services or Postgres databases. The root Blueprint and [deployment runbook](RENDER-RECOVERY.md) prepare a private recovery destination using unchanged Core 0.7.4. This source change does not create resources or move inventory. Independent photo storage credentials, total cloud cost, platform validation, deployment and restore are still acceptance gates. The separate connector journal/original/key recovery remains incomplete.
@@ -46,7 +64,7 @@ This checkpoint adds CDP inventory migration, linked physical-location lookup an
 
 | Component | Current runtime | Data/state | Independence status |
 | --- | --- | --- | --- |
-| BTCore 0.7.2 | Node application on Railway, development environment | PostgreSQL metadata; private S3-compatible original/photo bucket | Standalone browser UI; daily operation does not require a ChatGPT conversation |
+| BTCore 0.7.4 | Node application on Railway, development environment | PostgreSQL metadata; private S3-compatible original/photo bucket | Standalone browser UI; daily operation does not require a ChatGPT conversation |
 | BTConnect 0.6.2 | Python service on Railway | SQLite volume with encrypted authorization/listing records and local encrypted listing-objects originals; separately maintained R2 copies are not this PhotoStore backend | Shared marketplace backend; preserve OAuth, approval and publication journals |
 | Legacy BTCo OS | Earlier Sites deployment and D1 | Separate inventory/database | Not automatically synchronized or migrated into standalone Core; retirement requires export and reconciliation |
 | Python inventory utility | Local command line | Separate SQLite file | Not a second writer to Core or D1 |
