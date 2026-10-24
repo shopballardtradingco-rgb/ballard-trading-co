@@ -12,6 +12,13 @@ Ballard Trading Co. is a collecting business built to support the hobby. Cards a
 - Preview the exact listing content and original photos, then one final Publish confirmation. A cancellation makes no approval/publication call. Reconcile unknown outcomes before retrying.
 - For comics, preserve the existing condition/disclosure and offer rules in BTConnect; do not apply card condition defaults to comics.
 
+## Owner card packing rules — October 23, 2026 Pacific
+
+- Every ungraded single card under $20 uses a plain white envelope on eBay and CollX. Do not ask for its shipping method per card.
+- PWE setup: #10 envelope, sleeve, top loader and paper wrap; typically under 2 oz and under 0.25 in thick. Form allowances are 2 oz and 0.24 in, with the standard 9.5 × 4.125 in footprint. These are owner-provided bounds and working estimates, not independently measured values.
+- Cards over $20 use a 4.75 × 8.75 in mailer, approximately 1 in thick, at 3 oz. Retain graded-card and marketplace eligibility requirements.
+- Packaging settings do not approve listing content or publication; show the exact completed review once.
+
 ## Inventory and sales
 
 Confirmed marketplace order evidence, exact item mapping and quantity are required before changing stock. Missing listings, stale CSVs or matching titles are not proof of a sale. Replay each order line safely once. Refunds do not automatically restock an item. When cross-channel removal cannot be verified, show the item, channel, listing link and reason in a manual-action queue.
