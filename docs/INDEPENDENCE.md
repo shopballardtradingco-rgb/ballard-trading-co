@@ -59,3 +59,7 @@ This pass does not buy hosting, cancel subscriptions, move the only live databas
 ### Backup implementation checkpoint
 
 The portable Core-only backup runner and timer templates are implemented under `tools/runtime_backup.py` and `deploy/backups/`. The owner-approved October 23 manual Core backup is complete: private off-site archive, matching download checksum, clean offline restore, verified original hashes, and a private receipt stored alongside it. Unattended provider authorization and timer installation are still required. Keep issue #2 open until scheduled execution, notification delivery and the remaining stores are independently verified. Public source archiving is separate.
+
+### Connector recovery checkpoint
+
+BTConnect 0.6.8 provides tested offline capture and restore through `btco_ebay.recovery`. All 627 tests passed; existing receipt identity and uncertain publication jobs survive recovery. Operational capture still needs authorized host/volume/configuration access and independent private storage. See [the operator runbook](../btconnect/docs/CONNECTOR-RECOVERY.md). No live backup, independent host or schedule is claimed by the source milestone.
