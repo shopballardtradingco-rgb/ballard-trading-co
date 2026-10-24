@@ -10,10 +10,10 @@ import {approveListings} from '../preparation.mjs';
 import {listingContent} from '../public/preparation-policy.mjs';
 import {stagePublicationBatch} from '../publication.mjs';
 import {campaign,policies as policy,envelope,mailer,envelopeParcel,mailerParcel} from './fixtures/ebay-policies.mjs';
-const origin='http://127.0.0.1:3218',store=await openStore({sqlitePath:':memory:',allowSqlite:true}),groups=new Map();let published=0,uploaded=0,publishCalls=0,rejectNext=false;
+const origin='http://127.0.0.1:3218',store=await openStore({sqlitePath:':memory:',allowSqlite:true}),groups=new Map();let published=0,uploaded=0,publishCalls=0,rejectNext=false,failUploads=false;
 // Match the real account's response shape, with synthetic IDs and immediate first.
 const cardPolicies={...policy,locations:{locations:[{merchantLocationKey:'postal-only',merchantLocationStatus:'ENABLED'},...policy.locations.locations]},payment_policy:{total:2,paymentPolicies:[true,false].map(immediatePay=>({paymentPolicyId:immediatePay?'23':'22',name:'eBay Managed Payments',marketplaceId:'EBAY_US',categoryTypes:[{name:'ALL_EXCLUDING_MOTORS_VEHICLES',default:false}],paymentMethods:[],immediatePay}))}};
-const client={seller:'ballardtradingco',upload:async(bytes,p)=>{assert.equal(hash(bytes),p.sha256);uploaded++;return {object_key:'photos/'+'a'.repeat(64)+'/'+p.sha256+'.jpeg',sha256_hex:p.sha256,role:p.role};},call:async(name,args)=>{
+const client={seller:'ballardtradingco',upload:async(bytes,p)=>{assert.equal(hash(bytes),p.sha256);if(failUploads)throw Error('Synthetic photo transfer failure');uploaded++;return {object_key:'photos/'+'a'.repeat(64)+'/'+p.sha256+'.jpeg',sha256_hex:p.sha256,role:p.role};},call:async(name,args)=>{
  if(name==='get_card_listing_options')return {policies:cardPolicies,category:{itemConditionPolicies:[{itemConditions:[{conditionId:'4000',conditionDescriptors:[{conditionDescriptorId:'40001',conditionDescriptorName:'Card condition',conditionDescriptorValues:[{conditionDescriptorValueId:'400011',conditionDescriptorValueName:'Excellent'},{conditionDescriptorValueId:'400012',conditionDescriptorValueName:'Very good'}]}]}]}]}};
  if(name==='get_listing_policy_snapshot'){assert.equal(args.payment_policy_id,'22');return {snapshots_sha256:(args.fulfillment_policy_id==='11'?'a':'c').repeat(64),policies:{fulfillment_policy:args.fulfillment_policy_id==='11'?envelope:mailer,payment_policy:{name:'Managed payments'},return_policy:{name:'Returns'}}};}
  if(name==='get_listing_campaign_snapshot'){assert.equal(args.campaign_id,'44');return {snapshots_sha256:'b'.repeat(64),campaign};}
@@ -121,7 +121,14 @@ try{
  await page.locator('#quick-save-bar').getByRole('button',{name:'Clear',exact:true}).click();
  if(await page.locator('#desk-other-cards').count())await page.locator('#desk-other-cards').evaluate(el=>el.open=true);
  for(const id of failureIds)await page.locator('[data-edit-select="'+id+'"]').check();
- await top.getByRole('button',{name:'Get ready to publish (2)',exact:true}).click();await final.getByRole('button',{name:'Publish selected (2)',exact:true}).waitFor();
+ failUploads=true;
+ await top.getByRole('button',{name:'Get ready to publish (2)',exact:true}).click();await page.getByRole('heading',{name:'0 ready to publish',exact:true}).waitFor();
+ const failedBatch=(await store.workspace()).publicationBatches.find(b=>b.bridge&&b.entries.some(e=>e.draftId===failureIds[0])),savedSettings=structuredClone(failedBatch.bridge.settings),publishedBeforeRetry=published;
+ assert.equal(failedBatch.bridge.entries.filter(e=>e.status==='exception').length,2);
+ failUploads=false;await page.reload();await top.getByRole('button',{name:'Get ready to publish (2)',exact:true}).click();
+ await final.getByRole('button',{name:'Publish selected (2)',exact:true}).waitFor();
+ const retried=(await store.workspace()).publicationBatches.find(b=>b.id===failedBatch.id);assert.deepEqual(retried.bridge.settings,savedSettings);assert.equal(retried.bridge.entries.filter(e=>e.status==='exception').length,0);assert.equal(published,publishedBeforeRetry);
+
  const before=published,callsBefore=publishCalls;rejectNext=true;
  page.once('dialog',d=>d.accept());await final.getByRole('button',{name:'Publish selected (2)',exact:true}).click();
  await page.locator('#desk-panel .desk-review-list a[href^="https://www.ebay.com/itm/"]').waitFor();
