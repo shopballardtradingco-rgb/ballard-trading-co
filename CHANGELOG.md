@@ -1,3 +1,8 @@
+## BTConnect 0.6.8 recovery — October 23, 2026 Pacific
+
+- Preserve consistent SQLite, original photos, exact listing history and the existing receipt-signing identity through an offline operator command.
+- All 627 local tests and both canonical exact-head CI runs passed. Live connector capture and off-site restore remain open pending operator access.
+
 ## Portable Core backup runner — October 23, 2026 Pacific
 
 - Add a standalone Core export/upload/download/restore command, with dated immutable copies, SHA-256 verification, checked remote receipts and last-good preservation.

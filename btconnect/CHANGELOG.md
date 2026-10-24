@@ -1,3 +1,9 @@
+## 0.6.8 — operator recovery, October 23, 2026 Pacific
+
+- Add a standalone capture/verify/restore command for a consistent SQLite journal, immutable local originals, and separately held recovery configuration.
+- Preserve exact publication IDs, uncertain jobs, expired records and the existing receipt-signing key. Verify original hashes and refuse occupied restore destinations.
+- No new HTTP route or marketplace writes. Live capture still requires operator access to the volume/configuration; no off-site backup or schedule is claimed by this release.
+
 ## 0.6.7 — Confirmed offer creation recovery
 
 - Preserve typed createOffer rejection evidence separately from later guard errors.

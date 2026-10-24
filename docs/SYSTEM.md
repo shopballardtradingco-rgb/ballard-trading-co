@@ -1,3 +1,11 @@
+# Connector recovery implementation — October 23, 2026 Pacific
+
+BTConnect 0.6.8 adds an [offline operator capture/verify/restore command](../btconnect/docs/CONNECTOR-RECOVERY.md). It preserves a consistent SQLite snapshot, all encrypted records and finalized originals, exact listing IDs, uncertain publication jobs and the original receipt-signing identity. Matching recovery configuration is kept separately. Restore requires a new destination, verifies copied bytes, and starts no server or marketplace operation.
+
+Canonical PR #22 merged as `22f7403b027119de0b4ec5c802645b1aa80e3ed4`, preserving tested tree `bd469f73d4e31f8bd621dc6c1a119eb4b3800cae` from head `472a39ceccfd8ed4813feabd26d141533150b6f3`. Both exact-head CI runs `40068769901` and `40068768344` passed. Local validation passed all 627 tests, including 16 recovery cases with network access forbidden, and the wheel build.
+
+Live connector capture remains blocked by operator access to the existing volume and runtime configuration. The connected listing tools do not expose this access. Capture also needs a separate destination with enough space for the full originals; no storage purchase or active schedule is implied. The completed manual Core off-site backup remains separate. Issue #2 tracks actual connector capture, private independent delivery, downloaded verification and an actual-data isolated restore before operational recovery is marked complete.
+
 # Direct Core status reconciliation — October 23, 2026 Pacific
 
 BTCore 0.7.6 provides **Check eBay status** on the saved listing review. It reads existing connector outcomes and persists completion after verifying saved identities, unchanged review revisions, complete submitted-group coverage and verified item IDs. It never approves, prepares, retries or publishes listings. Original photos, stock, shipping and original approvals remain unchanged. Core can now reconcile work completed through another client without requiring ChatGPT.

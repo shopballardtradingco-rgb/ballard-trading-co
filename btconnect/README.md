@@ -1,5 +1,7 @@
 > Latest: 0.6.2 — Use the existing volume with a 400 MB photo quota and unchanged 50 MB free-disk reserve. Read actual headroom before each batch. See docs/releases/0.6.2.md; 0.6.1 added the measured readiness response.
 
+Operator recovery: [capture and restore the complete connector journal and originals](docs/CONNECTOR-RECOVERY.md). Version 0.6.8 adds an offline command; live backup delivery and activation remain separately verified.
+
 # BTConnect · 0.5.2 performance candidate
 
 Version 0.5.1 was deployed October 16 through [PR #8](https://github.com/shopballardtradingco-rgb/btco-ebay-connector/pull/8). Health, authenticated tools, saved-work catalogs and a live eBay read passed verification. Hosted AI remains off. The undeployed 0.5.2 candidate extends the existing bounded photo worker to draft preparation, ordinary saves, validation and private original retrieval. It also overlaps independent policy-readiness GETs in bounded groups, preserving fresh authorization and existing error handling. Every fresh integrity check remains; no new service or record migration is needed. See [preparation measurements](docs/benchmarks/2026-10-17-connect-preparation.md), [policy-readiness measurements](docs/benchmarks/2026-10-17-connect-policy-readiness.md) and [0.5.2 release notes](docs/releases/0.5.2.md). New-photo acceptance and owner-time benchmarking remain deferred.
