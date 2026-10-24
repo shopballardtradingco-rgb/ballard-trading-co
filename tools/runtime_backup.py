@@ -71,6 +71,11 @@ def load_config(path):
     return cfg
 
 
+def configuration_fingerprint(cfg):
+    identity = {'remote': cfg.get('remote'), 'source': cfg.get('source')}
+    return hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
+
+
 def clean_environment(work):
     # Neither the restore process nor rclone inherit live DB/marketplace/AI keys.
     return {'PATH': os.environ.get('PATH', '/usr/bin:/bin'), 'TMPDIR': str(work),
@@ -138,9 +143,9 @@ class RcloneStore:
     def __init__(self, cfg, work):
         self.cfg, self.work = cfg, work
 
-    def transfer(self, source, destination):
-        result = subprocess.run(['rclone', 'copyto', str(source), str(destination),
-                                 '--config', self.cfg['rclone_config'], '--immutable',
+    def transfer(self, source, destination, command='copyto'):
+        result = subprocess.run(['rclone', command, str(source), str(destination),
+                                 '--config', self.cfg['rclone_config'], '--immutable', '--checksum',
                                  '--retries', '2', '--low-level-retries', '2',
                                  '--timeout', '90s', '--contimeout', '30s', '--stats', '0',
                                  '--max-transfer', str(MAX_BYTES + 16 * 1024 * 1024),
@@ -151,9 +156,19 @@ class RcloneStore:
             raise BackupError('Off-site transfer failed')
 
     def put(self, local, relative):
-        self.transfer(local, self.cfg['remote'].rstrip('/') + '/' + relative)
+        parent, _, name = relative.rpartition('/')
+        if not name or name in ('.', '..') or '..' in parent.split('/'):
+            raise BackupError('Invalid backup object name')
+        # copyto in rclone 1.60 bypasses the immutable check for single files.
+        # Stage the exact name and use directory copy's checked transfer path.
+        with tempfile.TemporaryDirectory(prefix='upload-', dir=self.work) as directory:
+            staged = Path(directory) / name
+            shutil.copyfile(local, staged)
+            self.transfer(directory, self.cfg['remote'].rstrip('/') + '/' + parent, command='copy')
 
     def get(self, relative, local):
+        if Path(local).exists():
+            raise BackupError('Readback destination must be empty')
         self.transfer(self.cfg['remote'].rstrip('/') + '/' + relative, local)
 
 
@@ -226,6 +241,7 @@ def run_backup(cfg, input_path=None, store_factory=RcloneStore, drill=restore_dr
                 raise BackupError('Off-site restore differs from source')
             receipt = {'schema': 1, 'scope': 'core-logical-only', 'run_id': run_id,
                        'source_created_at': created_at, 'verified_at': utcnow().isoformat(),
+                       'configuration_fingerprint': configuration_fingerprint(cfg),
                        'core_version': version, 'archive': relative, 'sha256': checksum,
                        'bytes': archive.stat().st_size, 'remote_readback_verified': True,
                        'restore': after,
@@ -248,14 +264,15 @@ def run_backup(cfg, input_path=None, store_factory=RcloneStore, drill=restore_dr
             raise BackupError('Backup failed during ' + phase + '; last verified backup retained') from None
 
 
-def check_status(state, now=None):
+def check_status(state, now=None, fingerprint=None):
     state = Path(state)
     try:
         proof = json.loads((state / 'last-success.json').read_text())
         attempt = json.loads((state / 'last-attempt.json').read_text())
         age = ((now or utcnow()) - datetime.fromisoformat(proof['verified_at'])).total_seconds()
         source_age = ((now or utcnow()) - datetime.fromisoformat(proof['source_created_at'])).total_seconds()
-        if (proof.get('schema') != 1 or proof.get('scope') != 'core-logical-only'
+        if (fingerprint is not None and proof.get('configuration_fingerprint') != fingerprint
+                or proof.get('schema') != 1 or proof.get('scope') != 'core-logical-only'
                 or attempt.get('status') != 'verified' or attempt.get('run_id') != proof.get('run_id')
                 or not proof.get('remote_readback_verified')
                 or not proof.get('restore', {}).get('originalHashesVerified')
@@ -275,7 +292,7 @@ def main():
     try:
         cfg = load_config(args.config)
         if args.action == 'check':
-            result = check_status(cfg['state_dir'])
+            result = check_status(cfg['state_dir'], fingerprint=configuration_fingerprint(cfg))
         else:
             proof = run_backup(cfg, args.input)
             result = {'verified': True, 'scope': proof['scope'], 'run_id': proof['run_id']}

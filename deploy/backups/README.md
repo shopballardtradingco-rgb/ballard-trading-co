@@ -37,7 +37,7 @@ python3 /opt/ballard-trading-co/tools/runtime_backup.py check --config /etc/btco
 
 The command emits only a bounded result or sanitized failure stage. Private receipts remain in the destination and state directory. It inherits no database, eBay or AI credentials into restore/transfer subprocesses. Every restore uses a newly created offline SQLite workspace and local object directory; it never calls a marketplace or production database. Temporary recovered data is cleaned after verification.
 
-Inspect the destination's `core-logical/<UTC timestamp>-<random id>/` archive and receipt. Confirm the provider and sharing state independently. Keep the downloaded archive checksum and successful restore evidence. The local `last-success.json` is not by itself proof that the remote still exists: every scheduled run performs a fresh upload/download/restore, and periodic manual recovery should use the remote copy.
+Inspect the destination's `core-logical/<UTC timestamp>-<random id>/` archive and receipt. Confirm the provider and sharing state independently. Keep the downloaded archive checksum and successful restore evidence. The receipt binds the configured source and destination names; changing either requires a new verified run. Re-authorizing or rebinding a named rclone remote also requires a fresh manual round trip before trusting the schedule. The local `last-success.json` is not by itself proof that the remote still exists: every scheduled run performs a fresh upload/download/restore, and periodic manual recovery should use the remote copy.
 
 ## Scheduling and monitoring
 
@@ -53,7 +53,7 @@ The nightly timer targets 3:00 a.m. America/Los_Angeles with up to ten minutes o
 
 Connect failed-unit notifications to the owner's chosen monitoring destination and test delivery. The files provide failure signals and systemd journal records; they do not configure email/SMS alerts or prove notification delivery. ChatGPT is neither the scheduler nor the monitor.
 
-Transfers use [rclone copyto](https://rclone.org/commands/rclone_copyto/) with `--immutable`; the runner never syncs or deletes remote files. Dated names preserve prior copies and partial failures never overwrite the last good archive. Automatic retention deletion is intentionally not enabled. Measure actual storage growth and validate the proposed 7 daily / 4 weekly / 3 monthly retention before enabling a separately reviewed deletion job. Check local free space for approximately five times the exported size; the runner currently bounds an export to 512 MiB.
+Uploads use [rclone copy](https://rclone.org/commands/rclone_copy/) with `--immutable --checksum`, staging the exact destination filename. This avoids an older `copyto` path that can bypass the immutable check. CI verifies both different-size and same-size conflicts preserve the original bytes, while identical retries succeed. Readbacks use `copyto` only into a new local file. The runner never syncs or deletes remote files. Dated names preserve prior copies and partial failures never overwrite the last good archive. Automatic retention deletion is intentionally not enabled. Measure actual storage growth and validate the proposed 7 daily / 4 weekly / 3 monthly retention before enabling a separately reviewed deletion job. Check local free space for approximately five times the exported size; the runner currently bounds an export to 512 MiB.
 
 For clean recovery elsewhere, download the archive and receipt, verify its SHA-256, decompress it privately, and run:
 

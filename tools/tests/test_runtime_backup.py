@@ -69,7 +69,9 @@ class BackupTests(unittest.TestCase):
         self.assertEqual(receipt['restore']['photos'], 2)
         self.assertTrue(receipt['restore']['nonEmptyRestoreRejected'])
         self.assertEqual(receipt['scope'], 'core-logical-only')
-        self.assertTrue(b.check_status(self.state)['healthy'])
+        self.assertTrue(b.check_status(self.state, fingerprint=b.configuration_fingerprint(self.cfg))['healthy'])
+        with self.assertRaises(b.BackupError):
+            b.check_status(self.state, fingerprint=b.configuration_fingerprint({**self.cfg, 'remote': 'different:destination'}))
         self.assertEqual([x[0] for x in self.remote.calls], ['put', 'get', 'put', 'get'])
         self.assertFalse(list(self.state.glob('capture-*')), 'restore and working data must be cleaned')
         first = receipt['archive']
@@ -231,6 +233,15 @@ class BackupTests(unittest.TestCase):
         store.put(a, 'immutable-test')
         with self.assertRaises(b.BackupError):
             store.put(z, 'immutable-test')
+        z.write_text('B')
+        with self.assertRaises(b.BackupError):
+            store.put(z, 'immutable-test')
+        store.put(a, 'immutable-test')  # Identical retries remain safe.
+        readback = self.root / 'immutable-readback'
+        store.get('immutable-test', readback)
+        self.assertEqual(readback.read_text(), 'A')
+        with self.assertRaises(b.BackupError):
+            store.get('immutable-test', a)
 
 
 if __name__ == '__main__':
