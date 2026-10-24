@@ -261,3 +261,56 @@ def test_health_and_authenticated_status_have_same_release(env):
     version = tomllib.loads((Path(__file__).parents[1] / "pyproject.toml").read_text())["project"]["version"]
     assert client.get("/health").json()["version"] == tool(client, tokens["access_token"], "get_connection_status")["version"] == version
 
+
+
+@pytest.mark.parametrize("actual_width,match", [(4.125, True), (4.13, True), (4.12, False), (4.14, False), (4.1301, False)])
+def test_inch_width_accepts_only_observed_two_decimal_half_up_readback(bundle, actual_width, match):
+    _, data, _ = bundle
+    data["packed_parcel"] = {**parcel(), "weight_oz": "2", "length_in": "9.5", "width_in": "4.125", "height_in": "0.24"}
+    expected = ListingDraft.model_validate(data).inventory_payload([])
+    actual = deepcopy(expected)
+    actual["packageWeightAndSize"]["dimensions"]["width"] = actual_width
+    assert inventory_matches(actual, expected) is match
+    actual["packageWeightAndSize"]["dimensions"]["height"] = 0.25
+    assert not inventory_matches(actual, expected)
+
+
+def test_rounding_does_not_accept_changed_weight_or_converted_unit(bundle):
+    _, data, _ = bundle
+    data["packed_parcel"] = {**parcel(), "weight_oz": "2.125", "width_in": "4.125"}
+    expected = ListingDraft.model_validate(data).inventory_payload([])
+    actual = deepcopy(expected)
+    actual["packageWeightAndSize"]["weight"]["value"] = 2.13
+    assert not inventory_matches(actual, expected)
+    actual = deepcopy(expected)
+    actual["packageWeightAndSize"]["dimensions"] = {"unit": "CENTIMETER", "length": 30.48, "width": 10.48, "height": 2.54}
+    assert not inventory_matches(actual, expected)
+
+
+def test_saved_inventory_rounding_failure_resumes_without_rewriting_or_duplicates(bundle, monkeypatch):
+    import btco_ebay.publishing as publishing
+    repo, data, images = bundle
+    data["packed_parcel"] = {**parcel(), "weight_oz": "2", "length_in": "9.5", "width_in": "4.125", "height_in": "0.24"}
+    row = approve(repo, data)
+    fake = FakeSelling(images)
+    original_put = fake.put_item
+    async def rounded_put(*args):
+        await original_put(*args)
+        fake.item["packageWeightAndSize"]["dimensions"]["width"] = 4.13
+    fake.put_item = rounded_put
+    pub = Publisher(repo, fake, True, collector=fake.collect)
+    matcher = publishing.inventory_matches
+    # Reproduce the older exact-width check leaving a saved inventory-only job.
+    monkeypatch.setattr(publishing, "inventory_matches", lambda actual, expected: matcher(actual, expected) and actual["packageWeightAndSize"]["dimensions"] == expected["packageWeightAndSize"]["dimensions"])
+    with pytest.raises(ValueError, match="Inventory read-back"):
+        run(pub, row)
+    assert fake.calls.count("put") == 1 and fake.calls.count("create") == 0
+    monkeypatch.setattr(publishing, "inventory_matches", matcher)
+    resumed = run(pub, row)
+    assert resumed["state"] == "published"
+    assert resumed["revision"] == row["revision"]
+    assert resumed["draft"]["packed_parcel"]["width_in"] == "4.125"
+    calls = list(fake.calls)
+    run(pub, row)
+    assert fake.calls == calls
+    assert fake.calls.count("put") == fake.calls.count("create") == fake.calls.count("publish") == 1

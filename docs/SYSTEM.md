@@ -1,3 +1,9 @@
+# Envelope read-back normalization — October 23, 2026 Pacific
+
+Owner-approved Core publication produced verified live eBay listings. Envelope entries exposed a read-back discrepancy: approved width 4.125 INCH returned as 4.13. BTConnect 0.6.6 recognizes exact half-up rounding to two decimal places for same-unit INCH length/width only, preserving approved drafts and requiring exact weight and thickness. All 582 local connector tests passed, including recovery of a saved inventory-only job without duplicate writes, offers or publication. Canonical PR #20 merged as f579b1edf4c6cbefd3f58024a0abeee0d39bad93 with tested tree d83ea2585b07d413b07eee1e3315d80f89ffcf46. Both exact-head CI runs 40055627523 and 40055625602 passed. Issue #9 tracks final live resume.
+
+Core 0.7.5 is live from canonical merge 9f3edfe0456ee5a8c2546f24cdf7908f7e7373e5 (tested tree 7ad04a979b673939191327dfdb29f09f09502606). Exact-head CI 40053143417 passed all storage/browser/Docker/package checks; 40053143412 passed Verify. Public source checkpoint b4ed326ba9f0d08e39691c09bfc34d220b2860db retains that source.
+
 # Saved preparation retry — October 23, 2026 Pacific
 
 Core 0.7.5 repairs the listing desk button that did not restart a completed preparation containing photo errors. An explicit retry retains the same Core batch, saved policies and original references, leaves submitted connector groups intact and adds only newly recovered entries to new groups. Normal preparation continuation stays bounded, and approved publication cannot enter this retry path. Canonical PR #11 contains service and browser regression coverage. The browser regression reproduces total upload failure, a reload, and recovery through the same button; it is isolated from the existing unsaved shipping-edit scenario. A separate pre-existing limitation in carrying non-PWE parcel form values across reload plus price editing is recorded in issue #9; unchanged-batch retry retains its durable settings.

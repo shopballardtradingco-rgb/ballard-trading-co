@@ -1,7 +1,7 @@
 """Durable publication with read-back verification and fail-closed retries."""
 
 from datetime import datetime, timezone
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 import asyncio
 import re
 import time
@@ -22,7 +22,8 @@ def package_matches(actual, expected):
         return False
     # eBay may normalize measurement units. Compare physical quantities using
     # exact decimal conversions rather than accepting a changed parcel.
-    # Compare in SI units for exact conversion factors (no rounding tolerance).
+    # Compare in SI units for exact conversion factors. The sole rounding
+    # exception is the observed two-decimal INCH length/width read-back.
     factors = {
         "weight": {"OUNCE": "28.349523125", "POUND": "453.59237", "GRAM": "1", "KILOGRAM": "1000"},
         "dimensions": {"INCH": "2.54", "FEET": "30.48", "CENTIMETER": "1", "METER": "100"},
@@ -39,8 +40,16 @@ def package_matches(actual, expected):
             try:
                 number = Decimal(str(values[name]))
                 target = Decimal(str(expected[field][name]))
-                if not number.is_finite() or number * Decimal(factors[field][values["unit"]]) != target * Decimal(factors[field][expected[field]["unit"]]):
+                if not number.is_finite():
                     return False
+                if number * Decimal(factors[field][values["unit"]]) != target * Decimal(factors[field][expected[field]["unit"]]):
+                    # eBay read-back rounds a #10 envelope width 4.125 to 4.13.
+                    # Recognize exactly that representation rule, not a fuzzy
+                    # tolerance. Weight, thickness and converted units stay exact.
+                    if not (field == "dimensions" and name in ("length", "width")
+                            and values["unit"] == expected[field]["unit"] == "INCH"
+                            and number == target.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)):
+                        return False
             except Exception:
                 return False
     return True
