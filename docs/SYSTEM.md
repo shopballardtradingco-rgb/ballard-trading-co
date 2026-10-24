@@ -1,3 +1,11 @@
+# Direct Core status reconciliation — October 23, 2026 Pacific
+
+BTCore 0.7.6 provides **Check eBay status** on the saved listing review. It reads existing connector outcomes and persists completion after verifying saved identities, unchanged review revisions, complete submitted-group coverage and verified item IDs. It never approves, prepares, retries or publishes listings. Original photos, stock, shipping and original approvals remain unchanged. Core can now reconcile work completed through another client without requiring ChatGPT.
+
+Canonical PR #12 merged as `221fb0230b6448c29227e77fe2db09b81208e71b`, preserving tested tree `d4019781fde37d4076819fe6affd5f78709a8a29` from head `3f32c059a762eaeedc77464deab85672d090386c`. Exact-head standalone CI `40063781559` passed PostgreSQL, all nine browser suites, Docker smoke and portable runtime packaging; Verify runs `40063781569` and `40063779101` passed. Local validation passed 122 service tests and eight promotion tests; PostgreSQL was supplied by CI. The accepted runtime artifact is retained by GitHub for 30 days and can be deployed without rebuilding through Railway. This is runtime portability, not proof of an alternate live host.
+
+Live version and saved-batch reconciliation acceptance are tracked in issue #9. Recurring independent data backup and full connector restoration remain open in issue #2; the existing alternate-server work remains in PR #13. Neither source archives nor this status repair are described as completed runtime redundancy.
+
 # Confirmed offer creation recovery — October 23, 2026 Pacific
 
 BTConnect 0.6.7 preserves typed createOffer failures and adds explicit single-use recovery for a confirmed HTTP 400/25702 rejection. Authorization performs no marketplace writes and checks the unchanged approved revision, originals, inventory, policies, full active feed and two empty offer lookups after a settling period. Execution checks again and consumes authorization before the request. Unknown outcomes remain read-back-only; legacy import requires an auditable original-response attestation. The existing batch retry policy is unchanged.

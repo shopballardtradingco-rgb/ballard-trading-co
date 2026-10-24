@@ -22,7 +22,7 @@ Latest instruction: add no new features in the current pass; improve performance
 See the detailed [CDP acceptance ledger](../btco-os/docs/CDP-REPLACEMENT.md) and [marketplace hub direction](../btco-os/docs/CORE-MARKETPLACE-HUB.md).
 
 1. Finish the already requested three-week side-by-side trial. Preserve exact master SKUs, original photos, costs, locations and independent channel prices. Read-only observations do not create physical stock.
-2. Prove eBay publication/recovery with a separately approved live card pilot. Reconcile existing listings, orders, payments, cancellations and refunds without replaying sales.
+2. Owner-approved eBay card publication and recovery are verified. Finish reconciliation of existing listings, orders, payments, cancellations and refunds without replaying sales; publication success alone does not complete CDP cutover.
 3. Inventory the channels actually in use and document a safe supported or explicitly owner-accepted manual continuity plan before cutover. Supported CollX integration remains a secondary implementation dependency; a CSV or owner-recorded listing is not API-backed synchronization.
 4. Build the confirmed sale ledger and cross-channel closure queue. Each remaining listing must be verified ended/adjusted or shown as a specific manual action with its link and reason.
 5. Reconcile migration counts and photo coverage, rehearse recovery, and document rollback. Only then mark CDP cancel-ready. No new CDP-specific feature development.
@@ -45,3 +45,13 @@ Inventory every feature actually used, its replacement and its cancellation date
 ## Tracking rule
 
 Use GitHub Issues with checkboxes and concrete acceptance evidence. Link each implementation PR and recovery result. Record blocked access and exact owner actions. A chat promise is not a completed task, and a configured workflow is not a successful scheduled backup.
+
+## Next resilience milestones — October 23, 2026 Pacific
+
+1. **Operate directly in Core.** Publish from the saved browser review and check completed publication through the separate read-only status control. The connector journal is the shared record when work moves between clients. A status check must never create or retry a listing. Version 0.7.6 provides this control; deployment acceptance is tracked in issue #9.
+2. **Make operational backups recurring.** Prioritize the current Core workspace/originals and the consistent connector database, encrypted originals and recovery keys. Deliver dated copies to an independent private provider and verify a clean restore before calling the schedule complete. Monitoring and scheduling run outside ChatGPT. Acceptance remains open in issue #2.
+3. **Prove a second runtime.** Continue the existing owner-controlled server work in PR #13 within the previously selected infrastructure budget. Restore into an empty destination, verify old listing IDs and original hashes with marketplace writes disabled, and establish exactly one active publisher before any deliberate cutover. No alternate host is currently claimed live.
+4. **Keep source and handoff current.** Mirror every tested release with verified blobs and keep runbooks, operational rules and issues sufficient for another developer or tool to resume. Source archives remain distinct from live data backups.
+5. **Replace dependencies individually.** Preserve the CDP cutover gates; then measure alternative AI providers against fixed identification tests and retain manual entry/review when AI is unavailable. No tool or subscription is retired until its replacement is proven.
+
+This pass does not buy hosting, cancel subscriptions, move the only live database, or grant fresh listing approval. Infrastructure activation and marketplace publication each retain their existing acceptance requirements.

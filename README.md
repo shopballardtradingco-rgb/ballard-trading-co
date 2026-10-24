@@ -8,7 +8,7 @@ This is the public source and project handoff hub for **BTCore**, the standalone
 
 ## Start here
 
-Core 0.7.5 is now deployed and its browser asset is verified. The [current deployment record](docs/SYSTEM.md) separates that result from the remaining live eBay publishing acceptance.
+Core 0.7.6 adds a direct **Check eBay status** control for publication completed through another client. The [current deployment record](docs/SYSTEM.md) records deployment and live acceptance separately. Owner-approved card publication and 5% promotion verification are complete; remaining recovery work is tracked explicitly.
 
 [Render recovery configuration](docs/RENDER-RECOVERY.md): a private Core/PostgreSQL Blueprint with independent photo-storage inputs. Configuration and tests are separate from live deployment; storage credentials and the complete cloud cost still need verification before Apply.
 
@@ -27,7 +27,7 @@ Publisher recovery: [run the existing eBay publisher independently on GitHub](bt
 
 | Directory | Contents | Snapshot |
 | --- | --- | --- |
-| `btco-os/core/` | Standalone Node application, photo intake, review, inventory, eBay publication, export/restore and tests | BTCore 0.7.5 |
+| `btco-os/core/` | Standalone Node application, photo intake, review, inventory, eBay publication, export/restore and tests | BTCore 0.7.6 |
 | `btco-os/web/` | Earlier web app, domain modules used by Core, migrations, native Vision source and archives | Full upstream snapshot |
 | `btco-os/btco_os/` | Python inventory import utility | Full upstream snapshot |
 | `btconnect/` | Python eBay integration, OAuth, original storage, listing approval/recovery, tests and Docker deployment | BTConnect 0.6.7 |

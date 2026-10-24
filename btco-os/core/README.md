@@ -155,3 +155,10 @@ The mirror is separate from physical inventory. It keeps exact listing/order/lin
 Import dated CDP and CollX CSV exports with explicit column mapping and preview. Blank prices/quantities stay unknown. CDP price means its eBay price; CollX is independent. Exact eBay IDs join CDP records; exact CollX IDs from those CDP records join CollX observations. Titles and SKU aliases never establish identity. Missing sources/links and stale exports mean incomplete coverage. Owner-provided CSVs are observations, not authenticated API evidence.
 
 Export history regularly: latest observations, 5,000 changes (visible drop count), 2,000 run summaries and up to 20,000 order records are retained. Full workspace snapshots have the existing 12 MB cap and 20-revision retention. Orders older than the rolling 30-day query can miss later changes; financial reconciliation and cross-channel delisting are not implemented. CollX direct API sync/posting still needs supported access. This release does not establish full CDP parity.
+
+
+## Check publication completed through another client
+
+Open **Manage listings**, continue the saved group, and choose **Check eBay status**. Core reads the existing connector outcomes and updates the saved count. Complete verified groups show **Published on eBay** with their listing links. This action does not approve, retry, or publish listings and does not require ChatGPT. Save or discard unsaved edits first. A connection error preserves the previous saved status; retry the check when connected.
+
+The connector and its saved publication journal remain required. This control is not a replacement for independent connector backups or a tested alternate host. Incomplete jobs retain their existing recovery requirements.
