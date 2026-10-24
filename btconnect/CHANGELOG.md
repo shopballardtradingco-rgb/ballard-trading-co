@@ -1,3 +1,9 @@
+## 0.6.6 — eBay envelope dimension read-back
+
+- Recognize observed two-decimal, half-up INCH length/width read-back (4.125 → 4.13). Preserve the exact owner-approved parcel and revision.
+- Keep weight, thickness, converted-unit equality and all other listing comparisons exact.
+- Verify recovery from an existing inventory-only job without a second inventory write, offer or publication.
+
 # 0.6.5 — 2026-10-23 Pacific
 
 - Accept original JPEG/MPF photos with one auxiliary image, validating both pictures without modifying original bytes or hashes. Retain single-frame PNG and resource limits.
