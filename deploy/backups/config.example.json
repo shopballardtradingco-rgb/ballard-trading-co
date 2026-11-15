@@ -1,5 +1,8 @@
 {
   "schema": 1,
+  "max_age_hours": 24,
+  "max_export_bytes": 536870912,
+  "max_restore_bytes": 536870912,
   "state_dir": "/var/lib/btco-backup",
   "remote": "btco-recovery:BTCo Recovery",
   "rclone_config": "/etc/btco-backup/rclone.conf",

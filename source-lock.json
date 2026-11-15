@@ -5,7 +5,7 @@
     "btconnect": "22f7403b027119de0b4ec5c802645b1aa80e3ed4"
   },
   "history": "Fresh public snapshot; original Git history remains in private repositories.",
-  "transformations": "Deployment hostnames, Railway dashboard project URLs and transient build-workspace paths replaced with placeholders. Runtime source and tests otherwise preserved.",
+  "transformations": "Deployment hostnames, Railway dashboard project URLs and transient build-workspace paths replaced with placeholders. Documented per-file backports identify exact canonical commits; source_commits remains the full-snapshot baseline. A backport is not a claim that the remaining snapshot is current or the source PR has merged.",
   "files": [
     {
       "path": "btco-os/.github/scripts/package-core.sh",
@@ -112,7 +112,7 @@
     {
       "path": "btco-os/core/backup.mjs",
       "upstream_git_blob": "a385b21ffafe9f1f761b44e2b7c6a57074095b35",
-      "published_sha256": "dea0f15194499f03e416ab093b8481f6c7bc190dfe0842fdd81a5ebe5badd6fb",
+      "published_sha256": "e2262b4298bc43e620aa2b73fe5d5fbbbc6b10f2c5488b4a79b3cf925a193e6f",
       "sanitized": false
     },
     {
@@ -3438,6 +3438,22 @@
       "upstream_git_blob": "b0f72dc468ec301dbce322f02ba379b97a5f3f68",
       "published_sha256": "6e6cf543adb3c89ce854ccdcfc940045f71d943991e00143315819c94a5d5617",
       "sanitized": false
+    }
+  ],
+  "backported_changes": [
+    {
+      "path": "btco-os/core/backup.mjs",
+      "source_repository": "shopballardtradingco-rgb/btco-os",
+      "source_commit": "2afb0955bb9a7c817f2f4b0bcd1079eceb7928ed",
+      "source_base_commit": "9c8bdd40cdc3b2fed283cff9246d1032d9123105",
+      "source_base_git_blob": "9b092489ad39dab6bc38e2e67914c6e3210065d5",
+      "source_git_blob": "e0120bc2de6c5fa97b3ee12c71a9f28dc58564f5",
+      "source_pull_request": 92,
+      "source_status": "Draft PR; not merged or deployed",
+      "snapshot_base_git_blob": "a385b21ffafe9f1f761b44e2b7c6a57074095b35",
+      "published_git_blob": "7fa1b4f01d3da07c0004c4ec68a8389c36ebb223",
+      "published_sha256": "e2262b4298bc43e620aa2b73fe5d5fbbbc6b10f2c5488b4a79b3cf925a193e6f",
+      "scope": "Backport the bounded plain/gzip reader and restoreBackupFile options only. The functions match the pinned canonical source; remaining backup logic and the public snapshot retain their existing baseline."
     }
   ]
 }

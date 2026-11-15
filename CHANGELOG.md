@@ -1,3 +1,9 @@
+## Unreleased — bounded Core recovery work
+
+- Stream compressed capture and restores with explicit logical-export and restore budgets, disk preflight and a shared 24-hour freshness default.
+- Check allocated working space during restores and between runner phases; detect upload hard-link mutation and preserve the previous verified backup on failure.
+- Cover growing logical streams, incompressible synthetic originals/workspace data, real rclone local readback and the streaming source dependency in acceptance CI. No unattended transfer, timer or production setting is activated.
+
 ## BTConnect 0.6.8 recovery — October 23, 2026 Pacific
 
 - Preserve consistent SQLite, original photos, exact listing history and the existing receipt-signing identity through an offline operator command.
