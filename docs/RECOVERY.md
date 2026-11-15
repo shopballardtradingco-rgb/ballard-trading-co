@@ -53,7 +53,7 @@ Keep three recoverable copies: running system, encrypted/private independent clo
 - Native PostgreSQL dump plus connector SQLite online backup and original-object inventory. Never copy a live SQLite file without its supported online backup procedure; do not discard publication/approval journals.
 - Retain 7 daily, 4 weekly and 3 monthly independent backups, subject to measured cost/storage. Failed runs must not overwrite the last good backup. Keep immutable dated names; never mirror deletions into every backup.
 - Encrypt off-site backup bytes where supported and maintain a separate recoverable encryption-key copy. The current Drive copy is owner-only, not a claim of client-side encryption or immutable storage.
-- Alert the owner through GitHub/host monitoring when a run fails, a backup is older than 26 hours, or restore verification fails. ChatGPT is not the scheduler.
+- Alert the owner through independently configured monitoring when a run fails, the source or verification exceeds the explicit age policy (24 hours by default), or restore verification fails. The runner emits failure/status evidence but does not configure delivery. ChatGPT is not the scheduler. Nightly jitter and hourly checks do not guarantee a 24-hour maximum loss; cadence and earlier warning need separate activation review.
 - Monthly isolated restore drill, plus a pre-migration backup. Record duration, source SHA, recovered counts and every remaining blocker.
 - Working targets: at most 24 hours of data loss and recovery within 4 hours. These are goals, not measured service guarantees.
 

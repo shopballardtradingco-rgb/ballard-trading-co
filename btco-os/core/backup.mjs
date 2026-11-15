@@ -1,5 +1,5 @@
 import {createReadStream} from 'node:fs';
-import {createInterface} from 'node:readline';
+import {createGunzip} from 'node:zlib';
 import {fileURLToPath} from 'node:url';
 import {openStore} from './store.mjs';
 import {hash,fail,validateWorkspace,event} from './domain.mjs';
@@ -62,10 +62,34 @@ export async function restoreBackup(store,text,{objectStore=null}={}){
  if(Buffer.byteLength(text)>100*1024*1024)fail('Use the streaming file restore for backups over 100 MB.');
  return restoreLines(store,text.trim().split('\n'),objectStore);
 }
-export async function restoreBackupFile(store,file,{objectStore=null}={}){
- const input=createReadStream(file,{encoding:'utf8'}),lines=createInterface({input,crlfDelay:Infinity});
- try{return await restoreLines(store,lines,objectStore);}finally{lines.close();input.destroy();}
+// Bounded records for plain or compressed operator files. No whole-export buffer.
+export async function* backupFileLines(file,{compressed=false,maxBytes=Number.MAX_SAFE_INTEGER}={}){
+ if(!Number.isSafeInteger(maxBytes)||maxBytes<1)fail('Invalid backup byte limit.');
+ const source=createReadStream(file),input=compressed?createGunzip():source;
+ if(compressed){source.on('error',error=>input.destroy(error));source.pipe(input);}
+ const maxLine=Math.ceil(MAX_PHOTO*4/3)+16*1024*1024;
+ let total=0,parts=[],length=0;
+ const decoder=new TextDecoder('utf-8',{fatal:true});
+ try{
+  for await(const chunk of input){
+   total+=chunk.length;if(total>maxBytes)fail('Backup exceeds the configured byte limit.');
+   let start=0;
+   while(start<chunk.length){
+    const newline=chunk.indexOf(10,start),end=newline<0?chunk.length:newline;
+    length+=end-start;if(length>maxLine)fail('Backup record is too large.');
+    if(end>start)parts.push(chunk.subarray(start,end));
+    if(newline<0)break;
+    yield decoder.decode(Buffer.concat(parts,length));parts=[];length=0;start=end+1;
+   }
+  }
+  if(length)yield decoder.decode(Buffer.concat(parts,length));
+ }finally{input.destroy();source.destroy();}
 }
+export async function restoreBackupFile(store,file,{objectStore=null,compressed=false,maxBytes=Number.MAX_SAFE_INTEGER}={}){
+ const lines=backupFileLines(file,{compressed,maxBytes});
+ try{return await restoreLines(store,lines,objectStore);}finally{await lines.return();}
+}
+
 if(process.argv[1]&&fileURLToPath(import.meta.url)===process.argv[1]){
  const args=process.argv.slice(2),file=args[args.indexOf('--file')+1];
  if(!args.includes('--into-empty-workspace')||!args.includes('--file')||!file)throw Error('Usage: node backup.mjs --file /private/backup.ndjson --into-empty-workspace');

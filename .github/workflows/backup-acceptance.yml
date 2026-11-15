@@ -1,20 +1,27 @@
 name: Portable backup acceptance
 on:
   pull_request:
-    paths: ['tools/runtime_backup.py', 'tools/restore-drill.mjs', 'tools/tests/*backup*', 'deploy/backups/**', '.github/workflows/backup-acceptance.yml']
+    paths: ['tools/runtime_backup.py', 'tools/restore-drill.mjs', 'tools/tests/*backup*', 'btco-os/core/backup.mjs', 'source-lock.json', 'deploy/backups/**', '.github/workflows/backup-acceptance.yml']
   push:
     branches: [main]
-    paths: ['tools/runtime_backup.py', 'tools/restore-drill.mjs', 'tools/tests/*backup*', 'deploy/backups/**', '.github/workflows/backup-acceptance.yml']
+    paths: ['tools/runtime_backup.py', 'tools/restore-drill.mjs', 'tools/tests/*backup*', 'btco-os/core/backup.mjs', 'source-lock.json', 'deploy/backups/**', '.github/workflows/backup-acceptance.yml']
 permissions:
   contents: read
 jobs:
   isolated-backup:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      BTCO_ACCEPTANCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          ref: ${{ env.BTCO_ACCEPTANCE_SHA }}
           persist-credentials: false
+      - name: Verify exact backup acceptance revision
+        run: |
+          test "$(git rev-parse HEAD)" = "$BTCO_ACCEPTANCE_SHA"
+          git rev-parse HEAD
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
