@@ -3449,11 +3449,13 @@
       "source_base_git_blob": "9b092489ad39dab6bc38e2e67914c6e3210065d5",
       "source_git_blob": "e0120bc2de6c5fa97b3ee12c71a9f28dc58564f5",
       "source_pull_request": 92,
-      "source_status": "Draft PR; not merged or deployed",
+      "source_status": "Merged in Core PR #92; deployed merge preserves the reviewed source tree",
       "snapshot_base_git_blob": "a385b21ffafe9f1f761b44e2b7c6a57074095b35",
       "published_git_blob": "7fa1b4f01d3da07c0004c4ec68a8389c36ebb223",
       "published_sha256": "e2262b4298bc43e620aa2b73fe5d5fbbbc6b10f2c5488b4a79b3cf925a193e6f",
-      "scope": "Backport the bounded plain/gzip reader and restoreBackupFile options only. The functions match the pinned canonical source; remaining backup logic and the public snapshot retain their existing baseline."
+      "scope": "Backport the bounded plain/gzip reader and restoreBackupFile options only. The functions match the pinned canonical source; remaining backup logic and the public snapshot retain their existing baseline.",
+      "source_merge_commit": "342a2b57f70d4b281780e766ff129d7c29fbecb6",
+      "source_merge_tree": "7e2db3b9c8e87625ce5bcdf7d261dea45051a973"
     }
   ]
 }
