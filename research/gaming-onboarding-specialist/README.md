@@ -11,6 +11,8 @@ This project is published in its own folder. It is **independent of the Ballard 
 - [Research instructions](PROJECT_INSTRUCTIONS.md)
 - [Claude handoff](CLAUDE_HANDOFF.md)
 - [Claude import guide](CLAUDE_IMPORT_GUIDE.md)
+- [Download complete Claude ZIP](Gaming_Onboarding_Specialist_Claude_Export.zip)
+- [Download original XLSX workbook](Gaming_Onboarding_Specialist_Research_Starter.xlsx)
 - [Coverage matrix](data/coverage-matrix.csv)
 - [Legal findings](data/legal-findings.csv)
 - [Source registry](data/source-registry.csv)
@@ -39,7 +41,7 @@ The original research starter workbook contains 10 sheets. This public Git versi
 | Dashboard | [data/dashboard.csv](data/dashboard.csv) |
 | Start Here | [data/start-here.csv](data/start-here.csv) |
 
-The CSV files are text exports of the original workbook; they do not preserve Excel-specific formatting or formula metadata. The original XLSX/ZIP remain available through the originating ChatGPT project handoff, not as binary attachments in this Git commit.
+The CSV files are text exports of the original workbook, suitable for diffing and machine queries. The original **[formatted XLSX workbook](Gaming_Onboarding_Specialist_Research_Starter.xlsx)** and **[complete Claude export ZIP](Gaming_Onboarding_Specialist_Claude_Export.zip)** are also included here as downloadable binary files.
 
 ## Research process
 Capture → deduplicate → verify with primary authority → classify legal event and effective dates → assess operator and payment-chain implications → review legal uncertainty → version change log → test answer quality.
