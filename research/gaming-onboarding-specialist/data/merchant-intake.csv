@@ -1,0 +1,17 @@
+index,Question,Criticality,What to collect,Why it matters
+0,Gaming subtype / product,Required,What exactly is played/traded?,Avoid confusing dual-currency promotions and ordinary sweepstakes
+1,Customer-facing states,Required,Where are actual users located at wager and payout?,State rights are not inferred from incorporation
+2,Merchant legal entity,Required,Entity names and where licensed or registered,Operator/vendor/affiliate/processor classifications differ
+3,Role in funds flow,Required,"Deposit, wager, redeem, payout, settlement, wallet, third party?",Payment activity may create separate legal exposure
+4,Payout / prize redemption,Required,"Cash, prizes, virtual currency, non-redeemable?",Not every social or sweepstakes mechanic is wagering
+5,Wager acceptance,Required,Who receives stakes and who contracts with player?,Assess operator role and intermediation
+6,Game source / counterparty,Required,"Licensed sportsbook, track, tribal entity, DCM?",Some models require linked licensed counterparties
+7,Applicable licenses,Required,"License ID, regulator, approved markets, status",Never infer permission from company marketing
+8,Location controls,Required,"Geofencing, location checks and exclusions",Need state and sometimes tribal/venue-level logic
+9,Age rules,Required,"Age per game, state, jurisdiction and identity checks",18 vs 21 is product- and location-specific
+10,KYC / AML controls,Required,Operator and payments responsibilities,Do not assume operator AML standard binds processor identically
+11,Vendor/processor registration,Required,"Does state regulate suppliers, vendors or processors?",A legal game may still have vendor conditions
+12,Bank/sponsor/network permissions,Required,Sponsor/processor/network or card-brand approvals,Separate statutory legality from commercial acceptance policy
+13,Consumer safeguards,Required,"Self-exclusion, responsible gaming, complaints and disclosures",Assess model-specific controls
+14,Legal opinion / counsel,As applicable,Current counsel analysis and scope,"Required for disputed, new or high-risk models"
+15,Launch target date,Required,Launch date and whether approvals must predate it,"Proposed rules, license starts and laws may shift"

@@ -1,0 +1,7 @@
+index,Phase,Target,Deliverable,Status,Acceptance / notes
+0,0,Today,Taxonomy + scaffold,Complete,Workbook created; 3 state-category coverage seeds; federal findings
+1,1,First research wave,Sweepstakes + prediction + ADW,Pending,"Prioritize laws directly implicating processors, changing state enforcement and active court orders"
+2,2,Nationwide,51 jurisdictions × 12 categories,Pending,Establish source-backed baseline; mark unknown where not researched; legal review milestones
+3,3,Maintain,Daily detection; weekly state review,Pending,New law / final rule / regulator action / court order diffing; no automatic green lights
+4,4,Deploy QA,Search with citations + legal change alerts,Pending,Vector/text retrieval only over evidence objects with source version and effective date
+5,5,Measure,Golden Q&A test set,Pending,"Accuracy, source freshness, category classification, citation recall, false-clearance rate"

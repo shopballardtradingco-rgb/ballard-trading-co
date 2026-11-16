@@ -1,0 +1,16 @@
+index,GOS | RESEARCH OPERATING RULES,Unnamed: 1
+0,,
+1,Mission,Evidence-backed state and federal gaming intelligence for merchant onboarding and payments.
+2,Scope,50 states + D.C.; 12 gaming groupings; subtypes tracked distinctly; federal and tribal overlays tracked as findings.
+3,Current maturity,FOUNDATION ONLY: exactly 3 state/category coverage cells are seeded. 609 remain unresearched.
+4,Safety rule,A blank or unresearched row is NOT an approval. No merchant clearance without current primary authority and proper human review.
+5,Source priority,1) Statute/code; 2) adopted rule; 3) agency order; 4) court order; 5) agency guidance; 6) secondary discovery.
+6,Question contract,State + product subtype + role in payments + funds flow + date. Cite authorities; give confidence and open questions.
+7,Temporal model,"Keep enacted, effective, operational launch, proposal, enforcement, and court-order dates distinct."
+8,Change tracking,Add changes to Change Log; never overwrite historical legal events. Recheck contested items after filings and hearings.
+9,Approval boundary,"This local workbook is not a live monitor, legal opinion, or company-approved source of record."
+10,Next steps,Review source/evidence taxonomy; expand priority states; implement approved official-source monitoring; add counsel review.
+11,,
+12,,
+13,Version,"v0.1 • November 15, 2026"
+14,Source provenance,Live publicly available sources cited in Legal Findings and Source Registry

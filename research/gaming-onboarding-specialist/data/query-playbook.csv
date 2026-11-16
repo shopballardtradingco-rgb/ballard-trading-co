@@ -1,0 +1,6 @@
+index,Example question,Required filters,Expected answer,Guardrail
+0,Can we onboard a sweepstakes casino in California?,California; dual-currency sweepstakes; payment processor; as-of date,Legal status; definition; processor support rule; effective date; exceptions; citation; escalation,Do not answer yes/no without funds flow and verified statutory terms
+1,Does Oregon allow ADW?,Oregon; ADW horse racing; operator vs processor,License categories; geographic permissions; related tribal/federal rules; current rulemaking,Distinguish existing rules from proposed Division 135
+2,Is a sports prediction market legal in Nevada?,Nevada; sports event contracts; named DCM/platform; date,CFTC rules; state action; court order; platform-specific effect; limits; payment risk,Active litigation and injunctions require docket-level verification
+3,Which states changed sweepstakes rules this month?,All jurisdictions; sweepstakes casino; date range,List laws enacted vs effective vs enforcement; one entry per changed authority,A bill or lawsuit is not a general statewide ban
+4,Can a provider support a gaming wallet?,Jurisdiction(s); gaming subtype; provider role; wallet mechanics,Gaming law; UIGEA; vendor/processor restrictions; KYC/AML; network policy,"Do not conflate operator, sponsor bank and processor duties"

@@ -1,0 +1,13 @@
+index,Gaming category,Included models,Important distinction,Taxonomy rule,Research granularity
+0,Online sportsbook,Mobile/remote real-money sports wagering,Do not combine with retail-only or tribal-only betting,Separate subtypes at fact level,State-specific rule + payment role
+1,Real-money online casino,Slots and table games,Keep separate from retail commercial and tribal casino permissions,Separate subtypes at fact level,State-specific rule + payment role
+2,Online poker,Peer-to-peer cash games and tournaments,Separate interstate liquidity permissions and operating status,Separate subtypes at fact level,State-specific rule + payment role
+3,Daily fantasy sports — classic,Salary-cap/team-roster contests,Traditional DFS rules may not cover single-player props,Separate subtypes at fact level,State-specific rule + payment role
+4,Daily fantasy sports — pick'em,Prop/pick'em and house-style fantasy contests,Track regulator-specific contest-model restrictions,Separate subtypes at fact level,State-specific rule + payment role
+5,Sweepstakes casino — dual currency,"Redeemable sweeps currency, casino-like simulations",Separate dual-currency rules from ordinary retail promotions,Separate subtypes at fact level,State-specific rule + payment role
+6,Promotional sweepstakes / social gaming,No-purchase promotions; non-redeemable social gaming,Different subtypes require distinct legal findings,Separate subtypes at fact level,State-specific rule + payment role
+7,Advance-deposit wagering (ADW),Account wagering on horse racing/pari-mutuel pools,Track interstate consent plus account and licensing rules,Separate subtypes at fact level,State-specific rule + payment role
+8,Prediction markets / event contracts,"CFTC-regulated event contracts, sports and non-sports",Track federal status and live state litigation by contract type,Separate subtypes at fact level,State-specific rule + payment role
+9,iLottery / lottery courier,Official online lottery and third-party ticket courier,Two very different models: always identify exact subtype,Separate subtypes at fact level,State-specific rule + payment role
+10,Online bingo / charitable gaming,"Remote bingo, charitable raffles and similar games",Track nonprofit and channel-specific exemptions,Separate subtypes at fact level,State-specific rule + payment role
+11,Paid-entry skill gaming,Skill contests for prizes / real-money tournaments,"Assess whether chance tests, entry fee and prize trigger law",Separate subtypes at fact level,State-specific rule + payment role
